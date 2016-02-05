@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "An infinite scroll directive for angular2",
   "main": "index.js",
+  "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -9,7 +9,7 @@ import { Scroller } from './scroller';
  * ```
  * <div class="search-results"
  *    infinite-scroll
- *    infinite-scroll-distance="2"
+ *    [infiniteScrollDistance]="2"
  *    (scroll)="onScroll()">
  * </div>
  * ```
