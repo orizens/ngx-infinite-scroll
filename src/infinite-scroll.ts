@@ -38,7 +38,3 @@ export class InfiniteScroll {
     this.scroll.next({});
   }
 }
-
-export default {
-  directives: [ InfiniteScroll ]
-}

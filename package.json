@@ -6,7 +6,7 @@
   "typings": "./angular2-infinite-scroll.d.ts",
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
-    "prepublish": "tsc"
+    "prepublish": "tsc & node make.js"
   },
   "keywords": [
     "angular2",
@@ -20,8 +20,10 @@
     "autodts": "0.0.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.13",
+    "path": "^0.12.7",
     "reflect-metadata": "^0.1.2",
     "rxjs": "^5.0.0-beta.0",
+    "systemjs-builder": "^0.15.7",
     "typescript": "^1.7.5",
     "zone.js": "^0.5.10"
   },
