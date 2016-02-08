@@ -24,7 +24,7 @@ System.registerDynamic("src/infinite-scroll", ["angular2/core", "./scroller"], t
   var InfiniteScroll = (function() {
     function InfiniteScroll(element) {
       this.element = element;
-      this.scroll = new core_1.EventEmitter();
+      this.scrolled = new core_1.EventEmitter();
     }
     Object.defineProperty(InfiniteScroll.prototype, "infiniteScrollDistance", {
       set: function(distance) {
@@ -37,10 +37,10 @@ System.registerDynamic("src/infinite-scroll", ["angular2/core", "./scroller"], t
       this.scroller = new scroller_1.Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {});
     };
     InfiniteScroll.prototype.onScroll = function() {
-      this.scroll.next({});
+      this.scrolled.next({});
     };
     __decorate([core_1.Input(), __metadata('design:type', Number), __metadata('design:paramtypes', [Number])], InfiniteScroll.prototype, "infiniteScrollDistance", null);
-    __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scroll", void 0);
+    __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
     InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
     return InfiniteScroll;
   })();
