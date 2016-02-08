@@ -45,8 +45,6 @@ System.registerDynamic("src/infinite-scroll", ["angular2/core", "./scroller"], t
     return InfiniteScroll;
   })();
   exports.InfiniteScroll = InfiniteScroll;
-  Object.defineProperty(exports, "__esModule", {value: true});
-  exports.default = {directives: [InfiniteScroll]};
   global.define = __define;
   return module.exports;
 });

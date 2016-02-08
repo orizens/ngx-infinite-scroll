@@ -5,7 +5,7 @@ import { Scroller } from './scroller';
   selector: '[infinite-scroll]'
 })
 export class InfiniteScroll {
-  @Input() set infiniteScrollDistance(distance: Number) {
+  @Input() set infiniteScrollDistance(distance: number) {
     this._distance = distance;
   }
 
@@ -19,7 +19,7 @@ export class InfiniteScroll {
 
   private scroller: Scroller;
 
-  private _distance: Number;
+  private _distance: number;
 
   onScroll() {
     this.scrolled.next({});
