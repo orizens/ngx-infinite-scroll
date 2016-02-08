@@ -2,8 +2,8 @@
   "name": "angular2-infinite-scroll",
   "version": "0.0.2",
   "description": "An infinite scroll directive for angular2",
-  "main": "src/infinite-scroll.js",
-  "typings": "./src/infinite-scroll.d.ts",
+  "main": "angular2-infinite-scroll.js",
+  "typings": "./angular2-infinite-scroll.d.ts",
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
     "prepublish": "tsc"
