@@ -15,6 +15,8 @@
 		"node_modules"
 	],
 	"files": [
-		"./src/infinite-scroll.ts"
+		"./angular2-infinite-scroll.ts",
+		"./src/infinite-scroll.ts",
+		"./src/scroller.ts"
 	]
 }
