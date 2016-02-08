@@ -12,7 +12,14 @@ export class Scroller {
 	public $interval: any;
 	public $elementRef: any;
 
-	constructor($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent) {
+	constructor(
+		$window: any,
+		$interval: any,
+		$elementRef: any,
+		infiniteScrollCallback: any,
+		infiniteScrollDistance: number,
+		infiniteScrollParent: any
+		) {
 		let THROTTLE_MILLISECONDS = 300;
 		this.windowElement = $window;
 		this.infiniteScrollCallback = infiniteScrollCallback;

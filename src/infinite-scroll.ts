@@ -1,19 +1,6 @@
 import { Directive, ElementRef, Input, Output, EventEmitter } from 'angular2/core';
 import { Scroller } from './scroller';
 
-/**
- * Infinite Scroll for Angular 2
- *
- * ## Use
- *
- * ```
- * <div class="search-results"
- *    infinite-scroll
- *    [infiniteScrollDistance]="2"
- *    (scroll)="onScroll()">
- * </div>
- * ```
- */
 @Directive({
   selector: '[infinite-scroll]'
 })
@@ -22,7 +9,7 @@ export class InfiniteScroll {
     this._distance = distance;
   }
 
-  @Output() scroll = new EventEmitter();
+  @Output() scrolled = new EventEmitter();
 
   constructor(private element: ElementRef) {}
 
@@ -35,6 +22,6 @@ export class InfiniteScroll {
   private _distance: Number;
 
   onScroll() {
-    this.scroll.next({});
+    this.scrolled.next({});
   }
 }
