@@ -2,10 +2,11 @@
   "name": "angular2-infinite-scroll",
   "version": "0.0.2",
   "description": "An infinite scroll directive for angular2",
-  "main": "index.js",
+  "main": "src/infinite-scroll.js",
+  "typings": "./src/infinite-scroll.d.ts",
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "tsc"
   },
   "keywords": [
     "angular2",
@@ -13,5 +14,23 @@
     "infinite"
   ],
   "author": "Oren Farhi",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "angular2": "^2.0.0-beta.2",
+    "autodts": "0.0.6",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.13",
+    "reflect-metadata": "^0.1.2",
+    "rxjs": "^5.0.0-beta.0",
+    "typescript": "^1.7.5",
+    "zone.js": "^0.5.10"
+  },
+  "peerDependencies": {
+    "angular2": "~2.0.0-beta.0",
+    "es6-promise": "~3.0.2",
+    "es6-shim": "~0.33.3",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "zone.js": "~0.5.10"
+  }
 }
