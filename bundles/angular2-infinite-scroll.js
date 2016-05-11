@@ -1,8 +1,9 @@
-System.registerDynamic("src/infinite-scroll", ["angular2/core", "./scroller"], true, function($__require, exports, module) {
+System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], true, function($__require, exports, module) {
+  "use strict";
   ;
-  var global = this,
-      __define = global.define;
-  global.define = undefined;
+  var define,
+      global = this,
+      GLOBAL = this;
   var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
@@ -19,7 +20,7 @@ System.registerDynamic("src/infinite-scroll", ["angular2/core", "./scroller"], t
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
       return Reflect.metadata(k, v);
   };
-  var core_1 = $__require('angular2/core');
+  var core_1 = $__require('@angular/core');
   var scroller_1 = $__require('./scroller');
   var InfiniteScroll = (function() {
     function InfiniteScroll(element) {
@@ -43,17 +44,17 @@ System.registerDynamic("src/infinite-scroll", ["angular2/core", "./scroller"], t
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
     InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
     return InfiniteScroll;
-  })();
+  }());
   exports.InfiniteScroll = InfiniteScroll;
-  global.define = __define;
   return module.exports;
 });
 
 System.registerDynamic("src/scroller", [], true, function($__require, exports, module) {
+  "use strict";
   ;
-  var global = this,
-      __define = global.define;
-  global.define = undefined;
+  var define,
+      global = this,
+      GLOBAL = this;
   var Scroller = (function() {
     function Scroller($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent) {
       var THROTTLE_MILLISECONDS = 300;
@@ -174,17 +175,17 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       this.scrollEnabled = !v;
     };
     return Scroller;
-  })();
+  }());
   exports.Scroller = Scroller;
-  global.define = __define;
   return module.exports;
 });
 
 System.registerDynamic("angular2-infinite-scroll", ["./src/infinite-scroll", "./src/scroller"], true, function($__require, exports, module) {
+  "use strict";
   ;
-  var global = this,
-      __define = global.define;
-  global.define = undefined;
+  var define,
+      global = this,
+      GLOBAL = this;
   function __export(m) {
     for (var p in m)
       if (!exports.hasOwnProperty(p))
@@ -196,6 +197,5 @@ System.registerDynamic("angular2-infinite-scroll", ["./src/infinite-scroll", "./
   __export($__require('./src/scroller'));
   Object.defineProperty(exports, "__esModule", {value: true});
   exports.default = {directives: [infinite_scroll_1.InfiniteScroll, scroller_1.Scroller]};
-  global.define = __define;
   return module.exports;
 });
