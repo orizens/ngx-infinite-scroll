@@ -14,7 +14,9 @@ export class InfiniteScroll {
   constructor(private element: ElementRef) {}
 
   ngOnInit() {
-    this.scroller = new Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {});
+    if("undefined" !== typeof window) {
+      this.scroller = new Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {});
+    }
   }
 
   private scroller: Scroller;
