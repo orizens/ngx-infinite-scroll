@@ -4,6 +4,7 @@ A port of [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) direct
 ## Supported API
 Currently supports:
 * (attribute) "infinite-scroll-distance" - should get a number
+* (attribute) "infinite-scroll-throttle" - should get a number of milliseconds for throttle (optional - default: 300) 
 * (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolled)="handleScrollCallback()"**
 
 ## Usage
@@ -20,6 +21,7 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 		<div class="search-results"
 		    infinite-scroll
 		    [infiniteScrollDistance]="2"
+		    [infiniteScrollThrottle]="500"
 		    (scrolled)="onScroll()">
 		</div>
 	`
