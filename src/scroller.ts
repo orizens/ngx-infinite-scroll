@@ -1,23 +1,24 @@
+import { ElementRef } from '@angular/core';
+
 export class Scroller {
-	public scrollDistance: any;
-	public scrollEnabled: any;
-	public checkWhenEnabled: any;
+	public scrollDistance: number;
+	public scrollEnabled: boolean;
+	public checkWhenEnabled: boolean;
 	public container: any;
-	public immediateCheck: any;
-	public useDocumentBottom: any;
-	public unregisterEventListener: any;
+	public immediateCheck: boolean;
+	public useDocumentBottom: boolean;
 	public checkInterval: any;
-	public windowElement: any;
-	public infiniteScrollCallback: any;
+	public windowElement: Window;
+	public infiniteScrollCallback: Function;
 	public $interval: any;
-	public $elementRef: any;
+	public $elementRef: ElementRef;
 	private bindedHandler: Function;
 
 	constructor(
-		$window: any,
+		$window: Window,
 		$interval: any,
-		$elementRef: any,
-		infiniteScrollCallback: any,
+		$elementRef: ElementRef,
+		infiniteScrollCallback: Function,
 		infiniteScrollDistance: number,
 		infiniteScrollParent: any
 		) {
@@ -75,7 +76,7 @@ export class Scroller {
 	}
 
 	handler () {
-		var containerBottom, containerTopOffset, elementBottom, remaining, shouldScroll;
+		var containerBottom: number, containerTopOffset: number, elementBottom: number, remaining: number, shouldScroll: boolean;
 		if (this.container === this.windowElement) {
 			containerBottom = this.height(this.container) + this.pageYOffset(this.container.document.documentElement);
 			elementBottom = this.offsetTop(this.$elementRef.nativeElement) + this.height(this.$elementRef.nativeElement);
@@ -111,21 +112,19 @@ export class Scroller {
 		}
 	}
 
-	throttle (func, wait) {
-		var later, previous, timeout;
+	throttle (func: Function, wait: number) {
+		var later: Function, previous: number, timeout: number;
 		var _self = this;
 		timeout = null;
 		previous = 0;
 		later = function() {
-			var context;
 			previous = new Date().getTime();
 			clearInterval(timeout);
 			timeout = null;
 			func.call(_self);
-			return context = null;
 		};
 		return function() {
-			var now, remaining;
+			var now: number, remaining: number;
 			now = new Date().getTime();
 			remaining = wait - (now - previous);
 			if (remaining <= 0) {
@@ -146,7 +145,7 @@ export class Scroller {
 		return this.scrollDistance = parseFloat(v) || 0;
 	}
 
-	changeContainer (newContainer) {
+	changeContainer (newContainer: Window) {
 		this.clean();
 		this.container = newContainer;
 		if (newContainer != null) {
@@ -162,7 +161,7 @@ export class Scroller {
 		}
 	}
 
-	handleInfiniteScrollDisabled (v) {
+	handleInfiniteScrollDisabled (v: boolean) {
 		this.scrollEnabled = !v;
 		// if (this.scrollEnabled && checkWhenEnabled) {
 		// 	checkWhenEnabled = false;

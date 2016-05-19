@@ -141,12 +141,10 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       timeout = null;
       previous = 0;
       later = function() {
-        var context;
         previous = new Date().getTime();
         clearInterval(timeout);
         timeout = null;
         func.call(_self);
-        return context = null;
       };
       return function() {
         var now,
