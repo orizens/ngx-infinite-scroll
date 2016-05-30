@@ -19,9 +19,10 @@ export class Scroller {
 		$elementRef: any,
 		infiniteScrollCallback: any,
 		infiniteScrollDistance: number,
-		infiniteScrollParent: any
+		infiniteScrollParent: any,
+		infiniteScrollThrottle: number
 		) {
-		let THROTTLE_MILLISECONDS = 300;
+		let THROTTLE_MILLISECONDS = infiniteScrollThrottle;
 		this.windowElement = $window;
 		this.infiniteScrollCallback = infiniteScrollCallback;
 		this.$interval = $interval;
