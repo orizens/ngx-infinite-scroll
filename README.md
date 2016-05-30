@@ -15,7 +15,7 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 
 @Component({
 	selector: 'app',
-	directives: [ InfiniteScroll ]
+	directives: [ InfiniteScroll ],
 	template: `
 		<div class="search-results"
 		    infinite-scroll
