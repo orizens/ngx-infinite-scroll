@@ -17,6 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "@angular/core": "^2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
     "autodts": "0.0.6",
     "path": "^0.12.7",
     "typescript": "^1.7.5",
