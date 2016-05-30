@@ -1,10 +1,13 @@
-import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Input, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { Scroller } from './scroller';
 
 @Directive({
   selector: '[infinite-scroll]'
 })
-export class InfiniteScroll {
+export class InfiniteScroll implements OnDestroy, OnInit {
+  private scroller: Scroller;
+  private _distance: Number = 2;
+
   @Input() set infiniteScrollDistance(distance: number) {
     this._distance = distance;
   }
@@ -17,10 +20,10 @@ export class InfiniteScroll {
     this.scroller = new Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {});
   }
 
-  private scroller: Scroller;
-
-  private _distance: number;
-
+  ngOnDestroy () {
+    this.scroller.clean();
+  }
+  
   onScroll() {
     this.scrolled.next({});
   }
