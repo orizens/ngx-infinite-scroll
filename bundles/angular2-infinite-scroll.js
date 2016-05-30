@@ -62,12 +62,13 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   return module.exports;
 });
 
-System.registerDynamic("src/scroller", [], true, function($__require, exports, module) {
+System.registerDynamic("src/scroller", ["@angular/platform-browser/src/facade/browser"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this,
       GLOBAL = this;
+  var browser_1 = $__require('@angular/platform-browser/src/facade/browser');
   var Scroller = (function() {
     function Scroller($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent, infiniteScrollThrottle) {
       var THROTTLE_MILLISECONDS = infiniteScrollThrottle;
@@ -102,7 +103,7 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       return elem.getBoundingClientRect().top + this.pageYOffset(elem);
     };
     Scroller.prototype.pageYOffset = function(elem) {
-      if (isNaN(window.pageYOffset)) {
+      if (isNaN(browser_1.window.pageYOffset)) {
         return elem.document.documentElement.scrollTop;
       } else {
         return elem.ownerDocument.defaultView.pageYOffset;
@@ -150,12 +151,10 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       timeout = null;
       previous = 0;
       later = function() {
-        var context;
         previous = new Date().getTime();
         clearInterval(timeout);
         timeout = null;
         func.call(_self);
-        return context = null;
       };
       return function() {
         var now,
