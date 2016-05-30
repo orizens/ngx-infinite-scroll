@@ -1,4 +1,5 @@
 import { ElementRef } from '@angular/core';
+import { window } from '@angular/platform-browser/src/facade/browser';
 
 export class Scroller {
 	public scrollDistance: number;
