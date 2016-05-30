@@ -25,6 +25,7 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   var InfiniteScroll = (function() {
     function InfiniteScroll(element) {
       this.element = element;
+      this._distance = 2;
       this.scrolled = new core_1.EventEmitter();
     }
     Object.defineProperty(InfiniteScroll.prototype, "infiniteScrollDistance", {
@@ -37,13 +38,17 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     InfiniteScroll.prototype.ngOnInit = function() {
       this.scroller = new scroller_1.Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {});
     };
+    InfiniteScroll.prototype.ngOnDestroy = function() {
+      this.scroller.clean();
+    };
     InfiniteScroll.prototype.onScroll = function() {
       this.scrolled.next({});
     };
     __decorate([core_1.Input(), __metadata('design:type', Number), __metadata('design:paramtypes', [Number])], InfiniteScroll.prototype, "infiniteScrollDistance", null);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
-    InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
+    InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [(typeof(_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])], InfiniteScroll);
     return InfiniteScroll;
+    var _a;
   }());
   exports.InfiniteScroll = InfiniteScroll;
   return module.exports;
@@ -166,9 +171,17 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       return this.scrollDistance = parseFloat(v) || 0;
     };
     Scroller.prototype.changeContainer = function(newContainer) {
+      this.clean();
       this.container = newContainer;
       if (newContainer != null) {
-        return this.container.addEventListener('scroll', this.handler.bind(this));
+        this.bindedHandler = this.handler.bind(this);
+        return this.container.addEventListener('scroll', this.bindedHandler);
+      }
+    };
+    Scroller.prototype.clean = function() {
+      if (this.container !== undefined) {
+        this.container.removeEventListener('scroll', this.bindedHandler);
+        this.bindedHandler = null;
       }
     };
     Scroller.prototype.handleInfiniteScrollDisabled = function(v) {

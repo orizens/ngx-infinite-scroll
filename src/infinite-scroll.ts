@@ -6,7 +6,7 @@ import { Scroller } from './scroller';
 })
 export class InfiniteScroll implements OnDestroy, OnInit {
   private scroller: Scroller;
-  private _distance: Number = 2;
+  private _distance: number = 2;
 
   @Input() set infiniteScrollDistance(distance: number) {
     this._distance = distance;
