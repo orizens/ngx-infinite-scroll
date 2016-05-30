@@ -1,6 +1,6 @@
 {
   "name": "angular2-infinite-scroll",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "An infinite scroll directive for angular2",
   "main": "angular2-infinite-scroll.js",
   "typings": "./angular2-infinite-scroll.d.ts",
