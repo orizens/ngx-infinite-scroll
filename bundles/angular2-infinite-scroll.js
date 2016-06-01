@@ -112,13 +112,10 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       }
     };
     Scroller.prototype.handler = function() {
-      var remaining,
-          containerBreakpoint,
-          shouldScroll;
       var container = this.calculatePoints();
-      remaining = container.totalToScroll - container.scrolledUntilNow;
-      containerBreakpoint = container.height * this.scrollDistance + 1;
-      shouldScroll = remaining <= containerBreakpoint;
+      var remaining = container.totalToScroll - container.scrolledUntilNow;
+      var containerBreakpoint = container.height * this.scrollDistance + 1;
+      var shouldScroll = remaining <= containerBreakpoint;
       var triggerCallback = shouldScroll && this.scrollEnabled;
       var shouldClearInterval = shouldScroll && this.checkInterval;
       this.checkWhenEnabled = shouldScroll;
@@ -158,17 +155,14 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       };
     };
     Scroller.prototype.throttle = function(func, wait) {
-      var later,
-          previous,
-          timeout;
-      var _self = this;
-      timeout = null;
-      previous = 0;
-      later = function() {
+      var _this = this;
+      var timeout = null;
+      var previous = 0;
+      var later = function() {
         previous = new Date().getTime();
         clearInterval(timeout);
         timeout = null;
-        func.call(_self);
+        func.call(_this);
       };
       return function() {
         var now,
@@ -176,14 +170,13 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
         now = new Date().getTime();
         remaining = wait - (now - previous);
         if (remaining <= 0) {
-          clearTimeout(timeout);
           clearInterval(timeout);
           timeout = null;
           previous = now;
-          return func.call(_self);
+          return func.call(_this);
         } else {
           if (!timeout) {
-            return timeout = _self.$interval(later, remaining, 1);
+            return timeout = _this.$interval(later, remaining, 1);
           }
         }
       };
