@@ -26,17 +26,14 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     function InfiniteScroll(element) {
       this.element = element;
       this._distance = 2;
+      this._throttle = 3;
+      this.scrollWindow = true;
+      this._immediate = false;
       this.scrolled = new core_1.EventEmitter();
     }
-    Object.defineProperty(InfiniteScroll.prototype, "infiniteScrollDistance", {
-      set: function(distance) {
-        this._distance = distance;
-      },
-      enumerable: true,
-      configurable: true
-    });
     InfiniteScroll.prototype.ngOnInit = function() {
-      this.scroller = new scroller_1.Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {});
+      var containerElement = this.scrollWindow ? window : this.element;
+      this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScroll.bind(this), this._distance, {}, this._throttle, this._immediate);
     };
     InfiniteScroll.prototype.ngOnDestroy = function() {
       this.scroller.clean();
@@ -44,8 +41,15 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     InfiniteScroll.prototype.onScroll = function() {
       this.scrolled.next({});
     };
-    __decorate([core_1.Input(), __metadata('design:type', Number), __metadata('design:paramtypes', [Number])], InfiniteScroll.prototype, "infiniteScrollDistance", null);
+    InfiniteScroll.prototype.handleScroll = function(event) {
+      this.scroller.handler();
+    };
+    __decorate([core_1.Input('infiniteScrollDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distance", void 0);
+    __decorate([core_1.Input('infiniteScrollThrottle'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_throttle", void 0);
+    __decorate([core_1.Input('scrollWindow'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "scrollWindow", void 0);
+    __decorate([core_1.Input('immediateCheck'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_immediate", void 0);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
+    __decorate([core_1.HostListener('scroll', ['$event']), __metadata('design:type', Function), __metadata('design:paramtypes', [Object]), __metadata('design:returntype', void 0)], InfiniteScroll.prototype, "handleScroll", null);
     InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
     return InfiniteScroll;
   }());
@@ -60,28 +64,34 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       global = this,
       GLOBAL = this;
   var Scroller = (function() {
-    function Scroller($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent) {
-      var THROTTLE_MILLISECONDS = 300;
-      this.windowElement = $window;
-      this.infiniteScrollCallback = infiniteScrollCallback;
+    function Scroller($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate) {
+      var _this = this;
+      this.$window = $window;
       this.$interval = $interval;
       this.$elementRef = $elementRef;
-      if (THROTTLE_MILLISECONDS != null) {
-        this.handler = this.throttle(this.handler, THROTTLE_MILLISECONDS);
-      }
+      this.infiniteScrollCallback = infiniteScrollCallback;
+      this.infiniteScrollThrottle = infiniteScrollThrottle;
+      this.isImmediate = isImmediate;
+      this.isContainerWindow = $window.hasOwnProperty('document');
+      this.windowElement = $window;
+      this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
+      this.handler = this.throttle(this.handler, this.infiniteScrollThrottle);
       this.handleInfiniteScrollDistance(infiniteScrollDistance);
-      var _self = this;
       this.handleInfiniteScrollDisabled(false);
-      this.changeContainer(_self.windowElement);
-      this.checkInterval = setInterval((function() {
-        if (_self.immediateCheck) {
-          return _self.handler();
+      if (this.isContainerWindow) {
+        this.changeContainer(this.windowElement);
+      } else {
+        this.container = this.windowElement.nativeElement;
+      }
+      this.checkInterval = this.$interval(function() {
+        if (_this.isImmediate) {
+          return _this.handler();
         }
-      }), 0);
+      }, 0);
     }
     Scroller.prototype.height = function(elem) {
       if (isNaN(elem.offsetHeight)) {
-        return elem.document.documentElement.clientHeight;
+        return this.documentElement.clientHeight;
       } else {
         return elem.offsetHeight;
       }
@@ -94,44 +104,58 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
     };
     Scroller.prototype.pageYOffset = function(elem) {
       if (isNaN(window.pageYOffset)) {
-        return elem.document.documentElement.scrollTop;
-      } else {
+        return this.documentElement.scrollTop;
+      } else if (elem.ownerDocument) {
         return elem.ownerDocument.defaultView.pageYOffset;
+      } else {
+        elem.offsetTop;
       }
     };
     Scroller.prototype.handler = function() {
-      var containerBottom,
-          containerTopOffset,
-          elementBottom,
-          remaining,
+      var remaining,
+          containerBreakpoint,
           shouldScroll;
-      if (this.container === this.windowElement) {
-        containerBottom = this.height(this.container) + this.pageYOffset(this.container.document.documentElement);
-        elementBottom = this.offsetTop(this.$elementRef.nativeElement) + this.height(this.$elementRef.nativeElement);
-      } else {
-        containerBottom = this.height(this.container);
-        containerTopOffset = 0;
-        if (this.offsetTop(this.container) !== void 0) {
-          containerTopOffset = this.offsetTop(this.container);
-        }
-        elementBottom = this.offsetTop(this.$elementRef.nativeElement) - containerTopOffset + this.height(this.$elementRef.nativeElement);
+      var container = this.calculatePoints();
+      remaining = container.totalToScroll - container.scrolledUntilNow;
+      containerBreakpoint = container.height * this.scrollDistance + 1;
+      shouldScroll = remaining <= containerBreakpoint;
+      var triggerCallback = shouldScroll && this.scrollEnabled;
+      var shouldClearInterval = shouldScroll && this.checkInterval;
+      this.checkWhenEnabled = shouldScroll;
+      if (triggerCallback) {
+        this.infiniteScrollCallback();
       }
-      if (this.useDocumentBottom) {
-        elementBottom = this.height((this.$elementRef.nativeElement.ownerDocument || this.$elementRef.nativeElement.document).documentElement);
+      if (shouldClearInterval) {
+        clearInterval(this.checkInterval);
       }
-      remaining = elementBottom - containerBottom;
-      shouldScroll = remaining <= this.height(this.container) * this.scrollDistance + 1;
-      if (shouldScroll) {
-        this.checkWhenEnabled = true;
-        if (this.scrollEnabled) {
-          this.infiniteScrollCallback();
-        }
-      } else {
-        if (this.checkInterval) {
-          clearInterval(this.checkInterval);
-        }
-        return this.checkWhenEnabled = false;
+    };
+    Scroller.prototype.calculatePoints = function() {
+      return this.isContainerWindow ? this.calculatePointsForWindow() : this.calculatePointsForElement();
+    };
+    Scroller.prototype.calculatePointsForWindow = function() {
+      var height = this.height(this.container);
+      var scrolledUntilNow = height + this.pageYOffset(this.documentElement);
+      var totalToScroll = this.offsetTop(this.$elementRef.nativeElement) + this.height(this.$elementRef.nativeElement);
+      return {
+        height: height,
+        scrolledUntilNow: scrolledUntilNow,
+        totalToScroll: totalToScroll
+      };
+    };
+    Scroller.prototype.calculatePointsForElement = function() {
+      var height = this.height(this.container);
+      var scrolledUntilNow = this.container.scrollTop;
+      var containerTopOffset = 0;
+      var offsetTop = this.offsetTop(this.container);
+      if (offsetTop !== void 0) {
+        containerTopOffset = offsetTop;
       }
+      var totalToScroll = this.container.scrollHeight;
+      return {
+        height: height,
+        scrolledUntilNow: scrolledUntilNow,
+        totalToScroll: totalToScroll
+      };
     };
     Scroller.prototype.throttle = function(func, wait) {
       var later,
@@ -141,12 +165,10 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
       timeout = null;
       previous = 0;
       later = function() {
-        var context;
         previous = new Date().getTime();
         clearInterval(timeout);
         timeout = null;
         func.call(_self);
-        return context = null;
       };
       return function() {
         var now,
@@ -183,8 +205,8 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
         this.bindedHandler = null;
       }
     };
-    Scroller.prototype.handleInfiniteScrollDisabled = function(v) {
-      this.scrollEnabled = !v;
+    Scroller.prototype.handleInfiniteScrollDisabled = function(isCurrentlyEnabled) {
+      this.scrollEnabled = !isCurrentlyEnabled;
     };
     return Scroller;
   }());
