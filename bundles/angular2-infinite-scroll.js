@@ -26,7 +26,6 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     function InfiniteScroll(element) {
       this.element = element;
       this._distance = 2;
-      this._throttle = 300;
       this.scrolled = new core_1.EventEmitter();
     }
     Object.defineProperty(InfiniteScroll.prototype, "infiniteScrollDistance", {
@@ -36,15 +35,8 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
       enumerable: true,
       configurable: true
     });
-    Object.defineProperty(InfiniteScroll.prototype, "infiniteScrollThrottle", {
-      set: function(throttle) {
-        this._throttle = throttle;
-      },
-      enumerable: true,
-      configurable: true
-    });
     InfiniteScroll.prototype.ngOnInit = function() {
-      this.scroller = new scroller_1.Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {}, this._throttle);
+      this.scroller = new scroller_1.Scroller(window, setInterval, this.element, this.onScroll.bind(this), this._distance, {});
     };
     InfiniteScroll.prototype.ngOnDestroy = function() {
       this.scroller.clean();
@@ -53,7 +45,6 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
       this.scrolled.next({});
     };
     __decorate([core_1.Input(), __metadata('design:type', Number), __metadata('design:paramtypes', [Number])], InfiniteScroll.prototype, "infiniteScrollDistance", null);
-    __decorate([core_1.Input(), __metadata('design:type', Number), __metadata('design:paramtypes', [Number])], InfiniteScroll.prototype, "infiniteScrollThrottle", null);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
     InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
     return InfiniteScroll;
@@ -62,16 +53,15 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   return module.exports;
 });
 
-System.registerDynamic("src/scroller", ["@angular/platform-browser/src/facade/browser"], true, function($__require, exports, module) {
+System.registerDynamic("src/scroller", [], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this,
       GLOBAL = this;
-  var browser_1 = $__require('@angular/platform-browser/src/facade/browser');
   var Scroller = (function() {
-    function Scroller($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent, infiniteScrollThrottle) {
-      var THROTTLE_MILLISECONDS = infiniteScrollThrottle;
+    function Scroller($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent) {
+      var THROTTLE_MILLISECONDS = 300;
       this.windowElement = $window;
       this.infiniteScrollCallback = infiniteScrollCallback;
       this.$interval = $interval;
@@ -103,7 +93,7 @@ System.registerDynamic("src/scroller", ["@angular/platform-browser/src/facade/br
       return elem.getBoundingClientRect().top + this.pageYOffset(elem);
     };
     Scroller.prototype.pageYOffset = function(elem) {
-      if (isNaN(browser_1.window.pageYOffset)) {
+      if (isNaN(window.pageYOffset)) {
         return elem.document.documentElement.scrollTop;
       } else {
         return elem.ownerDocument.defaultView.pageYOffset;
@@ -151,10 +141,12 @@ System.registerDynamic("src/scroller", ["@angular/platform-browser/src/facade/br
       timeout = null;
       previous = 0;
       later = function() {
+        var context;
         previous = new Date().getTime();
         clearInterval(timeout);
         timeout = null;
         func.call(_self);
+        return context = null;
       };
       return function() {
         var now,
