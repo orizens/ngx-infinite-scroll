@@ -1,4 +1,5 @@
 import { ElementRef } from '@angular/core';
+import { Observable, Subscription } from 'rxjs/Rx'; 
 
 export class Scroller {
 	public scrollDistance: number;
@@ -8,13 +9,12 @@ export class Scroller {
 	public immediateCheck: boolean;
 	public useDocumentBottom: boolean;
 	public checkInterval: number;
-	public windowElement: Window | ElementRef | any;
-	private bindedHandler: Function;
 	private documentElement: Window | ElementRef | any;
 	private isContainerWindow: boolean;
+	private disposeScroll: Subscription;
 
 	constructor(
-		private $window: Window | ElementRef,
+		private windowElement: Window | ElementRef | any,
 		private $interval: Function,
 		private $elementRef: ElementRef,
 		private infiniteScrollCallback: Function,
@@ -23,23 +23,26 @@ export class Scroller {
 		private infiniteScrollThrottle: number,
 		private isImmediate: boolean
 		) {
-		this.isContainerWindow = $window.hasOwnProperty('document');
-		this.windowElement = $window;
+		this.isContainerWindow = this.windowElement.hasOwnProperty('document');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
-
-		this.handler = this.throttle(this.handler, this.infiniteScrollThrottle);
 		this.handleInfiniteScrollDistance(infiniteScrollDistance);
 
 		// if (attrs.infiniteScrollParent != null) {
-		// 	changeContainer(angular.element(elem.parent()));
+		// 	attachEvent(angular.element(elem.parent()));
 		// }
 		this.handleInfiniteScrollDisabled(false);
+		this.defineContainer();
+	}
+
+	defineContainer () {
 		if (this.isContainerWindow) {
-			this.changeContainer(this.windowElement);
+			this.attachEvent(this.windowElement);
 		} else {
 			this.container = this.windowElement.nativeElement;
 		}
-		
+	}
+
+	createInterval () {
 		this.checkInterval = this.$interval(() => {
 			if (this.isImmediate) {
 				return this.handler();
@@ -124,55 +127,29 @@ export class Scroller {
 		return { height, scrolledUntilNow, totalToScroll };
 	}
 
-	throttle (func: Function, wait: number) {
-		let timeout: number = null;
-		let previous = 0;
-		const later = () => {
-			previous = new Date().getTime();
-			clearInterval(timeout);
-			timeout = null;
-			func.call(this);
-		};
-		return () => {
-			var now: number, remaining: number;
-			now = new Date().getTime();
-			remaining = wait - (now - previous);
-			if (remaining <= 0) {
-				// clearTimeout(timeout);
-				clearInterval(timeout);
-				timeout = null;
-				previous = now;
-				return func.call(this);
-			} else {
-				if (!timeout) {
-					return timeout = this.$interval(later, remaining, 1);
-				}
-			}
-		};
+	handleInfiniteScrollDistance (scrollDistance: number | any) {
+		return this.scrollDistance = parseFloat(scrollDistance) || 0;
 	}
 
-	handleInfiniteScrollDistance (v: any) {
-		return this.scrollDistance = parseFloat(v) || 0;
-	}
-
-	changeContainer (newContainer: Window) {
+	attachEvent (newContainer: Window | ElementRef | any) {
 		this.clean();
 		this.container = newContainer;
-		if (newContainer != null) {
-			this.bindedHandler = this.handler.bind(this);
-            return this.container.addEventListener('scroll', this.bindedHandler);
+		if (newContainer) {
+			const throttle: number = this.infiniteScrollThrottle;
+			this.disposeScroll = Observable.fromEvent(this.container, 'scroll')
+				.debounce(ev => Observable.timer(throttle))
+				.subscribe(ev => this.handler())
 		}
 	}
 
 	clean () {
-		if (this.container !== undefined) {
-            this.container.removeEventListener('scroll', this.bindedHandler);
-            this.bindedHandler = null;
+		if (this.disposeScroll) {
+      this.disposeScroll.unsubscribe();
 		}
 	}
 
-	handleInfiniteScrollDisabled (isCurrentlyEnabled: boolean) {
-		this.scrollEnabled = !isCurrentlyEnabled;
+	handleInfiniteScrollDisabled (enableScroll: boolean) {
+		this.scrollEnabled = !enableScroll;
 		// if (this.scrollEnabled && checkWhenEnabled) {
 		// 	checkWhenEnabled = false;
 		// 	return handler();
