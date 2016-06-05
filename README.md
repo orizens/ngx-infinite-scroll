@@ -20,7 +20,7 @@ By default, the directive listens to a window scroll event and invoked the callb
 In this example, the **onScroll** callback will be invoked when the window is scrolled:
 
 ```typescript
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { InfiniteScroll } from 'angular2-infinite-scroll';
 
 @Component({
@@ -44,7 +44,7 @@ export class App {
 in this example, whenever the "search-results" is scrolled, the callback will be invoked:  
 
 ```typescript
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { InfiniteScroll } from 'angular2-infinite-scroll';
 
 @Component({
