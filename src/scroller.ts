@@ -32,6 +32,7 @@ export class Scroller {
 		// }
 		this.handleInfiniteScrollDisabled(false);
 		this.defineContainer();
+    this.createInterval();
 	}
 
 	defineContainer () {
