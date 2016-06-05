@@ -57,38 +57,42 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   return module.exports;
 });
 
-System.registerDynamic("src/scroller", [], true, function($__require, exports, module) {
+System.registerDynamic("src/scroller", ["rxjs/Rx"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this,
       GLOBAL = this;
+  var Rx_1 = $__require('rxjs/Rx');
   var Scroller = (function() {
-    function Scroller($window, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate) {
-      var _this = this;
-      this.$window = $window;
+    function Scroller(windowElement, $interval, $elementRef, infiniteScrollCallback, infiniteScrollDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate) {
+      this.windowElement = windowElement;
       this.$interval = $interval;
       this.$elementRef = $elementRef;
       this.infiniteScrollCallback = infiniteScrollCallback;
       this.infiniteScrollThrottle = infiniteScrollThrottle;
       this.isImmediate = isImmediate;
-      this.isContainerWindow = $window.hasOwnProperty('document');
-      this.windowElement = $window;
+      this.isContainerWindow = this.windowElement.hasOwnProperty('document');
       this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
-      this.handler = this.throttle(this.handler, this.infiniteScrollThrottle);
       this.handleInfiniteScrollDistance(infiniteScrollDistance);
       this.handleInfiniteScrollDisabled(false);
+      this.defineContainer();
+    }
+    Scroller.prototype.defineContainer = function() {
       if (this.isContainerWindow) {
-        this.changeContainer(this.windowElement);
+        this.attachEvent(this.windowElement);
       } else {
         this.container = this.windowElement.nativeElement;
       }
+    };
+    Scroller.prototype.createInterval = function() {
+      var _this = this;
       this.checkInterval = this.$interval(function() {
         if (_this.isImmediate) {
           return _this.handler();
         }
       }, 0);
-    }
+    };
     Scroller.prototype.height = function(elem) {
       if (isNaN(elem.offsetHeight)) {
         return this.documentElement.clientHeight;
@@ -154,52 +158,29 @@ System.registerDynamic("src/scroller", [], true, function($__require, exports, m
         totalToScroll: totalToScroll
       };
     };
-    Scroller.prototype.throttle = function(func, wait) {
+    Scroller.prototype.handleInfiniteScrollDistance = function(scrollDistance) {
+      return this.scrollDistance = parseFloat(scrollDistance) || 0;
+    };
+    Scroller.prototype.attachEvent = function(newContainer) {
       var _this = this;
-      var timeout = null;
-      var previous = 0;
-      var later = function() {
-        previous = new Date().getTime();
-        clearInterval(timeout);
-        timeout = null;
-        func.call(_this);
-      };
-      return function() {
-        var now,
-            remaining;
-        now = new Date().getTime();
-        remaining = wait - (now - previous);
-        if (remaining <= 0) {
-          clearInterval(timeout);
-          timeout = null;
-          previous = now;
-          return func.call(_this);
-        } else {
-          if (!timeout) {
-            return timeout = _this.$interval(later, remaining, 1);
-          }
-        }
-      };
-    };
-    Scroller.prototype.handleInfiniteScrollDistance = function(v) {
-      return this.scrollDistance = parseFloat(v) || 0;
-    };
-    Scroller.prototype.changeContainer = function(newContainer) {
       this.clean();
       this.container = newContainer;
-      if (newContainer != null) {
-        this.bindedHandler = this.handler.bind(this);
-        return this.container.addEventListener('scroll', this.bindedHandler);
+      if (newContainer) {
+        var throttle_1 = this.infiniteScrollThrottle;
+        this.disposeScroll = Rx_1.Observable.fromEvent(this.container, 'scroll').debounce(function(ev) {
+          return Rx_1.Observable.timer(throttle_1);
+        }).subscribe(function(ev) {
+          return _this.handler();
+        });
       }
     };
     Scroller.prototype.clean = function() {
-      if (this.container !== undefined) {
-        this.container.removeEventListener('scroll', this.bindedHandler);
-        this.bindedHandler = null;
+      if (this.disposeScroll) {
+        this.disposeScroll.unsubscribe();
       }
     };
-    Scroller.prototype.handleInfiniteScrollDisabled = function(isCurrentlyEnabled) {
-      this.scrollEnabled = !isCurrentlyEnabled;
+    Scroller.prototype.handleInfiniteScrollDisabled = function(enableScroll) {
+      this.scrollEnabled = !enableScroll;
     };
     return Scroller;
   }());
