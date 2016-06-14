@@ -1,8 +1,9 @@
 import { ElementRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx'; 
+import { Observable, Subscription } from 'rxjs/Rx';
 
 export class Scroller {
-	public scrollDistance: number;
+	public scrollDownDistance: number;
+	public scrollUpDistance: number;
 	public scrollEnabled: boolean;
 	public checkWhenEnabled: boolean;
 	public container: Window | ElementRef | any;
@@ -12,27 +13,30 @@ export class Scroller {
 	private documentElement: Window | ElementRef | any;
 	private isContainerWindow: boolean;
 	private disposeScroll: Subscription;
+	private lastScrollPosition: number = 0;
 
 	constructor(
 		private windowElement: Window | ElementRef | any,
 		private $interval: Function,
 		private $elementRef: ElementRef,
-		private infiniteScrollCallback: Function,
-		infiniteScrollDistance: number,
+		private infiniteScrollDownCallback: Function,
+		private infiniteScrollUpCallback: Function,
+		infiniteScrollDownDistance: number,
+		infiniteScrollUpDistance: number,
 		infiniteScrollParent: Window | ElementRef | any,
 		private infiniteScrollThrottle: number,
 		private isImmediate: boolean
-		) {
+	) {
 		this.isContainerWindow = this.windowElement.hasOwnProperty('document');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
-		this.handleInfiniteScrollDistance(infiniteScrollDistance);
+		this.handleInfiniteScrollDistance(infiniteScrollDownDistance, infiniteScrollUpDistance);
 
 		// if (attrs.infiniteScrollParent != null) {
 		// 	attachEvent(angular.element(elem.parent()));
 		// }
 		this.handleInfiniteScrollDisabled(false);
 		this.defineContainer();
-    this.createInterval();
+		this.createInterval();
 	}
 
 	defineContainer () {
@@ -81,8 +85,18 @@ export class Scroller {
 
 	handler () {
 		const container = this.calculatePoints();
-		const remaining: number = container.totalToScroll - container.scrolledUntilNow;
-		const containerBreakpoint: number = container.height * this.scrollDistance + 1;
+		const scrollingDown: boolean = this.lastScrollPosition < container.scrolledUntilNow;
+		this.lastScrollPosition = container.scrolledUntilNow;
+
+		let remaining: number;
+		let containerBreakpoint: number;
+		if (scrollingDown) {
+			remaining = container.totalToScroll - container.scrolledUntilNow;
+			containerBreakpoint = container.height * this.scrollDownDistance + 1;
+		} else {
+			remaining = container.scrolledUntilNow;
+			containerBreakpoint = container.height * this.scrollUpDistance + 1;
+		}
 		const shouldScroll: boolean = remaining <= containerBreakpoint;
 		const triggerCallback: boolean = shouldScroll && this.scrollEnabled;
 		const shouldClearInterval = shouldScroll && this.checkInterval;
@@ -90,8 +104,13 @@ export class Scroller {
 		// 	container.totalToScroll = this.height(this.$elementRef.nativeElement.ownerDocument);
 		// }
 		this.checkWhenEnabled = shouldScroll;
+
 		if (triggerCallback) {
-			this.infiniteScrollCallback();
+			if (scrollingDown) {
+				this.infiniteScrollDownCallback();
+			} else {
+				this.infiniteScrollUpCallback();
+			}
 		}
 		if (shouldClearInterval) {
 			clearInterval(this.checkInterval);
@@ -119,7 +138,7 @@ export class Scroller {
 		// perhaps use this.container.offsetTop instead of 'scrollTop'
 		const scrolledUntilNow = this.container.scrollTop;
 		let containerTopOffset = 0;
-		const offsetTop = this.offsetTop(this.container)
+		const offsetTop = this.offsetTop(this.container);
 		if (offsetTop !== void 0) {
 			containerTopOffset = offsetTop;
 		}
@@ -128,8 +147,9 @@ export class Scroller {
 		return { height, scrolledUntilNow, totalToScroll };
 	}
 
-	handleInfiniteScrollDistance (scrollDistance: number | any) {
-		return this.scrollDistance = parseFloat(scrollDistance) || 0;
+	handleInfiniteScrollDistance (scrollDownDistance: number | any, scrollUpDistance: number | any) {
+		this.scrollDownDistance = parseFloat(scrollDownDistance) || 0;
+		this.scrollUpDistance = parseFloat(scrollUpDistance) || 0;
 	}
 
 	attachEvent (newContainer: Window | ElementRef | any) {
@@ -145,7 +165,7 @@ export class Scroller {
 
 	clean () {
 		if (this.disposeScroll) {
-      this.disposeScroll.unsubscribe();
+			this.disposeScroll.unsubscribe();
 		}
 	}
 
