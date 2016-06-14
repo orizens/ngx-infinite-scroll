@@ -7,13 +7,13 @@ import { Scroller } from './scroller';
 export class InfiniteScroll implements OnDestroy, OnInit {
   private scroller: Scroller;
 
-  @Input('infiniteScrollDownDistance') _distanceDown: number = 2;
+  @Input('infiniteScrollDistance') _distanceDown: number = 2;
   @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
   @Input('infiniteScrollThrottle') _throttle: number = 3;
   @Input('scrollWindow') scrollWindow: boolean = true;
   @Input('immediateCheck') _immediate: boolean = false;
 
-  @Output() scrolledDown = new EventEmitter();
+  @Output() scrolled = new EventEmitter();
   @Output() scrolledUp = new EventEmitter();
 
   constructor(private element: ElementRef) {}
@@ -30,7 +30,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   }
 
   onScrollDown() {
-    this.scrolledDown.next({});
+    this.scrolled.next({});
   }
 
   onScrollUp() {

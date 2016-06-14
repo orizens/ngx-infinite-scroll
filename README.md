@@ -4,10 +4,10 @@ A port & modification of [ng-infinite-scroll](https://github.com/sroze/ngInfinit
 ## Supported API
 The directive triggers 
 Currently supported attributes:
-* (number) "infiniteScrollDownDistance" (optional, default: **2**) - should get a number
+* (number) "infiniteScrollDistance" (optional, default: **2**) - should get a number
 * (number) "infiniteScrollUpDistance" (optional, default: **1.5**) - should get a number
 * (number) "infiniteScrollThrottle" (optional, default: **300**) - should get a number of milliseconds for throttle
-* (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolledDown)="handleScrollDownCallback()"** - this will callback if the distance threshold has been reached on a scroll down.
+* (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolled)="handleScrollDownCallback()"** - this will callback if the distance threshold has been reached on a scroll down.
 * (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolledUp)="handleScrollUpCallback()"** - this will callback if the distance threshold has been reached on a scroll up.
 * (boolean) - "scrollWindow" (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
 * (boolean) - "immediateCheck" (optional, default: **false**) - invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled).
@@ -31,9 +31,9 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 	template: `
 		<div class="search-results"
 		    infinite-scroll
-		    [infiniteScrollDownDistance]="2"
+		    [infiniteScrollDistance]="2"
 		    [infiniteScrollThrottle]="500"
-		    (scrolledDown)="onScroll()">
+		    (scrolled)="onScroll()">
 		</div>
 	`
 })
@@ -61,9 +61,9 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 	template: `
 		<div class="search-results"
 		    infinite-scroll
-		    [infiniteScrollDownDistance]="2"
+		    [infiniteScrollDistance]="2"
 		    [infiniteScrollThrottle]="500"
-		    (scrolledDown)="onScroll()"
+		    (scrolled)="onScroll()"
 		    [scrollWindow]="false">
 		</div>
 	`
@@ -87,10 +87,10 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 	template: `
 		<div class="search-results"
 		    infinite-scroll
-		    [infiniteScrollDownDistance]="2"
+		    [infiniteScrollDistance]="2"
 		    [infiniteScrollUpDistance]="1.5"
 		    [infiniteScrollThrottle]="500"
-		    (scrolledDown)="onScrollDown()">
+		    (scrolled)="onScrollDown()">
 		    (scrolledUp)="onScrollUp()">
 		</div>
 	`
@@ -101,8 +101,8 @@ export class App {
 	}
 
 	onScrollUp () {
-    	    console.log('scrolled up!!')
-    	}
+    	console.log('scrolled up!!')
+    }
 }
 ```
 
