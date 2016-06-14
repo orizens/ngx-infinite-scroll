@@ -7,27 +7,34 @@ import { Scroller } from './scroller';
 export class InfiniteScroll implements OnDestroy, OnInit {
   private scroller: Scroller;
 
-  @Input('infiniteScrollDistance') _distance: number = 2;
+  @Input('infiniteScrollDownDistance') _distanceDown: number = 2;
+  @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
   @Input('infiniteScrollThrottle') _throttle: number = 3;
   @Input('scrollWindow') scrollWindow: boolean = true;
   @Input('immediateCheck') _immediate: boolean = false;
 
-  @Output() scrolled = new EventEmitter();
+  @Output() scrolledDown = new EventEmitter();
+  @Output() scrolledUp = new EventEmitter();
 
   constructor(private element: ElementRef) {}
 
   ngOnInit() {
     const containerElement = this.scrollWindow ? window : this.element;
-    this.scroller = new Scroller(containerElement, setInterval, this.element, this.onScroll.bind(this), this._distance, {}
-        , this._throttle, this._immediate);
+    this.scroller = new Scroller(containerElement, setInterval, this.element,
+        this.onScrollDown.bind(this), this.onScrollUp.bind(this),
+        this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate);
   }
 
   ngOnDestroy () {
     this.scroller.clean();
   }
-  
-  onScroll() {
-    this.scrolled.next({});
+
+  onScrollDown() {
+    this.scrolledDown.next({});
+  }
+
+  onScrollUp() {
+    this.scrolledUp.next({});
   }
 
   @HostListener('scroll', ['$event'])
