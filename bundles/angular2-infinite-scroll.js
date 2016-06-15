@@ -77,6 +77,7 @@ System.registerDynamic("src/scroller", ["rxjs/Rx"], true, function($__require, e
       this.handleInfiniteScrollDistance(infiniteScrollDistance);
       this.handleInfiniteScrollDisabled(false);
       this.defineContainer();
+      this.createInterval();
     }
     Scroller.prototype.defineContainer = function() {
       if (this.isContainerWindow) {
