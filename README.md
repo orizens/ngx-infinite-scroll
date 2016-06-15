@@ -106,5 +106,11 @@ export class App {
 }
 ```
 
+## Testing 
+Currently, errors are thrown to after ```build```, so we can't have the standard **pretest** script. So, to run tests, there are 2 steps to run:  
+1. ```npm run pre:test``` 
+2. ```npm test``` 
+
+
 # Showcase Examples 
 * [Echoes Player Ng2 Version](http://orizens.github.io/echoes-ng2) ([github repo for echoes player](http://github.com/orizens/echoes-ng2))

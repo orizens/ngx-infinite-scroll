@@ -26,34 +26,32 @@ module.exports = function(config) {
       { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
 
 
+      {pattern: 'karma-test-shim.js', included: true, watched: true},
 
       // paths loaded via module imports
       // Angular itself
       {pattern: 'node_modules/@angular/**/*.js', included: false, watched: true},
       {pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: true},
 
-      // Our built application code TODO
-      // {pattern: 'built/**/*.js', included: false, watched: true},
-
-      // paths loaded via Angular's component compiler
-      // (these paths need to be rewritten, see proxies section)
-      // {pattern: 'built/**/*.html', included: false, watched: true},
-      // {pattern: 'built/**/*.css', included: false, watched: true},
+      // Our built application code
+      {pattern: '.tmp/built/**/*.js', included: false, watched: true},
+      // Our Spec Files
+      // {pattern: 'tests/built/**/*.js', included: false, watched: true},
 
       // paths to support debugging with source maps in dev tools
       {pattern: 'tests/**/*.ts', included: false, watched: false},
-      {pattern: 'tests/built/**/*.js.map', included: false, watched: false},
+      {pattern: '.tmp/built/**/*.js.map', included: false, watched: false},
+      // {pattern: 'tests/built/**/*.js.map', included: false, watched: false},
 
-      {pattern: 'karma-test-shim.js', included: true, watched: true},
       // {pattern: 'built/test/matchers.js', included: true, watched: true},
-      {pattern: 'tests/built/**/*.js', included: true, watched: true},
+      // {pattern: 'tests/built/**/*.js', included: true, watched: true},
     ],
 
     // proxied base paths
-    proxies: {
+    // proxies: {
       // required for component assests fetched by Angular's compiler
-      "/tests/": "/base/tests/built/"
-    },
+      // "/tests/": "/base/tests/built/"
+    // },
 
     reporters: ['progress'],
     port: 9876,

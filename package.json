@@ -7,13 +7,16 @@
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
     "start": "npm run build && npm run lite",
-    "lite": "lite-server --open=index.html",
+    "lite": "lite-server",
     "prepublish": "tsc & node make.js",
-    "build": "npm run clean && tsc --project ./tests && npm run copy",
+    "copy:src": "cp ./src/{scroller.ts,infinite-scroll.ts,infinite-scroll.spec.ts} .tmp/",
+    "copy:config": "cp ./tests/tsconfig.json .tmp/",
+    "copy": "npm run copy:src & npm run copy:config",
+    "build:test": "tsc --project ./.tmp",
     "Xpostinstall": "typings install --ambient",
-    "clean": "rimraf tests/built/",
-    "copy": "cp ./{index.html,system.config.js} tests/built/",
+    "clean": "rimraf .tmp/",
     "watch": "tsc --watch",
+    "pre:test": "npm run clean && mkdir .tmp && npm run copy && npm run build:test",
     "test": "karma start karma.conf.js"
   },
   "keywords": [
@@ -24,6 +27,8 @@
   "author": "Oren Farhi",
   "license": "MIT",
   "devDependencies": {
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
     "@angular/core": "^2.0.0-rc.1",
     "@angular/platform-browser": "2.0.0-rc.1",
     "@angular/platform-browser-dynamic": "2.0.0-rc.1",
