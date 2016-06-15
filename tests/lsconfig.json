@@ -1,0 +1,11 @@
+// {
+//   "port": 8000,
+//   "files": ["./src/**/*.{html,htm,css,js}"],
+//   "server": { 
+//     "baseDir": "./",
+//     "routes": {
+//         "/node_modules": "../node_modules"
+//     }
+//   },
+//   "startPath": "./tests/index.html"
+// }

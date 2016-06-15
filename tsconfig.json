@@ -8,6 +8,7 @@
       "inlineSourceMap": true,
       "inlineSources": true,
       "declaration": true,
+      "suppressImplicitAnyIndexErrors": true,
       "moduleResolution": "node"
 	},
 	"exclude": [
