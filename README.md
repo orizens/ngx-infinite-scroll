@@ -113,6 +113,9 @@ Currently, errors are thrown to after ```build```, so we can't have the standard
 
 Afterwards, to when ts files are changed, run only ```npm run pre:test```
 
+### Credits For Tests Setup
+[ng2-test-seed](https://github.com/juliemr/ng2-test-seed) has been a huge help and source of inspiration. At first, copy & paste, then, customisation to adapt to this code repository. 
+Thanks [@juliemr](https://github.com/juliemr)! 
 
 # Showcase Examples 
 * [Echoes Player Ng2 Version](http://orizens.github.io/echoes-ng2) ([github repo for echoes player](http://github.com/orizens/echoes-ng2))
