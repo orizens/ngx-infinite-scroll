@@ -3,6 +3,11 @@
 # Angular 2 Infinite Scroll
 A port & modification of [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular 2.
 
+## Installation
+```
+npm install angular2-infinite-scroll --save
+```
+
 ## Supported API
 The directive triggers 
 Currently supported attributes:
