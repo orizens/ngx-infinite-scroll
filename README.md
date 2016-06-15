@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/orizens/angular2-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/angular2-infinite-scroll)
+
 # Angular 2 Infinite Scroll
 A port & modification of [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular 2.
 
@@ -112,6 +114,8 @@ Currently, errors are thrown to after ```build```, so we can't have the standard
 2. ```npm test```  
 
 Afterwards, to when ts files are changed, run only ```npm run pre:test```
+
+Travis-ci is integrated
 
 ### Credits For Tests Setup
 [ng2-test-seed](https://github.com/juliemr/ng2-test-seed) has been a huge help and source of inspiration. At first, copy & paste, then, customisation to adapt to this code repository. 
