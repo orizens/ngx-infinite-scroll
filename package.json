@@ -6,7 +6,15 @@
   "typings": "./angular2-infinite-scroll.d.ts",
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
-    "prepublish": "tsc & node make.js"
+    "start": "npm run build && npm run lite",
+    "lite": "lite-server --open=index.html",
+    "prepublish": "tsc & node make.js",
+    "build": "npm run clean && tsc --project ./tests && npm run copy",
+    "Xpostinstall": "typings install --ambient",
+    "clean": "rimraf tests/built/",
+    "copy": "cp ./{index.html,system.config.js} tests/built/",
+    "watch": "tsc --watch",
+    "test": "karma start karma.conf.js"
   },
   "keywords": [
     "angular2",
@@ -22,9 +30,17 @@
     "autodts": "0.0.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
+    "jasmine-core": "2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-cli": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "lite-server": "2.2.0",
     "path": "^0.12.7",
     "reflect-metadata": "0.1.2",
+    "rimraf": "2.5.2",
     "rxjs": "5.0.0-beta.6",
+    "systemjs": "0.19.31",
     "systemjs-builder": "^0.15.16",
     "typescript": "^1.7.5",
     "zone.js": "0.6.12"
