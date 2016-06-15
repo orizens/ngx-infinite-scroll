@@ -11,5 +11,9 @@
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "built/"
-  }
+  },
+  "exclude": [
+    "node_modules",
+    ".tmp"
+    ]
 }

@@ -1,3 +1,4 @@
+/// <reference path="../typings/index.d.ts" />
 import { ElementRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 
@@ -13,7 +14,7 @@ export class Scroller {
 	private documentElement: Window | ElementRef | any;
 	private isContainerWindow: boolean;
 	private disposeScroll: Subscription;
-	private lastScrollPosition: number = 0;
+	public lastScrollPosition: number = 0;
 
 	constructor(
 		private windowElement: Window | ElementRef | any,

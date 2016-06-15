@@ -13,7 +13,7 @@
     "copy:config": "cp ./tests/tsconfig.json .tmp/",
     "copy": "npm run copy:src & npm run copy:config",
     "build:test": "tsc --project ./.tmp",
-    "Xpostinstall": "typings install --ambient",
+    "postinstall": "typings install",
     "clean": "rimraf .tmp/",
     "watch": "tsc --watch",
     "prepare:test": "npm run clean && mkdir .tmp",
@@ -50,6 +50,7 @@
     "systemjs": "0.19.31",
     "systemjs-builder": "^0.15.16",
     "typescript": "^1.7.5",
+    "typings": "1.2.0",
     "zone.js": "0.6.12"
   }
 }
