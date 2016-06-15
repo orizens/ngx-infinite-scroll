@@ -16,8 +16,10 @@
     "Xpostinstall": "typings install --ambient",
     "clean": "rimraf .tmp/",
     "watch": "tsc --watch",
-    "pre:test": "npm run clean && mkdir .tmp && npm run copy && npm run build:test",
-    "test": "karma start karma.conf.js"
+    "prepare:test": "npm run clean && mkdir .tmp",
+    "pre:test": "npm run copy && npm run build:test",
+    "test": "karma start karma.conf.js",
+    "bdd": "npm run prepare:test && npm run pre:test"
   },
   "keywords": [
     "angular2",

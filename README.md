@@ -108,8 +108,10 @@ export class App {
 
 ## Testing 
 Currently, errors are thrown to after ```build```, so we can't have the standard **pretest** script. So, to run tests, there are 2 steps to run:  
-1. ```npm run pre:test``` 
-2. ```npm test``` 
+1. ```npm run bdd``` (includes "prepare:test" and "pre:test") 
+2. ```npm test```  
+
+Afterwards, to when ts files are changed, run only ```npm run pre:test```
 
 
 # Showcase Examples 
