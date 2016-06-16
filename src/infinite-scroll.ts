@@ -16,7 +16,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   @Output() scrolled = new EventEmitter();
   @Output() scrolledUp = new EventEmitter();
 
-  constructor(private element: ElementRef | any) {}
+  constructor(private element: ElementRef) {}
 
   ngOnInit() {
     const containerElement = this.scrollWindow ? window : this.element;
