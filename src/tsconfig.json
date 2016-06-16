@@ -14,5 +14,11 @@
   "exclude": [
     "node_modules",
     ".tmp"
+    ],
+    "files": [
+    "../typings/index.d.ts",
+    "./infinite-scroll.ts",
+    "./infinite-scroll.spec.ts",
+    "./scroller.ts"
     ]
 }
