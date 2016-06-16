@@ -28,7 +28,7 @@ export class Scroller {
 		private infiniteScrollThrottle: number,
 		private isImmediate: boolean
 	) {
-		this.isContainerWindow = this.windowElement.hasOwnProperty('document');
+		this.isContainerWindow = toString.call(this.windowElement).includes('Window');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
 		this.handleInfiniteScrollDistance(infiniteScrollDownDistance, infiniteScrollUpDistance);
 
