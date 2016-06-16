@@ -1,4 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
 import { Directive, ElementRef, Input, Output, HostListener, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { Scroller } from './scroller';
 
