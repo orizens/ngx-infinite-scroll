@@ -9,17 +9,13 @@
     "start": "npm run build && npm run lite",
     "lite": "lite-server",
     "prepublish": "tsc & node make.js",
-    "copy:src": "cp ./src/{scroller.ts,infinite-scroll.ts,infinite-scroll.spec.ts} .tmp/",
-    "copy:config": "cp ./tests/tsconfig.json .tmp/",
-    "copy": "npm run copy:src & npm run copy:config",
-    "build:test": "tsc --project ./.tmp",
-    "Xpostinstall": "typings install --ambient",
-    "clean": "rimraf .tmp/",
-    "watch": "tsc --watch",
-    "prepare:test": "npm run clean && mkdir .tmp",
-    "pre:test": "npm run copy && npm run build:test",
+    "postinstall": "typings install",
+    "clean": "rimraf src/*.js && rimraf src/*.d.ts && rimraf ./*scroll.js && rimraf ./*scroll.d.ts",
+    "build:test": "tsc --project ./src",
+    "watch": "tsc --project ./src --watch",
+    "pretest": "npm run clean && npm run build:test",
     "test": "karma start karma.conf.js",
-    "bdd": "npm run prepare:test && npm run pre:test"
+    "dev": "npm run watch & npm test"
   },
   "keywords": [
     "angular2",
@@ -42,14 +38,18 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-cli": "^1.0.0",
     "karma-jasmine": "^1.0.2",
+    "karma-mocha-reporter": "2.0.4",
+    "karma-phantomjs-launcher": "1.0.0",
     "lite-server": "2.2.0",
     "path": "^0.12.7",
+    "phantomjs-prebuilt": "^2.1.7",
     "reflect-metadata": "0.1.2",
     "rimraf": "2.5.2",
     "rxjs": "5.0.0-beta.6",
     "systemjs": "0.19.31",
     "systemjs-builder": "^0.15.16",
     "typescript": "^1.7.5",
+    "typings": "1.2.0",
     "zone.js": "0.6.12"
   }
 }

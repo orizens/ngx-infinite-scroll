@@ -1,3 +1,9 @@
+const isDebug = process.env.DEBUG || false;
+const isTravis = process.env.TRAVIS || false;
+const browsers = isDebug ? ['Chrome'] : ['PhantomJS'];
+const hasSingleRunAsSwitch = process.argv.filter(s => s.includes('single-run'));
+const singleRun = isTravis || hasSingleRunAsSwitch[0] ? true : false;
+
 module.exports = function(config) {
   config.set({
 
@@ -34,17 +40,14 @@ module.exports = function(config) {
       {pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: true},
 
       // Our built application code
-      {pattern: '.tmp/built/**/*.js', included: false, watched: true},
-      // Our Spec Files
-      // {pattern: 'tests/built/**/*.js', included: false, watched: true},
+      {pattern: 'src/**/*.js', included: false, watched: true},
 
       // paths to support debugging with source maps in dev tools
-      {pattern: 'tests/**/*.ts', included: false, watched: false},
-      {pattern: '.tmp/built/**/*.js.map', included: false, watched: false},
-      // {pattern: 'tests/built/**/*.js.map', included: false, watched: false},
+      {pattern: 'src/**/*.ts', included: false, watched: false},
+      // if we swtich to sourcemap files
+      // {pattern: 'src/**/*.js.map', included: false, watched: false},
 
       // {pattern: 'built/test/matchers.js', included: true, watched: true},
-      // {pattern: 'tests/built/**/*.js', included: true, watched: true},
     ],
 
     // proxied base paths
@@ -52,13 +55,18 @@ module.exports = function(config) {
       // required for component assests fetched by Angular's compiler
       // "/tests/": "/base/tests/built/"
     // },
-
-    reporters: ['progress'],
+    plugins : [
+        'karma-jasmine',
+        'karma-mocha-reporter',
+        'karma-chrome-launcher',
+        'karma-phantomjs-launcher'
+    ],
+    reporters: ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+    browsers: browsers,
+    singleRun: singleRun
   })
 }

@@ -1,3 +1,4 @@
+/// <reference path="../typings/index.d.ts" />
 import {
   iit,
   it,
@@ -17,7 +18,7 @@ describe('Infinite Scroll Directive', () => {
   });
 
   it('should have default @Input properties values', () => {
-    const mockedElement = {};
+    const mockedElement: any = {};
     const directive = new InfiniteScroll(mockedElement);
     const expectedInputs = [
       '_distanceDown',
@@ -31,7 +32,7 @@ describe('Infinite Scroll Directive', () => {
   });
 
   it('should trigger the onScrollDown event when scroll has passed _distandDown', () => {
-    const mockedElement = {};
+    const mockedElement: any = {};
     const directive = new InfiniteScroll(mockedElement);
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();

@@ -1,3 +1,4 @@
+/// <reference path="../typings/index.d.ts" />
 import { Directive, ElementRef, Input, Output, HostListener, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { Scroller } from './scroller';
 
@@ -5,7 +6,7 @@ import { Scroller } from './scroller';
   selector: '[infinite-scroll]'
 })
 export class InfiniteScroll implements OnDestroy, OnInit {
-  private scroller: Scroller;
+  public scroller: Scroller;
 
   @Input('infiniteScrollDistance') _distanceDown: number = 2;
   @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
@@ -16,7 +17,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   @Output() scrolled = new EventEmitter();
   @Output() scrolledUp = new EventEmitter();
 
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef | any) {}
 
   ngOnInit() {
     const containerElement = this.scrollWindow ? window : this.element;
