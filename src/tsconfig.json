@@ -9,8 +9,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "outDir": "built/"
+    "suppressImplicitAnyIndexErrors": true
   },
   "exclude": [
     "node_modules",
