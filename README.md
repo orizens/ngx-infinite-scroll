@@ -26,6 +26,7 @@ By default, the directive listens to a window scroll event and invoked the callb
 * set an explict css "height" value to the element
 
 ## Usage
+[See a live example at this plunkr](https://plnkr.co/edit/DzKAiAxtAleIrT0tsqtj?p=preview)
 In this example, the **onScroll** callback will be invoked when the window is scrolled down:
 
 ```typescript
