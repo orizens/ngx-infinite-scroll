@@ -57,10 +57,10 @@ export class Scroller {
 
 	height (elem: any) {
 		// elem = elem.nativeElement;
-		if (isNaN(elem.offsetHeight)) {
-			return this.documentElement.clientHeight;
+		if (isNaN(elem.offsetWidth)) {              // HZ offsetHeight offsetWidth
+			return this.documentElement.clientWidth;  // HZ clientHeight clientWidth
 		} else {
-			return elem.offsetHeight;
+			return elem.offsetWidth;                  // HZ offsetHeight offsetWidth
 		}
 	}
 
@@ -69,17 +69,17 @@ export class Scroller {
 		if (!elem.getBoundingClientRect) { // || elem.css('none')) {
 			return;
 		}
-		return elem.getBoundingClientRect().top + this.pageYOffset(elem);
+		return elem.getBoundingClientRect().left + this.pageYOffset(elem); // HZ top left
 	}
 
 	pageYOffset (elem: any) {
 		// elem = elem.nativeElement;
-		if (isNaN(window.pageYOffset)) {
-			return this.documentElement.scrollTop;
+		if (isNaN(window.pageXOffset)) {                     // HZ pageYOffset pageXOffset
+			return this.documentElement.scrollLeft;            // HZ scrollTop scrollLeft
 		} else if (elem.ownerDocument) {
-			return elem.ownerDocument.defaultView.pageYOffset;
+			return elem.ownerDocument.defaultView.pageXOffset; // HZ pageYOffset pageXOffset
 		} else {
-			elem.offsetTop;
+			return elem.offsetLeft;                            // HZ offsetTop offsetLeft
 		}
 	}
 
@@ -136,13 +136,13 @@ export class Scroller {
 	calculatePointsForElement () {
 		const height = this.height(this.container);
 		// perhaps use this.container.offsetTop instead of 'scrollTop'
-		const scrolledUntilNow = this.container.scrollTop;
+		const scrolledUntilNow = this.container.scrollLeft;  // HZ scrollTop scrollLeft
 		let containerTopOffset = 0;
 		const offsetTop = this.offsetTop(this.container);
 		if (offsetTop !== void 0) {
 			containerTopOffset = offsetTop;
 		}
-		const totalToScroll = this.container.scrollHeight;
+		const totalToScroll = this.container.scrollWidth;  // HZ scrollHeight scrollWidth
 		// const totalToScroll = this.offsetTop(this.$elementRef.nativeElement) - containerTopOffset + this.height(this.$elementRef.nativeElement);
 		return { height, scrolledUntilNow, totalToScroll };
 	}
