@@ -25,7 +25,8 @@ export class Scroller {
 		infiniteScrollUpDistance: number,
 		infiniteScrollParent: Window | ElementRef | any,
 		private infiniteScrollThrottle: number,
-		private isImmediate: boolean
+		private isImmediate: boolean,
+		private horizontal: boolean = true
 	) {
 		this.isContainerWindow = toString.call(this.windowElement).includes('Window');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -38,6 +39,14 @@ export class Scroller {
 		this.defineContainer();
 		this.createInterval();
 	}
+
+  clientHeightKey() {return !this.horizontal ? 'clientHeight' : 'clientWidth'}
+  offsetHeightKey() {return !this.horizontal ? 'offsetHeight' : 'offsetWidth'}
+  scrollHeightKey() {return !this.horizontal ? 'scrollHeight' : 'scrollWidth'}
+  pageYOffsetKey()  {return !this.horizontal ? 'pageYOffset'  : 'pageXOffset'}
+  offsetTopKey()    {return !this.horizontal ? 'offsetTop'    : 'offsetLeft'}
+  scrollTopKey()    {return !this.horizontal ? 'scrollTop'    : 'scrollLeft'}
+  topKey()          {return !this.horizontal ? 'top'          : 'left'}
 
 	defineContainer () {
 		if (this.isContainerWindow) {
@@ -56,30 +65,39 @@ export class Scroller {
 	}
 
 	height (elem: any) {
+    let offsetHeight = this.offsetHeightKey();
+    let clientHeight = this.clientHeightKey();
+
 		// elem = elem.nativeElement;
-		if (isNaN(elem.offsetWidth)) {              // HZ offsetHeight offsetWidth
-			return this.documentElement.clientWidth;  // HZ clientHeight clientWidth
+		if (isNaN(elem[offsetHeight])) {
+			return this.documentElement[clientHeight];
 		} else {
-			return elem.offsetWidth;                  // HZ offsetHeight offsetWidth
+			return elem[offsetHeight];
 		}
 	}
 
 	offsetTop (elem: any) {
+    let top = this.topKey();
+
 		// elem = elem.nativeElement;
 		if (!elem.getBoundingClientRect) { // || elem.css('none')) {
 			return;
 		}
-		return elem.getBoundingClientRect().left + this.pageYOffset(elem); // HZ top left
+		return elem.getBoundingClientRect()[top] + this.pageYOffset(elem);
 	}
 
 	pageYOffset (elem: any) {
+    let pageYOffset = this.pageYOffsetKey();
+    let scrollTop   = this.scrollTopKey();
+    let offsetTop   = this.offsetTopKey();
+
 		// elem = elem.nativeElement;
-		if (isNaN(window.pageXOffset)) {                     // HZ pageYOffset pageXOffset
-			return this.documentElement.scrollLeft;            // HZ scrollTop scrollLeft
+		if (isNaN(window[pageYOffset])) {
+			return this.documentElement[scrollTop];
 		} else if (elem.ownerDocument) {
-			return elem.ownerDocument.defaultView.pageXOffset; // HZ pageYOffset pageXOffset
+			return elem.ownerDocument.defaultView[pageYOffset];
 		} else {
-			return elem.offsetLeft;                            // HZ offsetTop offsetLeft
+			return elem[offsetTop];
 		}
 	}
 
@@ -134,15 +152,18 @@ export class Scroller {
 	}
 
 	calculatePointsForElement () {
+    let scrollTop    = this.scrollTopKey();
+    let scrollHeight = this.scrollHeightKey();
+
 		const height = this.height(this.container);
 		// perhaps use this.container.offsetTop instead of 'scrollTop'
-		const scrolledUntilNow = this.container.scrollLeft;  // HZ scrollTop scrollLeft
+		const scrolledUntilNow = this.container[scrollTop];
 		let containerTopOffset = 0;
 		const offsetTop = this.offsetTop(this.container);
 		if (offsetTop !== void 0) {
 			containerTopOffset = offsetTop;
 		}
-		const totalToScroll = this.container.scrollWidth;  // HZ scrollHeight scrollWidth
+		const totalToScroll = this.container[scrollHeight];
 		// const totalToScroll = this.offsetTop(this.$elementRef.nativeElement) - containerTopOffset + this.height(this.$elementRef.nativeElement);
 		return { height, scrolledUntilNow, totalToScroll };
 	}
