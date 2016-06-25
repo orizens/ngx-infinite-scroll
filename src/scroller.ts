@@ -26,7 +26,8 @@ export class Scroller {
 		infiniteScrollParent: Window | ElementRef | any,
 		private infiniteScrollThrottle: number,
 		private isImmediate: boolean,
-		private horizontal: boolean = true
+		private horizontal: boolean = false,
+		private alwaysCallback: boolean = false
 	) {
 		this.isContainerWindow = toString.call(this.windowElement).includes('Window');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -116,7 +117,7 @@ export class Scroller {
 			containerBreakpoint = container.height * this.scrollUpDistance + 1;
 		}
 		const shouldScroll: boolean = remaining <= containerBreakpoint;
-		const triggerCallback: boolean = true // shouldScroll && this.scrollEnabled;
+		const triggerCallback: boolean = (this.alwaysCallback || shouldScroll) && this.scrollEnabled;
 		const shouldClearInterval = shouldScroll && this.checkInterval;
 		// if (this.useDocumentBottom) {
 		// 	container.totalToScroll = this.height(this.$elementRef.nativeElement.ownerDocument);
