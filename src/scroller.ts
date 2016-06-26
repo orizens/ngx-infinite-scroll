@@ -48,11 +48,11 @@ export class Scroller {
 	}
 
 	createInterval () {
-		this.checkInterval = this.$interval(() => {
-			if (this.isImmediate) {
+		if (this.isImmediate) {
+			this.checkInterval = this.$interval(() => {
 				return this.handler();
-			}
-		}, 0);
+			}, 0);
+		}
 	}
 
 	height (elem: any) {
