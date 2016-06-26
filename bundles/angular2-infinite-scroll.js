@@ -97,11 +97,11 @@ System.registerDynamic("src/scroller", ["rxjs/Rx"], true, function($__require, e
     };
     Scroller.prototype.createInterval = function() {
       var _this = this;
-      this.checkInterval = this.$interval(function() {
-        if (_this.isImmediate) {
+      if (this.isImmediate) {
+        this.checkInterval = this.$interval(function() {
           return _this.handler();
-        }
-      }, 0);
+        }, 0);
+      }
     };
     Scroller.prototype.height = function(elem) {
       if (isNaN(elem.offsetHeight)) {
