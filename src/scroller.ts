@@ -15,7 +15,7 @@ export class Scroller {
 	private isContainerWindow: boolean;
 	private disposeScroll: Subscription;
 	public lastScrollPosition: number = 0;
-  private axis: AxisResolver;
+	private axis: AxisResolver;
 
 	constructor(
 		private windowElement: Window | ElementRef | any,
@@ -41,7 +41,7 @@ export class Scroller {
 		this.handleInfiniteScrollDisabled(false);
 		this.defineContainer();
 		this.createInterval();
-    this.axis = new AxisResolver(!this.horizontal);
+		this.axis = new AxisResolver(!this.horizontal);
 	}
 
 	defineContainer () {
@@ -61,8 +61,8 @@ export class Scroller {
 	}
 
 	height (elem: any) {
-    let offsetHeight = this.axis.offsetHeightKey();
-    let clientHeight = this.axis.clientHeightKey();
+		let offsetHeight = this.axis.offsetHeightKey();
+		let clientHeight = this.axis.clientHeightKey();
 
 		// elem = elem.nativeElement;
 		if (isNaN(elem[offsetHeight])) {
@@ -73,7 +73,7 @@ export class Scroller {
 	}
 
 	offsetTop (elem: any) {
-    let top = this.axis.topKey();
+		let top = this.axis.topKey();
 
 		// elem = elem.nativeElement;
 		if (!elem.getBoundingClientRect) { // || elem.css('none')) {
@@ -83,9 +83,9 @@ export class Scroller {
 	}
 
 	pageYOffset (elem: any) {
-    let pageYOffset = this.axis.pageYOffsetKey();
-    let scrollTop   = this.axis.scrollTopKey();
-    let offsetTop   = this.axis.offsetTopKey();
+		let pageYOffset = this.axis.pageYOffsetKey();
+		let scrollTop   = this.axis.scrollTopKey();
+		let offsetTop   = this.axis.offsetTopKey();
 
 		// elem = elem.nativeElement;
 		if (isNaN(window[pageYOffset])) {
@@ -148,8 +148,8 @@ export class Scroller {
 	}
 
 	calculatePointsForElement () {
-    let scrollTop    = this.axis.scrollTopKey();
-    let scrollHeight = this.axis.scrollHeightKey();
+		let scrollTop    = this.axis.scrollTopKey();
+		let scrollHeight = this.axis.scrollHeightKey();
 
 		const height = this.height(this.container);
 		// perhaps use this.container.offsetTop instead of 'scrollTop'
