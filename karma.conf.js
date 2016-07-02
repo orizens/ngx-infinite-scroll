@@ -43,7 +43,7 @@ module.exports = function(config) {
       {pattern: 'src/**/*.js', included: false, watched: true},
 
       // paths to support debugging with source maps in dev tools
-      {pattern: 'src/**/*.ts', included: false, watched: false},
+      {pattern: 'src/**/*.ts', included: false, watched: false}
       // if we swtich to sourcemap files
       // {pattern: 'src/**/*.js.map', included: false, watched: false},
 
