@@ -57,8 +57,9 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolledUp", void 0);
     __decorate([core_1.HostListener('scroll', ['$event']), __metadata('design:type', Function), __metadata('design:paramtypes', [Object]), __metadata('design:returntype', void 0)], InfiniteScroll.prototype, "handleScroll", null);
-    InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
+    InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [(typeof(_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])], InfiniteScroll);
     return InfiniteScroll;
+    var _a;
   }());
   exports.InfiniteScroll = InfiniteScroll;
   return module.exports;
