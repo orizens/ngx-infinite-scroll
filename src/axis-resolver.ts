@@ -1,7 +1,9 @@
 export class AxisResolver {
   private vertical: boolean; // else horizontal
 
-  constructor(vertical: boolean) {}
+  constructor(vertical = true) {
+    this.vertical = vertical;
+  }
 
   clientHeightKey() {return this.vertical ? 'clientHeight' : 'clientWidth'}
   offsetHeightKey() {return this.vertical ? 'offsetHeight' : 'offsetWidth'}
