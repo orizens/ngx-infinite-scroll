@@ -1,5 +1,6 @@
 import { ElementRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
+import { AxisResolver } from './axis-resolver';
 
 export class Scroller {
 	public scrollDownDistance: number;
@@ -14,6 +15,7 @@ export class Scroller {
 	private isContainerWindow: boolean;
 	private disposeScroll: Subscription;
 	public lastScrollPosition: number = 0;
+	private axis: AxisResolver;
 
 	constructor(
 		private windowElement: Window | ElementRef | any,
@@ -25,7 +27,9 @@ export class Scroller {
 		infiniteScrollUpDistance: number,
 		infiniteScrollParent: Window | ElementRef | any,
 		private infiniteScrollThrottle: number,
-		private isImmediate: boolean
+		private isImmediate: boolean,
+		private horizontal: boolean = false,
+		private alwaysCallback: boolean = false
 	) {
 		this.isContainerWindow = toString.call(this.windowElement).includes('Window');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -37,6 +41,7 @@ export class Scroller {
 		this.handleInfiniteScrollDisabled(false);
 		this.defineContainer();
 		this.createInterval();
+		this.axis = new AxisResolver(!this.horizontal);
 	}
 
 	defineContainer () {
@@ -56,30 +61,39 @@ export class Scroller {
 	}
 
 	height (elem: any) {
+		let offsetHeight = this.axis.offsetHeightKey();
+		let clientHeight = this.axis.clientHeightKey();
+
 		// elem = elem.nativeElement;
-		if (isNaN(elem.offsetHeight)) {
-			return this.documentElement.clientHeight;
+		if (isNaN(elem[offsetHeight])) {
+			return this.documentElement[clientHeight];
 		} else {
-			return elem.offsetHeight;
+			return elem[offsetHeight];
 		}
 	}
 
 	offsetTop (elem: any) {
+		let top = this.axis.topKey();
+
 		// elem = elem.nativeElement;
 		if (!elem.getBoundingClientRect) { // || elem.css('none')) {
 			return;
 		}
-		return elem.getBoundingClientRect().top + this.pageYOffset(elem);
+		return elem.getBoundingClientRect()[top] + this.pageYOffset(elem);
 	}
 
 	pageYOffset (elem: any) {
+		let pageYOffset = this.axis.pageYOffsetKey();
+		let scrollTop   = this.axis.scrollTopKey();
+		let offsetTop   = this.axis.offsetTopKey();
+
 		// elem = elem.nativeElement;
-		if (isNaN(window.pageYOffset)) {
-			return this.documentElement.scrollTop;
+		if (isNaN(window[pageYOffset])) {
+			return this.documentElement[scrollTop];
 		} else if (elem.ownerDocument) {
-			return elem.ownerDocument.defaultView.pageYOffset;
+			return elem.ownerDocument.defaultView[pageYOffset];
 		} else {
-			elem.offsetTop;
+			return elem[offsetTop];
 		}
 	}
 
@@ -98,7 +112,7 @@ export class Scroller {
 			containerBreakpoint = container.height * this.scrollUpDistance + 1;
 		}
 		const shouldScroll: boolean = remaining <= containerBreakpoint;
-		const triggerCallback: boolean = shouldScroll && this.scrollEnabled;
+		const triggerCallback: boolean = (this.alwaysCallback || shouldScroll) && this.scrollEnabled;
 		const shouldClearInterval = shouldScroll && this.checkInterval;
 		// if (this.useDocumentBottom) {
 		// 	container.totalToScroll = this.height(this.$elementRef.nativeElement.ownerDocument);
@@ -107,9 +121,9 @@ export class Scroller {
 
 		if (triggerCallback) {
 			if (scrollingDown) {
-				this.infiniteScrollDownCallback();
+				this.infiniteScrollDownCallback({currentScrollPosition: container.scrolledUntilNow});
 			} else {
-				this.infiniteScrollUpCallback();
+				this.infiniteScrollUpCallback({currentScrollPosition: container.scrolledUntilNow});
 			}
 		}
 		if (shouldClearInterval) {
@@ -134,15 +148,18 @@ export class Scroller {
 	}
 
 	calculatePointsForElement () {
+		let scrollTop    = this.axis.scrollTopKey();
+		let scrollHeight = this.axis.scrollHeightKey();
+
 		const height = this.height(this.container);
 		// perhaps use this.container.offsetTop instead of 'scrollTop'
-		const scrolledUntilNow = this.container.scrollTop;
+		const scrolledUntilNow = this.container[scrollTop];
 		let containerTopOffset = 0;
 		const offsetTop = this.offsetTop(this.container);
 		if (offsetTop !== void 0) {
 			containerTopOffset = offsetTop;
 		}
-		const totalToScroll = this.container.scrollHeight;
+		const totalToScroll = this.container[scrollHeight];
 		// const totalToScroll = this.offsetTop(this.$elementRef.nativeElement) - containerTopOffset + this.height(this.$elementRef.nativeElement);
 		return { height, scrolledUntilNow, totalToScroll };
 	}

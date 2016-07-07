@@ -12,6 +12,8 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   @Input('infiniteScrollThrottle') _throttle: number = 3;
   @Input('scrollWindow') scrollWindow: boolean = true;
   @Input('immediateCheck') _immediate: boolean = false;
+  @Input('horizontal') _horizontal: boolean = false;
+  @Input('alwaysCallback') _alwaysCallback: boolean = false;
 
   @Output() scrolled = new EventEmitter();
   @Output() scrolledUp = new EventEmitter();
@@ -22,19 +24,20 @@ export class InfiniteScroll implements OnDestroy, OnInit {
     const containerElement = this.scrollWindow ? window : this.element;
     this.scroller = new Scroller(containerElement, setInterval, this.element,
         this.onScrollDown.bind(this), this.onScrollUp.bind(this),
-        this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate);
+        this._distanceDown, this._distanceUp, {}, this._throttle,
+        this._immediate, this._horizontal, this._alwaysCallback);
   }
 
   ngOnDestroy () {
     this.scroller.clean();
   }
 
-  onScrollDown() {
-    this.scrolled.next({});
+  onScrollDown(data = {}) {
+    this.scrolled.next(data);
   }
 
-  onScrollUp() {
-    this.scrolledUp.next({});
+  onScrollUp(data = {}) {
+    this.scrolledUp.next(data);
   }
 
   @HostListener('scroll', ['$event'])
