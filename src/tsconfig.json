@@ -15,6 +15,10 @@
     "node_modules",
     ".tmp"
     ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
     "files": [
     "../typings/index.d.ts",
     "./infinite-scroll.ts",

@@ -74,46 +74,6 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   return module.exports;
 });
 
-System.registerDynamic("src/axis-resolver", [], true, function($__require, exports, module) {
-  "use strict";
-  ;
-  var define,
-      global = this,
-      GLOBAL = this;
-  var AxisResolver = (function() {
-    function AxisResolver(vertical) {
-      if (vertical === void 0) {
-        vertical = true;
-      }
-      this.vertical = vertical;
-    }
-    AxisResolver.prototype.clientHeightKey = function() {
-      return this.vertical ? 'clientHeight' : 'clientWidth';
-    };
-    AxisResolver.prototype.offsetHeightKey = function() {
-      return this.vertical ? 'offsetHeight' : 'offsetWidth';
-    };
-    AxisResolver.prototype.scrollHeightKey = function() {
-      return this.vertical ? 'scrollHeight' : 'scrollWidth';
-    };
-    AxisResolver.prototype.pageYOffsetKey = function() {
-      return this.vertical ? 'pageYOffset' : 'pageXOffset';
-    };
-    AxisResolver.prototype.offsetTopKey = function() {
-      return this.vertical ? 'offsetTop' : 'offsetLeft';
-    };
-    AxisResolver.prototype.scrollTopKey = function() {
-      return this.vertical ? 'scrollTop' : 'scrollLeft';
-    };
-    AxisResolver.prototype.topKey = function() {
-      return this.vertical ? 'top' : 'left';
-    };
-    return AxisResolver;
-  }());
-  exports.AxisResolver = AxisResolver;
-  return module.exports;
-});
-
 System.registerDynamic("src/scroller", ["rxjs/Rx", "./axis-resolver"], true, function($__require, exports, module) {
   "use strict";
   ;
@@ -280,7 +240,47 @@ System.registerDynamic("src/scroller", ["rxjs/Rx", "./axis-resolver"], true, fun
   return module.exports;
 });
 
-System.registerDynamic("angular2-infinite-scroll", ["./src/infinite-scroll", "./src/scroller"], true, function($__require, exports, module) {
+System.registerDynamic("src/axis-resolver", [], true, function($__require, exports, module) {
+  "use strict";
+  ;
+  var define,
+      global = this,
+      GLOBAL = this;
+  var AxisResolver = (function() {
+    function AxisResolver(vertical) {
+      if (vertical === void 0) {
+        vertical = true;
+      }
+      this.vertical = vertical;
+    }
+    AxisResolver.prototype.clientHeightKey = function() {
+      return this.vertical ? 'clientHeight' : 'clientWidth';
+    };
+    AxisResolver.prototype.offsetHeightKey = function() {
+      return this.vertical ? 'offsetHeight' : 'offsetWidth';
+    };
+    AxisResolver.prototype.scrollHeightKey = function() {
+      return this.vertical ? 'scrollHeight' : 'scrollWidth';
+    };
+    AxisResolver.prototype.pageYOffsetKey = function() {
+      return this.vertical ? 'pageYOffset' : 'pageXOffset';
+    };
+    AxisResolver.prototype.offsetTopKey = function() {
+      return this.vertical ? 'offsetTop' : 'offsetLeft';
+    };
+    AxisResolver.prototype.scrollTopKey = function() {
+      return this.vertical ? 'scrollTop' : 'scrollLeft';
+    };
+    AxisResolver.prototype.topKey = function() {
+      return this.vertical ? 'top' : 'left';
+    };
+    return AxisResolver;
+  }());
+  exports.AxisResolver = AxisResolver;
+  return module.exports;
+});
+
+System.registerDynamic("angular2-infinite-scroll", ["./src/infinite-scroll", "./src/scroller", "./src/axis-resolver"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
@@ -293,9 +293,11 @@ System.registerDynamic("angular2-infinite-scroll", ["./src/infinite-scroll", "./
   }
   var infinite_scroll_1 = $__require('./src/infinite-scroll');
   var scroller_1 = $__require('./src/scroller');
+  var axis_resolver_1 = $__require('./src/axis-resolver');
   __export($__require('./src/infinite-scroll'));
   __export($__require('./src/scroller'));
+  __export($__require('./src/axis-resolver'));
   Object.defineProperty(exports, "__esModule", {value: true});
-  exports.default = {directives: [infinite_scroll_1.InfiniteScroll, scroller_1.Scroller]};
+  exports.default = {directives: [infinite_scroll_1.InfiniteScroll, scroller_1.Scroller, axis_resolver_1.AxisResolver]};
   return module.exports;
 });

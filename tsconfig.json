@@ -14,10 +14,15 @@
 	"exclude": [
 		"node_modules"
 	],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
 	"files": [
     "./typings/index.d.ts",
 		"./angular2-infinite-scroll.ts",
 		"./src/infinite-scroll.ts",
-		"./src/scroller.ts"
+		"./src/scroller.ts",
+    "./src/axis-resolver.ts"
 	]
 }
