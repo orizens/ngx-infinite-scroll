@@ -1,6 +1,10 @@
 import { ElementRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { AxisResolver } from './axis-resolver';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/debounce';
 
 export class Scroller {
 	public scrollDownDistance: number;
