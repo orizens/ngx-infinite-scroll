@@ -9,13 +9,14 @@
     "start": "npm run build && npm run lite",
     "lite": "lite-server",
     "prepublish": "tsc & node make.js",
-    "postinstall": "typings install",
+    "postinstall": "npm run typings -- install",
     "clean": "rimraf src/*.js && rimraf src/*.d.ts && rimraf ./*scroll.js && rimraf ./*scroll.d.ts",
     "build:test": "tsc --project ./src",
     "watch": "tsc --project ./src --watch",
     "pretest": "npm run clean && npm run build:test",
     "test": "karma start karma.conf.js",
-    "dev": "npm run watch & npm test"
+    "dev": "npm run watch & npm test",
+    "typings": "typings"
   },
   "keywords": [
     "angular2",
