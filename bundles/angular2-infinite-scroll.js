@@ -74,14 +74,17 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   return module.exports;
 });
 
-System.registerDynamic("src/scroller", ["rxjs/Rx", "./axis-resolver"], true, function($__require, exports, module) {
+System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "rxjs/add/observable/fromEvent", "rxjs/add/observable/timer", "rxjs/add/operator/debounce"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
       global = this,
       GLOBAL = this;
-  var Rx_1 = $__require('rxjs/Rx');
+  var Observable_1 = $__require('rxjs/Observable');
   var axis_resolver_1 = $__require('./axis-resolver');
+  $__require('rxjs/add/observable/fromEvent');
+  $__require('rxjs/add/observable/timer');
+  $__require('rxjs/add/operator/debounce');
   var Scroller = (function() {
     function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback) {
       if (horizontal === void 0) {
@@ -219,8 +222,8 @@ System.registerDynamic("src/scroller", ["rxjs/Rx", "./axis-resolver"], true, fun
       this.container = newContainer;
       if (newContainer) {
         var throttle_1 = this.infiniteScrollThrottle;
-        this.disposeScroll = Rx_1.Observable.fromEvent(this.container, 'scroll').debounce(function(ev) {
-          return Rx_1.Observable.timer(throttle_1);
+        this.disposeScroll = Observable_1.Observable.fromEvent(this.container, 'scroll').debounce(function(ev) {
+          return Observable_1.Observable.timer(throttle_1);
         }).subscribe(function(ev) {
           return _this.handler();
         });
