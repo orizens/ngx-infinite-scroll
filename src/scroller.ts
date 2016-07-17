@@ -5,6 +5,7 @@ import { AxisResolver } from './axis-resolver';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/throttle';
+import 'rxjs/add/operator/filter';
 
 export class Scroller {
 	public scrollDownDistance: number;
@@ -33,7 +34,8 @@ export class Scroller {
 		private infiniteScrollThrottle: number,
 		private isImmediate: boolean,
 		private horizontal: boolean = false,
-		private alwaysCallback: boolean = false
+		private alwaysCallback: boolean = false,
+		private scrollDisabled: boolean = false
 	) {
 		this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -42,7 +44,7 @@ export class Scroller {
 		// if (attrs.infiniteScrollParent != null) {
 		// 	attachEvent(angular.element(elem.parent()));
 		// }
-		this.handleInfiniteScrollDisabled(false);
+		this.handleInfiniteScrollDisabled(scrollDisabled);
 		this.defineContainer();
 		this.createInterval();
 		this.axis = new AxisResolver(!this.horizontal);
@@ -180,6 +182,7 @@ export class Scroller {
 			const throttle: number = this.infiniteScrollThrottle;
 			this.disposeScroll = Observable.fromEvent(this.container, 'scroll')
 				.throttle(ev => Observable.timer(throttle))
+				.filter(ev => this.scrollEnabled)
 				.subscribe(ev => this.handler())
 		}
 	}
@@ -190,11 +193,7 @@ export class Scroller {
 		}
 	}
 
-	handleInfiniteScrollDisabled (enableScroll: boolean) {
-		this.scrollEnabled = !enableScroll;
-		// if (this.scrollEnabled && checkWhenEnabled) {
-		// 	checkWhenEnabled = false;
-		// 	return handler();
-		// }
+	handleInfiniteScrollDisabled (scrollDisabled: boolean) {
+		this.scrollEnabled = !scrollDisabled;
 	}
 }
