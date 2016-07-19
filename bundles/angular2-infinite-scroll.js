@@ -54,9 +54,6 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
       }
       this.scrolledUp.next(data);
     };
-    InfiniteScroll.prototype.handleScroll = function(event) {
-      this.scroller.handler();
-    };
     __decorate([core_1.Input('infiniteScrollDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceDown", void 0);
     __decorate([core_1.Input('infiniteScrollUpDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceUp", void 0);
     __decorate([core_1.Input('infiniteScrollThrottle'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_throttle", void 0);
@@ -66,7 +63,6 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     __decorate([core_1.Input('alwaysCallback'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_alwaysCallback", void 0);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolledUp", void 0);
-    __decorate([core_1.HostListener('scroll', ['$event']), __metadata('design:type', Function), __metadata('design:paramtypes', [Object]), __metadata('design:returntype', void 0)], InfiniteScroll.prototype, "handleScroll", null);
     InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
     return InfiniteScroll;
   }());
@@ -113,10 +109,11 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
     }
     Scroller.prototype.defineContainer = function() {
       if (this.isContainerWindow) {
-        this.attachEvent(this.windowElement);
+        this.container = this.windowElement;
       } else {
         this.container = this.windowElement.nativeElement;
       }
+      this.attachEvent(this.container);
     };
     Scroller.prototype.createInterval = function() {
       var _this = this;
@@ -219,7 +216,6 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
     Scroller.prototype.attachEvent = function(newContainer) {
       var _this = this;
       this.clean();
-      this.container = newContainer;
       if (newContainer) {
         var throttle_1 = this.infiniteScrollThrottle;
         this.disposeScroll = Observable_1.Observable.fromEvent(this.container, 'scroll').debounce(function(ev) {
