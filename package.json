@@ -9,7 +9,7 @@
     "start": "npm run build && npm run lite",
     "lite": "lite-server",
     "prepublish": "tsc & node make.js",
-    "postinstall": "npm run typings -- install",
+    "setup": "npm run typings -- install",
     "clean": "rimraf src/*.js && rimraf src/*.d.ts && rimraf ./*scroll.js && rimraf ./*scroll.d.ts",
     "build:test": "tsc --project ./src",
     "watch": "tsc --project ./src --watch",
