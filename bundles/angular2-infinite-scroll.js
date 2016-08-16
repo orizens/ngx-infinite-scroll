@@ -2,8 +2,8 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   "use strict";
   ;
   var define,
-      global = this,
-      GLOBAL = this;
+      global = this || self,
+      GLOBAL = global;
   var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
@@ -74,8 +74,8 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
   "use strict";
   ;
   var define,
-      global = this,
-      GLOBAL = this;
+      global = this || self,
+      GLOBAL = global;
   var Observable_1 = $__require('rxjs/Observable');
   var axis_resolver_1 = $__require('./axis-resolver');
   $__require('rxjs/add/observable/fromEvent');
@@ -243,8 +243,8 @@ System.registerDynamic("src/axis-resolver", [], true, function($__require, expor
   "use strict";
   ;
   var define,
-      global = this,
-      GLOBAL = this;
+      global = this || self,
+      GLOBAL = global;
   var AxisResolver = (function() {
     function AxisResolver(vertical) {
       if (vertical === void 0) {
@@ -283,8 +283,8 @@ System.registerDynamic("angular2-infinite-scroll", ["./src/infinite-scroll", "./
   "use strict";
   ;
   var define,
-      global = this,
-      GLOBAL = this;
+      global = this || self,
+      GLOBAL = global;
   function __export(m) {
     for (var p in m)
       if (!exports.hasOwnProperty(p))
