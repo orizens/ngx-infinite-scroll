@@ -7,7 +7,7 @@
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
     "preversion": "npm run clean && npm run prepublish && npm test",
-    "version": "git add . && git commit -m \"updated bundle with version\"",
+    "version": "git add ./",
     "postversion": "git push origin master",
     "start": "npm run build && npm run lite",
     "lite": "lite-server",
