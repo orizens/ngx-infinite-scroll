@@ -6,9 +6,6 @@
   "typings": "./angular2-infinite-scroll.d.ts",
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
-    "preversion": "npm run clean && npm run prepublish && npm test",
-    "version": "git add ./",
-    "postversion": "git push origin master",
     "start": "npm run build && npm run lite",
     "lite": "lite-server",
     "prepublish": "tsc && node make.js",
