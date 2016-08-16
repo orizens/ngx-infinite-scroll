@@ -1,14 +1,4 @@
-import {
-  iit,
-  it,
-  ddescribe,
-  describe,
-  expect,
-  async,
-  inject,
-  beforeEachProviders
-} from '@angular/core/testing';
-import { InfiniteScroll } from './infinite-scroll'; 
+import { InfiniteScroll } from './infinite-scroll';
 import { ElementRef } from '@angular/core'; 
 
 describe('Infinite Scroll Directive', () => {
