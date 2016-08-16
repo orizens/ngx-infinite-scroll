@@ -1,8 +1,11 @@
-import { it, describe, expect, async, inject } from '@angular/core/testing';
+import {
+  async,
+  inject
+} from '@angular/core/testing';
 
-import { InfiniteScroll }                      from './infinite-scroll'; 
-import { AxisResolver }                        from './axis-resolver';
-import { ElementRef }                          from '@angular/core'; 
+import { InfiniteScroll } from './infinite-scroll';
+import { AxisResolver } from './axis-resolver';
+import { ElementRef } from '@angular/core';
 
 describe('AxisResolver Class', () => {
   const makeMockElement =

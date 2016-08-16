@@ -1,22 +1,16 @@
 import {
-  iit,
-  it,
-  ddescribe,
-  describe,
-  expect,
   async,
-  inject,
-  beforeEachProviders
+  inject
 } from '@angular/core/testing';
-import { InfiniteScroll } from './infinite-scroll'; 
-import { ElementRef } from '@angular/core'; 
+import { InfiniteScroll } from './infinite-scroll';
+import { ElementRef } from '@angular/core';
 
 describe('Infinite Scroll Directive', () => {
   const createMockElement = () => {
     const mockedElement: ElementRef = new ElementRef(document.createElement('div'));
     return mockedElement;
   };
-  
+
   it('should create an instance of the directive', () => {
     const mockedElement = createMockElement();
     const actual = new InfiniteScroll(mockedElement);
