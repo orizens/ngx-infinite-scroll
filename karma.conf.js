@@ -1,8 +1,8 @@
 const isDebug = process.env.DEBUG || false;
-const isTravis = process.env.TRAVIS || false;
+// const isTravis = process.env.TRAVIS || false;
 const browsers = isDebug ? ['Chrome'] : ['PhantomJS'];
-const hasSingleRunAsSwitch = process.argv.filter(s => s.includes('single-run'));
-const singleRun = isTravis || hasSingleRunAsSwitch[0] ? true : false;
+const isBddMode = process.argv.filter(s => s.includes('bdd'));
+const singleRun = isBddMode.length ? false : true;
 
 module.exports = function(config) {
   config.set({
@@ -56,10 +56,10 @@ module.exports = function(config) {
       // "/tests/": "/base/tests/built/"
     // },
     plugins : [
-        'karma-jasmine',
-        'karma-mocha-reporter',
-        'karma-chrome-launcher',
-        'karma-phantomjs-launcher'
+      'karma-jasmine',
+      'karma-mocha-reporter',
+      'karma-chrome-launcher',
+      'karma-phantomjs-launcher'
     ],
     reporters: ['mocha'],
     port: 9876,
@@ -68,5 +68,5 @@ module.exports = function(config) {
     autoWatch: true,
     browsers: browsers,
     singleRun: singleRun
-  })
-}
+  });
+};
