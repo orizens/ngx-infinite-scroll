@@ -50,10 +50,11 @@ export class Scroller {
 
 	defineContainer () {
 		if (this.isContainerWindow) {
-			this.attachEvent(this.windowElement);
+			this.container = this.windowElement;
 		} else {
 			this.container = this.windowElement.nativeElement;
 		}
+		this.attachEvent(this.container);
 	}
 
 	createInterval () {
@@ -175,7 +176,6 @@ export class Scroller {
 
 	attachEvent (newContainer: Window | ElementRef | any) {
 		this.clean();
-		this.container = newContainer;
 		if (newContainer) {
 			const throttle: number = this.infiniteScrollThrottle;
 			this.disposeScroll = Observable.fromEvent(this.container, 'scroll')

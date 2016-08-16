@@ -39,9 +39,4 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   onScrollUp(data = {}) {
     this.scrolledUp.next(data);
   }
-
-  @HostListener('scroll', ['$event'])
-  handleScroll(event: any) {
-    this.scroller.handler();
-  }
 }
