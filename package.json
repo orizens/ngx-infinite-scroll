@@ -1,11 +1,14 @@
 {
   "name": "angular2-infinite-scroll",
-  "version": "0.1.94",
+  "version": "0.1.93",
   "description": "An infinite scroll directive for angular2",
   "main": "angular2-infinite-scroll.js",
   "typings": "./angular2-infinite-scroll.d.ts",
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
+    "preversion": "npm run clean && npm run prepublish && npm test",
+    "version": "git add ./",
+    "postversion": "git push origin master",
     "start": "npm run build && npm run lite",
     "lite": "lite-server",
     "prepublish": "tsc && node make.js",
