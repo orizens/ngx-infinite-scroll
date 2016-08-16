@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AxisResolver } from './axis-resolver';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/debounce';
+import 'rxjs/add/operator/throttle';
 
 export class Scroller {
 	public scrollDownDistance: number;
@@ -179,7 +179,7 @@ export class Scroller {
 		if (newContainer) {
 			const throttle: number = this.infiniteScrollThrottle;
 			this.disposeScroll = Observable.fromEvent(this.container, 'scroll')
-				.debounce(ev => Observable.timer(throttle))
+				.throttle(ev => Observable.timer(throttle))
 				.subscribe(ev => this.handler())
 		}
 	}
