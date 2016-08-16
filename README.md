@@ -9,7 +9,7 @@ npm install angular2-infinite-scroll --save
 ```
 
 ## Supported API
-The directive triggers 
+The directive triggers
 Currently supported attributes:
 * (number) "infiniteScrollDistance" (optional, default: **2**) - should get a number, the number of viewport lenghts from the bottom of the page at which the event will be triggered.
 * (number) "infiniteScrollUpDistance" (optional, default: **1.5**) - should get a number
@@ -26,7 +26,7 @@ By default, the directive listens to a window scroll event and invoked the callb
 * set an explict css "height" value to the element
 
 ## Usage
-[See a live example at this plunkr](https://plnkr.co/edit/DzKAiAxtAleIrT0tsqtj?p=preview)
+[See a live example at this plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
 In this example, the **onScroll** callback will be invoked when the window is scrolled down:
 
 ```typescript
@@ -114,15 +114,15 @@ export class App {
 }
 ```
 
-## Testing 
-To start developing tdd/bdd style: ```npm run dev``` 
-This will: compile ts files, watch for changes and start the test task. Whenever a ts file is changed, it will rerun the tests. 
+## Testing
+To start developing tdd/bdd style: ```npm run dev```
+This will: compile ts files, watch for changes and start the test task. Whenever a ts file is changed, it will rerun the tests.
 
 Travis-ci is integrated
 
 ### Credits For Tests Setup
-[ng2-test-seed](https://github.com/juliemr/ng2-test-seed) has been a huge help and source of inspiration. At first, copy & paste, then, customisation to adapt to this code repository. 
-Thanks [@juliemr](https://github.com/juliemr)! 
+[ng2-test-seed](https://github.com/juliemr/ng2-test-seed) has been a huge help and source of inspiration. At first, copy & paste, then, customisation to adapt to this code repository.
+Thanks [@juliemr](https://github.com/juliemr)!
 
-# Showcase Examples 
+# Showcase Examples
 * [Echoes Player Ng2 Version](http://orizens.github.io/echoes-ng2) ([github repo for echoes player](http://github.com/orizens/echoes-ng2))
