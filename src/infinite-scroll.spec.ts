@@ -24,15 +24,18 @@ describe('Infinite Scroll Directive', () => {
 
   it('should have default @Input properties values', () => {
     const directive = createInfiniteScroll();
-    const expectedInputs = [
-      '_distanceDown',
-      '_distanceUp',
-      '_throttle',
-      'scrollWindow',
-      '_immediate'
-    ];
-    expectedInputs.forEach(actualInput =>
-      expect(directive[actualInput]).toBeDefined());
+    const expectedInputs = {
+      _distanceDown: 2,
+      _distanceUp: 1.5,
+      _throttle: 300,
+      scrollWindow: true,
+      _immediate: false,
+      _horizontal: false,
+      _alwaysCallback: false
+    };
+
+    Object.keys(expectedInputs).forEach(input =>
+      expect(directive[input]).toEqual(expectedInputs[input]));
   });
 
   it('should trigger the onScrollDown event when scroll has passed _distandDown', () => {

@@ -9,7 +9,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
 
   @Input('infiniteScrollDistance') _distanceDown: number = 2;
   @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
-  @Input('infiniteScrollThrottle') _throttle: number = 3;
+  @Input('infiniteScrollThrottle') _throttle: number = 300;
   @Input('scrollWindow') scrollWindow: boolean = true;
   @Input('immediateCheck') _immediate: boolean = false;
   @Input('horizontal') _horizontal: boolean = false;
