@@ -36,7 +36,9 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   }
 
   ngOnDestroy () {
-    this.scroller.clean();
+    if (this.scroller) {
+      this.scroller.clean();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
