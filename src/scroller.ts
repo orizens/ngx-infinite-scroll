@@ -35,7 +35,7 @@ export class Scroller {
 		private horizontal: boolean = false,
 		private alwaysCallback: boolean = false
 	) {
-		this.isContainerWindow = toString.call(this.windowElement).includes('Window');
+		this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
 		this.handleInfiniteScrollDistance(infiniteScrollDownDistance, infiniteScrollUpDistance);
 
