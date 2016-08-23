@@ -118,7 +118,7 @@ export class Scroller {
 		}
 		const shouldScroll: boolean = remaining <= containerBreakpoint;
 		const triggerCallback: boolean = (this.alwaysCallback || shouldScroll) && this.scrollEnabled;
-		const shouldClearInterval = shouldScroll && this.checkInterval;
+		const shouldClearInterval = !shouldScroll && this.checkInterval;
 		// if (this.useDocumentBottom) {
 		// 	container.totalToScroll = this.height(this.$elementRef.nativeElement.ownerDocument);
 		// }
