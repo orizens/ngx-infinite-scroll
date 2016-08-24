@@ -23,8 +23,9 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   var core_1 = $__require('@angular/core');
   var scroller_1 = $__require('./scroller');
   var InfiniteScroll = (function() {
-    function InfiniteScroll(element) {
+    function InfiniteScroll(element, zone) {
       this.element = element;
+      this.zone = zone;
       this._distanceDown = 2;
       this._distanceUp = 1.5;
       this._throttle = 3;
@@ -43,16 +44,22 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
       this.scroller.clean();
     };
     InfiniteScroll.prototype.onScrollDown = function(data) {
+      var _this = this;
       if (data === void 0) {
         data = {};
       }
-      this.scrolled.next(data);
+      this.zone.run(function() {
+        return _this.scrolled.next(data);
+      });
     };
     InfiniteScroll.prototype.onScrollUp = function(data) {
+      var _this = this;
       if (data === void 0) {
         data = {};
       }
-      this.scrolledUp.next(data);
+      this.zone.run(function() {
+        return _this.scrolledUp.next(data);
+      });
     };
     __decorate([core_1.Input('infiniteScrollDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceDown", void 0);
     __decorate([core_1.Input('infiniteScrollUpDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceUp", void 0);
@@ -63,7 +70,7 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     __decorate([core_1.Input('alwaysCallback'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_alwaysCallback", void 0);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
     __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolledUp", void 0);
-    InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef])], InfiniteScroll);
+    InfiniteScroll = __decorate([core_1.Directive({selector: '[infinite-scroll]'}), __metadata('design:paramtypes', [core_1.ElementRef, core_1.NgZone])], InfiniteScroll);
     return InfiniteScroll;
   }());
   exports.InfiniteScroll = InfiniteScroll;
@@ -99,7 +106,7 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
       this.horizontal = horizontal;
       this.alwaysCallback = alwaysCallback;
       this.lastScrollPosition = 0;
-      this.isContainerWindow = toString.call(this.windowElement).includes('Window');
+      this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
       this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
       this.handleInfiniteScrollDistance(infiniteScrollDownDistance, infiniteScrollUpDistance);
       this.handleInfiniteScrollDisabled(false);
@@ -166,7 +173,7 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
       }
       var shouldScroll = remaining <= containerBreakpoint;
       var triggerCallback = (this.alwaysCallback || shouldScroll) && this.scrollEnabled;
-      var shouldClearInterval = shouldScroll && this.checkInterval;
+      var shouldClearInterval = !shouldScroll && this.checkInterval;
       this.checkWhenEnabled = shouldScroll;
       if (triggerCallback) {
         if (scrollingDown) {
