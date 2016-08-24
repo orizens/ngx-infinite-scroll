@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Output, HostListener, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, Output, HostListener, EventEmitter, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { Scroller } from './scroller';
 
 @Directive({
@@ -18,7 +18,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   @Output() scrolled = new EventEmitter();
   @Output() scrolledUp = new EventEmitter();
 
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef, private zone: NgZone) {}
 
   ngOnInit() {
     const containerElement = this.scrollWindow ? window : this.element;
@@ -33,10 +33,10 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   }
 
   onScrollDown(data = {}) {
-    this.scrolled.next(data);
+    this.zone.run(() => this.scrolled.next(data));
   }
 
   onScrollUp(data = {}) {
-    this.scrolledUp.next(data);
+    this.zone.run(() => this.scrolledUp.next(data));
   }
 }

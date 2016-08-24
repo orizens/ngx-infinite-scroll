@@ -3,23 +3,27 @@ import {
   inject
 } from '@angular/core/testing';
 import { InfiniteScroll } from './infinite-scroll';
-import { ElementRef } from '@angular/core';
+import { ElementRef, NgZone } from '@angular/core';
 
 describe('Infinite Scroll Directive', () => {
+  const zone = new NgZone({ enableLongStackTrace: false });
   const createMockElement = () => {
     const mockedElement: ElementRef = new ElementRef(document.createElement('div'));
     return mockedElement;
   };
 
-  it('should create an instance of the directive', () => {
+  const createInfiniteScroll = () => {
     const mockedElement = createMockElement();
-    const actual = new InfiniteScroll(mockedElement);
+    return new InfiniteScroll(mockedElement, zone);
+  };
+
+  it('should create an instance of the directive', () => {
+    const actual = createInfiniteScroll();
     expect(actual).toBeDefined();
   });
 
   it('should have default @Input properties values', () => {
-    const mockedElement = createMockElement();
-    const directive = new InfiniteScroll(mockedElement);
+    const directive = createInfiniteScroll();
     const expectedInputs = [
       '_distanceDown',
       '_distanceUp',
@@ -32,8 +36,7 @@ describe('Infinite Scroll Directive', () => {
   });
 
   it('should trigger the onScrollDown event when scroll has passed _distandDown', () => {
-    const mockedElement = createMockElement();
-    const directive = new InfiniteScroll(mockedElement);
+    const directive = createInfiniteScroll();
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
     spyOn(directive.scroller, 'calculatePoints').and.callFake(() => {
@@ -45,8 +48,7 @@ describe('Infinite Scroll Directive', () => {
   });
 
   it('should trigger the onScrollUp event when scroll has passed _distanceUp', () => {
-    const mockedElement = createMockElement();
-    const directive = new InfiniteScroll(mockedElement);
+    const directive = createInfiniteScroll();
     spyOn(directive, 'onScrollUp');
     directive.ngOnInit();
     spyOn(directive.scroller, 'calculatePoints').and.callFake(() => {
