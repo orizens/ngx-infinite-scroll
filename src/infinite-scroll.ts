@@ -34,7 +34,7 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
     this.scroller.clean();
   }
 
-  ngOnChanges(changes:SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {
     if(changes['_disabled'] && this.scroller){
       this.scroller.handleInfiniteScrollDisabled(changes['_disabled'].currentValue);
     }

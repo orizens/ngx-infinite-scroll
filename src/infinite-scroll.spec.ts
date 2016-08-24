@@ -3,7 +3,7 @@ import {
   inject
 } from '@angular/core/testing';
 import { InfiniteScroll } from './infinite-scroll';
-import { ElementRef, NgZone } from '@angular/core';
+import { ElementRef, NgZone, SimpleChanges, SimpleChange } from '@angular/core';
 
 describe('Infinite Scroll Directive', () => {
   const zone = new NgZone({ enableLongStackTrace: false });
@@ -63,4 +63,17 @@ describe('Infinite Scroll Directive', () => {
     expect(directive.scroller.calculatePoints).toHaveBeenCalled();
     expect(directive.onScrollUp).toHaveBeenCalled();
   });
+
+  it('should disable the scroller', () => {
+    const directive = createInfiniteScroll();
+    const changes: SimpleChanges = {
+      '_disabled': new SimpleChange(false, true)
+    };
+    // spyOn(directive, 'onScrollUp');
+    directive.ngOnInit();
+    directive.ngOnChanges(changes);
+    const expected = false;
+    const actual = directive.scroller.scrollEnabled;
+    expect(actual).toBe(expected);
+  })
 })
