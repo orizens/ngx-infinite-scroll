@@ -2,8 +2,8 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   "use strict";
   ;
   var define,
-      global = this || self,
-      GLOBAL = global;
+      global = this,
+      GLOBAL = this;
   var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
@@ -28,7 +28,8 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
       this.zone = zone;
       this._distanceDown = 2;
       this._distanceUp = 1.5;
-      this._throttle = 3;
+      this._throttle = 300;
+      this._disabled = false;
       this.scrollWindow = true;
       this._immediate = false;
       this._horizontal = false;
@@ -38,10 +39,15 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     }
     InfiniteScroll.prototype.ngOnInit = function() {
       var containerElement = this.scrollWindow ? window : this.element;
-      this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback);
+      this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback, this._disabled);
     };
     InfiniteScroll.prototype.ngOnDestroy = function() {
       this.scroller.clean();
+    };
+    InfiniteScroll.prototype.ngOnChanges = function(changes) {
+      if (changes['_disabled'] && this.scroller) {
+        this.scroller.handleInfiniteScrollDisabled(changes['_disabled'].currentValue);
+      }
     };
     InfiniteScroll.prototype.onScrollDown = function(data) {
       var _this = this;
@@ -64,6 +70,7 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
     __decorate([core_1.Input('infiniteScrollDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceDown", void 0);
     __decorate([core_1.Input('infiniteScrollUpDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceUp", void 0);
     __decorate([core_1.Input('infiniteScrollThrottle'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_throttle", void 0);
+    __decorate([core_1.Input('infiniteScrollDisabled'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_disabled", void 0);
     __decorate([core_1.Input('scrollWindow'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "scrollWindow", void 0);
     __decorate([core_1.Input('immediateCheck'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_immediate", void 0);
     __decorate([core_1.Input('horizontal'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_horizontal", void 0);
@@ -77,24 +84,28 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller"], t
   return module.exports;
 });
 
-System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "rxjs/add/observable/fromEvent", "rxjs/add/observable/timer", "rxjs/add/operator/throttle"], true, function($__require, exports, module) {
+System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "rxjs/add/observable/fromEvent", "rxjs/add/observable/timer", "rxjs/add/operator/throttle", "rxjs/add/operator/filter"], true, function($__require, exports, module) {
   "use strict";
   ;
   var define,
-      global = this || self,
-      GLOBAL = global;
+      global = this,
+      GLOBAL = this;
   var Observable_1 = $__require('rxjs/Observable');
   var axis_resolver_1 = $__require('./axis-resolver');
   $__require('rxjs/add/observable/fromEvent');
   $__require('rxjs/add/observable/timer');
   $__require('rxjs/add/operator/throttle');
+  $__require('rxjs/add/operator/filter');
   var Scroller = (function() {
-    function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback) {
+    function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback, scrollDisabled) {
       if (horizontal === void 0) {
         horizontal = false;
       }
       if (alwaysCallback === void 0) {
         alwaysCallback = false;
+      }
+      if (scrollDisabled === void 0) {
+        scrollDisabled = false;
       }
       this.windowElement = windowElement;
       this.$interval = $interval;
@@ -105,11 +116,12 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
       this.isImmediate = isImmediate;
       this.horizontal = horizontal;
       this.alwaysCallback = alwaysCallback;
+      this.scrollDisabled = scrollDisabled;
       this.lastScrollPosition = 0;
       this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
       this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
       this.handleInfiniteScrollDistance(infiniteScrollDownDistance, infiniteScrollUpDistance);
-      this.handleInfiniteScrollDisabled(false);
+      this.handleInfiniteScrollDisabled(scrollDisabled);
       this.defineContainer();
       this.createInterval();
       this.axis = new axis_resolver_1.AxisResolver(!this.horizontal);
@@ -227,6 +239,8 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
         var throttle_1 = this.infiniteScrollThrottle;
         this.disposeScroll = Observable_1.Observable.fromEvent(this.container, 'scroll').throttle(function(ev) {
           return Observable_1.Observable.timer(throttle_1);
+        }).filter(function(ev) {
+          return _this.scrollEnabled;
         }).subscribe(function(ev) {
           return _this.handler();
         });
@@ -237,8 +251,8 @@ System.registerDynamic("src/scroller", ["rxjs/Observable", "./axis-resolver", "r
         this.disposeScroll.unsubscribe();
       }
     };
-    Scroller.prototype.handleInfiniteScrollDisabled = function(enableScroll) {
-      this.scrollEnabled = !enableScroll;
+    Scroller.prototype.handleInfiniteScrollDisabled = function(scrollDisabled) {
+      this.scrollEnabled = !scrollDisabled;
     };
     return Scroller;
   }());
@@ -250,8 +264,8 @@ System.registerDynamic("src/axis-resolver", [], true, function($__require, expor
   "use strict";
   ;
   var define,
-      global = this || self,
-      GLOBAL = global;
+      global = this,
+      GLOBAL = this;
   var AxisResolver = (function() {
     function AxisResolver(vertical) {
       if (vertical === void 0) {
@@ -290,8 +304,8 @@ System.registerDynamic("angular2-infinite-scroll", ["./src/infinite-scroll", "./
   "use strict";
   ;
   var define,
-      global = this || self,
-      GLOBAL = global;
+      global = this,
+      GLOBAL = this;
   function __export(m) {
     for (var p in m)
       if (!exports.hasOwnProperty(p))
