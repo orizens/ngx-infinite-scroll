@@ -18,6 +18,7 @@ Currently supported attributes:
 * (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolledUp)="handleScrollUpCallback()"** - this will callback if the distance threshold has been reached on a scroll up.
 * (boolean) - "scrollWindow" (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
 * (boolean) - "immediateCheck" (optional, default: **false**) - invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled).
+* (boolean) - "infiniteScrollDisabled" (optional, default: **false**) - doesn't invoke the handler if set to true
 
 ## Behavior
 By default, the directive listens to a window scroll event and invoked the callback.

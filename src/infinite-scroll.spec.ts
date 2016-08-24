@@ -31,7 +31,8 @@ describe('Infinite Scroll Directive', () => {
       scrollWindow: true,
       _immediate: false,
       _horizontal: false,
-      _alwaysCallback: false
+      _alwaysCallback: false,
+      _disabled: false
     };
 
     Object.keys(expectedInputs).forEach(input =>
