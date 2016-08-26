@@ -9,23 +9,24 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "noEmitOnError": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "types": [
+      "core-js",
+      "jasmine",
+      "node"
+    ]
   },
   "exclude": [
     "node_modules",
     ".tmp"
     ],
-  "types": [
-    "core-js",
-    "jasmine",
-    "node"
-  ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true
   },
     "files": [
-    "../typings/index.d.ts",
+    // "../typings/index.d.ts",
     "./infinite-scroll.ts",
     "./infinite-scroll.spec.ts",
     "./scroller.ts",

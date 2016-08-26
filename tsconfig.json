@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+      "noEmitOnError": true,
 	    "noImplicitAny": true,
       "module": "commonjs",
       "target": "es5",
@@ -9,22 +10,22 @@
       "inlineSources": true,
       "declaration": true,
       "suppressImplicitAnyIndexErrors": true,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "types": [
+        "core-js",
+        "jasmine",
+        "node"
+      ]
 	},
 	"exclude": [
 		"node_modules"
 	],
-  "types": [
-    "core-js",
-    "jasmine",
-    "node"
-  ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true
   },
 	"files": [
-    "./typings/index.d.ts",
+    // "./typings/index.d.ts",
 		"./angular2-infinite-scroll.ts",
 		"./src/infinite-scroll.ts",
 		"./src/scroller.ts",
