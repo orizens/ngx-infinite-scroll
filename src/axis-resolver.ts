@@ -1,7 +1,14 @@
+import { Injectable } from "@angular/core";
+
+@Injectable()
 export class AxisResolver {
   private vertical: boolean; // else horizontal
 
-  constructor(vertical = true) {
+  constructor() {
+    this.setVertical(true);
+  }
+
+  setVertical(vertical: boolean = true) {
     this.vertical = vertical;
   }
 

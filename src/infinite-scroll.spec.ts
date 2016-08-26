@@ -3,6 +3,8 @@ import {
   inject
 } from '@angular/core/testing';
 import { InfiniteScroll } from './infinite-scroll';
+import { AxisResolver } from './axis-resolver'; 
+
 import { ElementRef, NgZone, SimpleChanges, SimpleChange } from '@angular/core';
 
 describe('Infinite Scroll Directive', () => {
@@ -14,8 +16,13 @@ describe('Infinite Scroll Directive', () => {
 
   const createInfiniteScroll = () => {
     const mockedElement = createMockElement();
-    return new InfiniteScroll(mockedElement, zone);
+    const axis: AxisResolver = new AxisResolver();
+    return new InfiniteScroll(mockedElement, zone, axis);
   };
+
+  beforeEach(() =>{
+    spyOn(AxisResolver, 'constructor').and.callFake(() => {});
+  });
 
   it('should create an instance of the directive', () => {
     const actual = createInfiniteScroll();

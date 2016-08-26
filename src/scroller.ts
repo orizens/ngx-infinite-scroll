@@ -20,7 +20,7 @@ export class Scroller {
 	private isContainerWindow: boolean;
 	private disposeScroll: Subscription;
 	public lastScrollPosition: number = 0;
-	private axis: AxisResolver;
+	// private axis: AxisResolver;
 
 	constructor(
 		private windowElement: Window | ElementRef | any,
@@ -35,7 +35,8 @@ export class Scroller {
 		private isImmediate: boolean,
 		private horizontal: boolean = false,
 		private alwaysCallback: boolean = false,
-		private scrollDisabled: boolean = false
+		private scrollDisabled: boolean = false,
+		private axis: AxisResolver
 	) {
 		this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
 		this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -47,7 +48,7 @@ export class Scroller {
 		this.handleInfiniteScrollDisabled(scrollDisabled);
 		this.defineContainer();
 		this.createInterval();
-		this.axis = new AxisResolver(!this.horizontal);
+		this.axis.setVertical(!this.horizontal);
 	}
 
 	defineContainer () {

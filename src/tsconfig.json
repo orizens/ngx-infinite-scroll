@@ -25,6 +25,7 @@
     "./infinite-scroll.spec.ts",
     "./scroller.ts",
     "./axis-resolver.ts",
-    "./axis-resolver.spec.ts"
+    "./axis-resolver.spec.ts",
+    "./index.ts"
     ]
 }
