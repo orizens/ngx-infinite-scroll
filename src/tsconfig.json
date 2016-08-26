@@ -15,6 +15,11 @@
     "node_modules",
     ".tmp"
     ],
+  "types": [
+    "core-js",
+    "jasmine",
+    "node"
+  ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true

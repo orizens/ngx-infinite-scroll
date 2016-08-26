@@ -3,17 +3,19 @@
 # Angular 2 Infinite Scroll
 A port & modification of [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular 2.
 
+## Angular 2 Support 
+Updated to support Angular 2 - **RC.5**
+
 ## Installation
 ```
 npm install angular2-infinite-scroll --save
 ```
 
 ## Supported API
-The directive triggers
 Currently supported attributes:
 * (number) "infiniteScrollDistance" (optional, default: **2**) - should get a number, the number of viewport lenghts from the bottom of the page at which the event will be triggered.
 * (number) "infiniteScrollUpDistance" (optional, default: **1.5**) - should get a number
-* (number) "infiniteScrollThrottle" (optional, default: **300**) - should get a number of milliseconds for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
+* (number) "infiniteScrollThrottle" (optional, default: **300**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
 * (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolled)="handleScrollDownCallback()"** - this will callback if the distance threshold has been reached on a scroll down.
 * (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolledUp)="handleScrollUpCallback()"** - this will callback if the distance threshold has been reached on a scroll up.
 * (boolean) - "scrollWindow" (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
@@ -23,20 +25,39 @@ Currently supported attributes:
 ## Behavior
 By default, the directive listens to a window scroll event and invoked the callback.
 **To trigger the callback when the actual element is scrolled**, these settings should be configured:
-* [scrollWindow]="false"
-* set an explict css "height" value to the element
+* [scrollWindow]="false" 
+* set an explict css "height" value to the element 
+
+## DEMO 
+[See a live example at this plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
 
 ## Usage
-[See a live example at this plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
+First, import the InfiniteScrollModule to your module: 
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppComponent } from './app';
+
+@NgModule({
+  imports:[ BrowserModule, InfiniteScrollModule ],
+  declarations: [ AppComponent, ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+```
+
 In this example, the **onScroll** callback will be invoked when the window is scrolled down:
 
 ```typescript
 import { Component } from '@angular/core';
-import { InfiniteScroll } from 'angular2-infinite-scroll';
 
 @Component({
 	selector: 'app',
-	directives: [ InfiniteScroll ],
 	template: `
 		<div class="search-results"
 		    infinite-scroll
@@ -46,7 +67,7 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 		</div>
 	`
 })
-export class App {
+export class AppComponent {
 	onScroll () {
 	    console.log('scrolled!!')
 	}
@@ -56,11 +77,9 @@ in this example, whenever the "search-results" is scrolled, the callback will be
 
 ```typescript
 import { Component } from '@angular/core';
-import { InfiniteScroll } from 'angular2-infinite-scroll';
 
 @Component({
 	selector: 'app',
-	directives: [ InfiniteScroll ],
 	styles: [
 		`.search-results {
 			height: 20rem;
@@ -77,7 +96,7 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 		</div>
 	`
 })
-export class App {
+export class AppComponent {
 	onScroll () {
 	    console.log('scrolled!!')
 	}
@@ -104,7 +123,7 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 		</div>
 	`
 })
-export class App {
+export class AppComponent {
 	onScrollDown () {
 	    console.log('scrolled down!!')
 	}
