@@ -11,8 +11,8 @@
       "declaration": true,
       "suppressImplicitAnyIndexErrors": true,
       "moduleResolution": "node",
+      "lib": ["dom", "es6"],
       "types": [
-        "core-js",
         "jasmine",
         "node"
       ]
