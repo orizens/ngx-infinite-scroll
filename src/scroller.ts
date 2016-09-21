@@ -5,6 +5,7 @@ import { AxisResolver } from './axis-resolver';
 import { PositionResolver, PositionResolverFactory } from './position-resolver';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/throttle';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/delay';
@@ -43,7 +44,8 @@ export class Scroller {
     private horizontal: boolean = false,
     private alwaysCallback: boolean = false,
     private scrollDisabled: boolean = false,
-    private _positionResolver: PositionResolverFactory
+    private _positionResolver: PositionResolverFactory,
+    private throttleType: string = 'throttle'
   ) {
     this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
     this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -60,6 +62,7 @@ export class Scroller {
       isContainerWindow: this.isContainerWindow,
       horizontal: horizontal
     });
+
     this.createInterval();
   }
 
@@ -103,8 +106,8 @@ export class Scroller {
     this.checkWhenEnabled = shouldScroll;
 
     if (triggerCallback) {
-      const infiniteScrollEvent: InfiniteScrollEvent = { 
-        currentScrollPosition: container.scrolledUntilNow 
+      const infiniteScrollEvent: InfiniteScrollEvent = {
+        currentScrollPosition: container.scrolledUntilNow
       };
       if (scrollingDown) {
         this.infiniteScrollDownCallback(infiniteScrollEvent);
@@ -127,9 +130,9 @@ export class Scroller {
     if (newContainer) {
       const throttle: number = this.infiniteScrollThrottle;
       this.disposeScroll = Observable.fromEvent(this.container, 'scroll')
-        .throttle(ev => Observable.timer(throttle))
-        .filter(ev => this.scrollEnabled)
-        .subscribe(ev => this.handler());
+        [this.throttleType](() => Observable.timer(throttle))
+        .filter(() => this.scrollEnabled)
+        .subscribe(() => this.handler());
     }
   }
 
