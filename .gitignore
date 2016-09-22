@@ -10,6 +10,7 @@ npm-debug.log
 coverage
 ./*.js
 src/*.js
+angular2-infinite-scroll.js
 !karma.conf.js
 !karma-test-shim.js
 *.map
