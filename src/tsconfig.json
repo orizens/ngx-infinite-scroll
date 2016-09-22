@@ -12,9 +12,9 @@
     "noEmitOnError": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": [
-      "../node_modules/@types/core-js",
-      "../node_modules/@types/jasmine",
-      "../node_modules/@types/node"
+      "core-js",
+      "jasmine",
+      "node"
     ]
   },
   "exclude": [

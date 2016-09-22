@@ -4,7 +4,7 @@
 A port & modification of [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular 2.
 
 ## Angular 2 Support 
-Updated to support Angular 2 - **RC.5**
+Updated to support Angular 2 - **Final - 2.0.0**
 
 ## Installation
 ```
@@ -29,7 +29,8 @@ By default, the directive listens to a window scroll event and invoked the callb
 * set an explict css "height" value to the element 
 
 ## DEMO 
-[See a live example at this plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
+[Default Scroll By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)  
+[Scroll On a "Modal" - plunkr](https://plnkr.co/edit/QnQOwE9SEapwJCCFII3L?p=preview)
 
 ## Usage
 First, import the InfiniteScrollModule to your module: 
