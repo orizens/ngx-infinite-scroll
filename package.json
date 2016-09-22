@@ -8,6 +8,7 @@
   "scripts": {
     "build:test": "tsc --project ./src",
     "clean": "rimraf src/*.js && rimraf src/*.d.ts && rimraf ./*scroll.js && rimraf ./*scroll.d.ts",
+    "clean:node": "rimraf node_modules",
     "dev": "npm run watch & karma start karma.conf.js --bdd",
     "lite": "lite-server",
     "postversion": "git push origin master",
@@ -64,7 +65,7 @@
     "tslint": "^3.15.1",
     "tslint-loader": "^2.1.5",
     "typescript": "2.0.0",
-    "webpack": "^2.1.0-beta.21",
+    "webpack": "2.1.0-beta.21",
     "zone.js": "^0.6.17",
     "typings": "1.2.0"
   }
