@@ -8,7 +8,8 @@ build.xml
 node_modules/*
 npm-debug.log
 coverage
-*.js
+./*.js
+src/*.js
 !karma.conf.js
 !karma-test-shim.js
 *.map
