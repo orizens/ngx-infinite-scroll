@@ -61,18 +61,18 @@ module.exports = {
                 },
                 exclude: [/\.e2e\.ts$/]
             }
-        ],
-
-        postLoaders: [
-            {
-                test: /\.(js|ts)$/, loader: 'istanbul-instrumenter-loader',
-                include: helpers.root('src'),
-                exclude: [
-                    /\.(e2e|spec)\.ts$/,
-                    /node_modules/
-                ]
-            }
         ]
+
+        // postLoaders: [
+        //     {
+        //         test: /\.(js|ts)$/, loader: 'istanbul-instrumenter-loader',
+        //         include: helpers.root('src'),
+        //         exclude: [
+        //             /\.(e2e|spec)\.ts$/,
+        //             /node_modules/
+        //         ]
+        //     }
+        // ]
     },
 
     plugins: [
