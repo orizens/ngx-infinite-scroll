@@ -9,3 +9,6 @@ Thumbs.db
 # Ignored files
 *.ts
 !*.d.ts
+
+# ngc generated files
+src/ngFactory
