@@ -180,25 +180,15 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
     exports.Scroller = Scroller;
     return module.exports;
 });
-System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller", "./axis-resolver"], true, function ($__require, exports, module) {
+System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', './axis-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
     var define,
         global = this || self,
         GLOBAL = global;
-    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-        var c = arguments.length,
-            r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-            d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __metadata = this && this.__metadata || function (k, v) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-    };
-    var core_1 = $__require("@angular/core");
-    var scroller_1 = $__require("./scroller");
-    var axis_resolver_1 = $__require("./axis-resolver");
+    var core_1 = $__require('@angular/core');
+    var scroller_1 = $__require('./scroller');
+    var axis_resolver_1 = $__require('./axis-resolver');
     var InfiniteScroll = function () {
         function InfiniteScroll(element, zone, axis) {
             this.element = element;
@@ -245,19 +235,23 @@ System.registerDynamic("src/infinite-scroll", ["@angular/core", "./scroller", ".
                 return _this.scrolledUp.next(data);
             });
         };
-        __decorate([core_1.Input('infiniteScrollDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceDown", void 0);
-        __decorate([core_1.Input('infiniteScrollUpDistance'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_distanceUp", void 0);
-        __decorate([core_1.Input('infiniteScrollThrottle'), __metadata('design:type', Number)], InfiniteScroll.prototype, "_throttle", void 0);
-        __decorate([core_1.Input('infiniteScrollDisabled'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_disabled", void 0);
-        __decorate([core_1.Input('scrollWindow'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "scrollWindow", void 0);
-        __decorate([core_1.Input('immediateCheck'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_immediate", void 0);
-        __decorate([core_1.Input('horizontal'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_horizontal", void 0);
-        __decorate([core_1.Input('alwaysCallback'), __metadata('design:type', Boolean)], InfiniteScroll.prototype, "_alwaysCallback", void 0);
-        __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolled", void 0);
-        __decorate([core_1.Output(), __metadata('design:type', Object)], InfiniteScroll.prototype, "scrolledUp", void 0);
-        InfiniteScroll = __decorate([core_1.Directive({
-            selector: '[infinite-scroll]'
-        }), __metadata('design:paramtypes', [core_1.ElementRef, core_1.NgZone, axis_resolver_1.AxisResolver])], InfiniteScroll);
+        InfiniteScroll.decorators = [{ type: core_1.Directive, args: [{
+                selector: '[infinite-scroll]'
+            }] }];
+        /** @nocollapse */
+        InfiniteScroll.ctorParameters = [{ type: core_1.ElementRef }, { type: core_1.NgZone }, { type: axis_resolver_1.AxisResolver }];
+        InfiniteScroll.propDecorators = {
+            '_distanceDown': [{ type: core_1.Input, args: ['infiniteScrollDistance'] }],
+            '_distanceUp': [{ type: core_1.Input, args: ['infiniteScrollUpDistance'] }],
+            '_throttle': [{ type: core_1.Input, args: ['infiniteScrollThrottle'] }],
+            '_disabled': [{ type: core_1.Input, args: ['infiniteScrollDisabled'] }],
+            'scrollWindow': [{ type: core_1.Input, args: ['scrollWindow'] }],
+            '_immediate': [{ type: core_1.Input, args: ['immediateCheck'] }],
+            '_horizontal': [{ type: core_1.Input, args: ['horizontal'] }],
+            '_alwaysCallback': [{ type: core_1.Input, args: ['alwaysCallback'] }],
+            'scrolled': [{ type: core_1.Output }],
+            'scrolledUp': [{ type: core_1.Output }]
+        };
         return InfiniteScroll;
     }();
     exports.InfiniteScroll = InfiniteScroll;
@@ -269,16 +263,6 @@ System.registerDynamic("src/axis-resolver", ["@angular/core"], true, function ($
     var define,
         global = this || self,
         GLOBAL = global;
-    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-        var c = arguments.length,
-            r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-            d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __metadata = this && this.__metadata || function (k, v) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-    };
     var core_1 = $__require("@angular/core");
     var AxisResolver = function () {
         function AxisResolver() {
@@ -311,39 +295,33 @@ System.registerDynamic("src/axis-resolver", ["@angular/core"], true, function ($
         AxisResolver.prototype.topKey = function () {
             return this.vertical ? 'top' : 'left';
         };
-        AxisResolver = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], AxisResolver);
+        AxisResolver.decorators = [{ type: core_1.Injectable }];
+        /** @nocollapse */
+        AxisResolver.ctorParameters = [];
         return AxisResolver;
     }();
     exports.AxisResolver = AxisResolver;
     return module.exports;
 });
-System.registerDynamic("src/index", ["@angular/core", "./infinite-scroll", "./axis-resolver"], true, function ($__require, exports, module) {
+System.registerDynamic('src/index', ['@angular/core', './infinite-scroll', './axis-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
     var define,
         global = this || self,
         GLOBAL = global;
-    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-        var c = arguments.length,
-            r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-            d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __metadata = this && this.__metadata || function (k, v) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-    };
-    var core_1 = $__require("@angular/core");
-    var infinite_scroll_1 = $__require("./infinite-scroll");
-    var axis_resolver_1 = $__require("./axis-resolver");
+    var core_1 = $__require('@angular/core');
+    var infinite_scroll_1 = $__require('./infinite-scroll');
+    var axis_resolver_1 = $__require('./axis-resolver');
     var InfiniteScrollModule = function () {
         function InfiniteScrollModule() {}
-        InfiniteScrollModule = __decorate([core_1.NgModule({
-            imports: [],
-            declarations: [infinite_scroll_1.InfiniteScroll],
-            exports: [infinite_scroll_1.InfiniteScroll],
-            providers: [axis_resolver_1.AxisResolver]
-        }), __metadata('design:paramtypes', [])], InfiniteScrollModule);
+        InfiniteScrollModule.decorators = [{ type: core_1.NgModule, args: [{
+                imports: [],
+                declarations: [infinite_scroll_1.InfiniteScroll],
+                exports: [infinite_scroll_1.InfiniteScroll],
+                providers: [axis_resolver_1.AxisResolver]
+            }] }];
+        /** @nocollapse */
+        InfiniteScrollModule.ctorParameters = [];
         return InfiniteScrollModule;
     }();
     exports.InfiniteScrollModule = InfiniteScrollModule;
