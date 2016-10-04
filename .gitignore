@@ -47,3 +47,7 @@ Desktop.ini
 .tmp
 typings
 .tags*
+
+src/ngFactory
+*.metadata.json
+dist

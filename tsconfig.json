@@ -1,35 +1,42 @@
 {
-	"compilerOptions": {
-	    "noImplicitAny": true,
-      "module": "commonjs",
-      "target": "es5",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "inlineSourceMap": true,
-      "inlineSources": true,
-      "declaration": true,
-      "suppressImplicitAnyIndexErrors": true,
-      "moduleResolution": "node",
-      "lib": ["dom", "es6"],
-      "types": [
-        "jasmine",
-        "node"
-      ]
-	},
-	"exclude": [
-		"node_modules",
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "exclude": [
+    "node_modules",
     "bundles"
-	],
+  ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true
   },
-	"files": [
+  "files": [
     // "./typings/index.d.ts",
-		"./angular2-infinite-scroll.ts",
-		"./src/infinite-scroll.ts",
-		"./src/scroller.ts",
+    "./angular2-infinite-scroll.ts",
+    "./src/infinite-scroll.ts",
+    "./src/scroller.ts",
     "./src/axis-resolver.ts",
     "./src/index.ts"
-	]
+  ],
+  "angularCompilerOptions": {
+    "genDir": "./src/ngfactory",
+    "debug": false
+  }
 }
