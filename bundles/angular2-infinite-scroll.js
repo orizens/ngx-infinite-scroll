@@ -206,11 +206,15 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
             this.scrolledUp = new core_1.EventEmitter();
         }
         InfiniteScroll.prototype.ngOnInit = function () {
-            var containerElement = this.scrollWindow ? window : this.element;
-            this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback, this._disabled, this.axis);
+            if (typeof window !== 'undefined') {
+                var containerElement = this.scrollWindow ? window : this.element;
+                this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback, this._disabled, this.axis);
+            }
         };
         InfiniteScroll.prototype.ngOnDestroy = function () {
-            this.scroller.clean();
+            if (this.scroller) {
+                this.scroller.clean();
+            }
         };
         InfiniteScroll.prototype.ngOnChanges = function (changes) {
             if (changes['_disabled'] && this.scroller) {
