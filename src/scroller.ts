@@ -134,11 +134,11 @@ export class Scroller {
           !this.reachedEnd && this.handler();
           setTimeout(() => {
             const container = this.positionResolver.calculatePoints(this.$elementRef);
-            const reachedEndOfContainer = container.scrolledUntilNow + container.height >= container.totalToScroll;
-            if (reachedEndOfContainer) {
+            const reachedEndOfContainer = container.scrolledUntilNow >= container.totalToScroll;
+            if (!this.reachedEnd && reachedEndOfContainer) {
               this.reachedEnd = true;
               this.handler();
-            } else {
+            } else if (!reachedEndOfContainer) {
               this.reachedEnd = false;
             }
           }, throttle + 50);
