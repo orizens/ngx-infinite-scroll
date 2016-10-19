@@ -30,10 +30,13 @@
   "files": [
     "./angular2-infinite-scroll.ts",
     "./src/infinite-scroll.ts",
+    "./src/infinite-scroll.spec.ts",
     "./src/scroller.ts",
     "./src/axis-resolver.ts",
-    "./src/index.ts",
-    "./src/*.spec.ts"
+    "./src/axis-resolver.spec.ts",
+    "./src/position-resolver.ts",
+    "./src/position-resolver.spec.ts",
+    "./src/index.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "./src/ngfactory",

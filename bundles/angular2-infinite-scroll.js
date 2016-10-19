@@ -11,7 +11,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
     $__require('rxjs/add/operator/filter');
     var Scroller = function () {
         // private axis: AxisResolver;
-        function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback, scrollDisabled, axis) {
+        function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback, scrollDisabled, positionResolver) {
             if (horizontal === void 0) {
                 horizontal = false;
             }
@@ -31,7 +31,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             this.horizontal = horizontal;
             this.alwaysCallback = alwaysCallback;
             this.scrollDisabled = scrollDisabled;
-            this.axis = axis;
+            this.positionResolver = positionResolver;
             this.lastScrollPosition = 0;
             this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
             this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -41,8 +41,13 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             // }
             this.handleInfiniteScrollDisabled(scrollDisabled);
             this.defineContainer();
+            this.positionResolver.config({
+                container: this.container,
+                documentElement: this.documentElement,
+                isContainerWindow: this.isContainerWindow,
+                horizontal: horizontal
+            });
             this.createInterval();
-            this.axis.setVertical(!this.horizontal);
         }
         Scroller.prototype.defineContainer = function () {
             if (this.isContainerWindow) {
@@ -60,39 +65,8 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
                 }, 0);
             }
         };
-        Scroller.prototype.height = function (elem) {
-            var offsetHeight = this.axis.offsetHeightKey();
-            var clientHeight = this.axis.clientHeightKey();
-            // elem = elem.nativeElement;
-            if (isNaN(elem[offsetHeight])) {
-                return this.documentElement[clientHeight];
-            } else {
-                return elem[offsetHeight];
-            }
-        };
-        Scroller.prototype.offsetTop = function (elem) {
-            var top = this.axis.topKey();
-            // elem = elem.nativeElement;
-            if (!elem.getBoundingClientRect) {
-                return;
-            }
-            return elem.getBoundingClientRect()[top] + this.pageYOffset(elem);
-        };
-        Scroller.prototype.pageYOffset = function (elem) {
-            var pageYOffset = this.axis.pageYOffsetKey();
-            var scrollTop = this.axis.scrollTopKey();
-            var offsetTop = this.axis.offsetTopKey();
-            // elem = elem.nativeElement;
-            if (isNaN(window[pageYOffset])) {
-                return this.documentElement[scrollTop];
-            } else if (elem.ownerDocument) {
-                return elem.ownerDocument.defaultView[pageYOffset];
-            } else {
-                return elem[offsetTop];
-            }
-        };
         Scroller.prototype.handler = function () {
-            var container = this.calculatePoints();
+            var container = this.positionResolver.calculatePoints(this.$elementRef);
             var scrollingDown = this.lastScrollPosition < container.scrolledUntilNow;
             this.lastScrollPosition = container.scrolledUntilNow;
             var remaining;
@@ -121,33 +95,6 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             if (shouldClearInterval) {
                 clearInterval(this.checkInterval);
             }
-        };
-        Scroller.prototype.calculatePoints = function () {
-            return this.isContainerWindow ? this.calculatePointsForWindow() : this.calculatePointsForElement();
-        };
-        Scroller.prototype.calculatePointsForWindow = function () {
-            // container's height
-            var height = this.height(this.container);
-            // scrolled until now / current y point
-            var scrolledUntilNow = height + this.pageYOffset(this.documentElement);
-            // total height / most bottom y point
-            var totalToScroll = this.offsetTop(this.$elementRef.nativeElement) + this.height(this.$elementRef.nativeElement);
-            return { height: height, scrolledUntilNow: scrolledUntilNow, totalToScroll: totalToScroll };
-        };
-        Scroller.prototype.calculatePointsForElement = function () {
-            var scrollTop = this.axis.scrollTopKey();
-            var scrollHeight = this.axis.scrollHeightKey();
-            var height = this.height(this.container);
-            // perhaps use this.container.offsetTop instead of 'scrollTop'
-            var scrolledUntilNow = this.container[scrollTop];
-            var containerTopOffset = 0;
-            var offsetTop = this.offsetTop(this.container);
-            if (offsetTop !== void 0) {
-                containerTopOffset = offsetTop;
-            }
-            var totalToScroll = this.container[scrollHeight];
-            // const totalToScroll = this.offsetTop(this.$elementRef.nativeElement) - containerTopOffset + this.height(this.$elementRef.nativeElement);
-            return { height: height, scrolledUntilNow: scrolledUntilNow, totalToScroll: totalToScroll };
         };
         Scroller.prototype.handleInfiniteScrollDistance = function (scrollDownDistance, scrollUpDistance) {
             this.scrollDownDistance = parseFloat(scrollDownDistance) || 0;
@@ -180,7 +127,92 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
     exports.Scroller = Scroller;
     return module.exports;
 });
-System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', './axis-resolver'], true, function ($__require, exports, module) {
+System.registerDynamic('src/position-resolver', ['@angular/core', './axis-resolver'], true, function ($__require, exports, module) {
+    "use strict";
+
+    var define,
+        global = this || self,
+        GLOBAL = global;
+    var core_1 = $__require('@angular/core');
+    var axis_resolver_1 = $__require('./axis-resolver');
+    var PositionResolver = function () {
+        function PositionResolver(axis) {
+            this.axis = axis;
+        }
+        PositionResolver.prototype.setDirection = function (horizontal) {
+            this.axis.setVertical(!horizontal);
+        };
+        PositionResolver.prototype.config = function (options) {
+            this.options = options;
+            this.setDirection(options.horizontal);
+        };
+        PositionResolver.prototype.calculatePoints = function (element) {
+            return this.options.isContainerWindow ? this.calculatePointsForWindow(element) : this.calculatePointsForElement(element);
+        };
+        PositionResolver.prototype.calculatePointsForWindow = function (element) {
+            // container's height
+            var height = this.height(this.options.container);
+            // scrolled until now / current y point
+            var scrolledUntilNow = height + this.pageYOffset(this.options.documentElement);
+            // total height / most bottom y point
+            var totalToScroll = this.offsetTop(element.nativeElement) + this.height(element.nativeElement);
+            return { height: height, scrolledUntilNow: scrolledUntilNow, totalToScroll: totalToScroll };
+        };
+        PositionResolver.prototype.calculatePointsForElement = function (element) {
+            var scrollTop = this.axis.scrollTopKey();
+            var scrollHeight = this.axis.scrollHeightKey();
+            var height = this.height(this.options.container);
+            // perhaps use this.container.offsetTop instead of 'scrollTop'
+            var scrolledUntilNow = this.options.container[scrollTop];
+            var containerTopOffset = 0;
+            var offsetTop = this.offsetTop(this.options.container);
+            if (offsetTop !== void 0) {
+                containerTopOffset = offsetTop;
+            }
+            var totalToScroll = this.options.container[scrollHeight];
+            // const totalToScroll = this.offsetTop(this.$elementRef.nativeElement) - containerTopOffset + this.height(this.$elementRef.nativeElement);
+            return { height: height, scrolledUntilNow: scrolledUntilNow, totalToScroll: totalToScroll };
+        };
+        PositionResolver.prototype.height = function (elem) {
+            var offsetHeight = this.axis.offsetHeightKey();
+            var clientHeight = this.axis.clientHeightKey();
+            // elem = elem.nativeElement;
+            if (isNaN(elem[offsetHeight])) {
+                return this.options.documentElement[clientHeight];
+            } else {
+                return elem[offsetHeight];
+            }
+        };
+        PositionResolver.prototype.offsetTop = function (elem) {
+            var top = this.axis.topKey();
+            // elem = elem.nativeElement;
+            if (!elem.getBoundingClientRect) {
+                return;
+            }
+            return elem.getBoundingClientRect()[top] + this.pageYOffset(elem);
+        };
+        PositionResolver.prototype.pageYOffset = function (elem) {
+            var pageYOffset = this.axis.pageYOffsetKey();
+            var scrollTop = this.axis.scrollTopKey();
+            var offsetTop = this.axis.offsetTopKey();
+            // elem = elem.nativeElement;
+            if (isNaN(window[pageYOffset])) {
+                return this.options.documentElement[scrollTop];
+            } else if (elem.ownerDocument) {
+                return elem.ownerDocument.defaultView[pageYOffset];
+            } else {
+                return elem[offsetTop];
+            }
+        };
+        PositionResolver.decorators = [{ type: core_1.Injectable }];
+        /** @nocollapse */
+        PositionResolver.ctorParameters = [{ type: axis_resolver_1.AxisResolver }];
+        return PositionResolver;
+    }();
+    exports.PositionResolver = PositionResolver;
+    return module.exports;
+});
+System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', './axis-resolver', './position-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
     var define,
@@ -189,11 +221,13 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
     var core_1 = $__require('@angular/core');
     var scroller_1 = $__require('./scroller');
     var axis_resolver_1 = $__require('./axis-resolver');
+    var position_resolver_1 = $__require('./position-resolver');
     var InfiniteScroll = function () {
-        function InfiniteScroll(element, zone, axis) {
+        function InfiniteScroll(element, zone, axis, positionResolver) {
             this.element = element;
             this.zone = zone;
             this.axis = axis;
+            this.positionResolver = positionResolver;
             this._distanceDown = 2;
             this._distanceUp = 1.5;
             this._throttle = 300;
@@ -208,7 +242,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
         InfiniteScroll.prototype.ngOnInit = function () {
             if (typeof window !== 'undefined') {
                 var containerElement = this.scrollWindow ? window : this.element;
-                this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback, this._disabled, this.axis);
+                this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback, this._disabled, this.positionResolver);
             }
         };
         InfiniteScroll.prototype.ngOnDestroy = function () {
@@ -243,7 +277,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
                 selector: '[infinite-scroll]'
             }] }];
         /** @nocollapse */
-        InfiniteScroll.ctorParameters = [{ type: core_1.ElementRef }, { type: core_1.NgZone }, { type: axis_resolver_1.AxisResolver }];
+        InfiniteScroll.ctorParameters = [{ type: core_1.ElementRef }, { type: core_1.NgZone }, { type: axis_resolver_1.AxisResolver }, { type: position_resolver_1.PositionResolver }];
         InfiniteScroll.propDecorators = {
             '_distanceDown': [{ type: core_1.Input, args: ['infiniteScrollDistance'] }],
             '_distanceUp': [{ type: core_1.Input, args: ['infiniteScrollUpDistance'] }],
