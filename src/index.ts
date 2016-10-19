@@ -1,13 +1,13 @@
 import { NgModule }      from '@angular/core';
 
 import { InfiniteScroll }  from './infinite-scroll';
-import { AxisResolver } from './axis-resolver';
-import { PositionResolver } from './position-resolver';
+import { AxisResolverFactory } from './axis-resolver';
+import { PositionResolverFactory } from './position-resolver';
 
 @NgModule({
   imports:      [  ],
   declarations: [ InfiniteScroll ],
   exports:      [ InfiniteScroll ],
-  providers:    [ AxisResolver, PositionResolver ]
+  providers:    [ AxisResolverFactory, PositionResolverFactory ]
 })
 export class InfiniteScrollModule { }

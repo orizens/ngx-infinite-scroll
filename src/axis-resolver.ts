@@ -1,15 +1,15 @@
 import { Injectable, Inject } from "@angular/core";
 
 @Injectable()
-export class AxisResolver {
+export class AxisResolverFactory {
   constructor() {}
 
   create (vertical: boolean = true) {
-    return new AxisModel(vertical);
+    return new AxisResolver(vertical);
   }
 }
 
-export class AxisModel {
+export class AxisResolver {
   constructor (private vertical: boolean = true) {
   }
   clientHeightKey() {return this.vertical ? 'clientHeight' : 'clientWidth'}

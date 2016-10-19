@@ -21,46 +21,31 @@ describe('Position Resolver', () => {
     return { element: mockedElement, container: mockedContainer };
   };
 
-  const createPositionResolver = () => {
+  const createPositionResolver = (element: ElementRef, container: ElementRef) => {
+    const options = {
+      container: element,
+      documentElement: container,
+      isContainerWindow: true,
+      horizontal: true
+    };
     const axis: AxisResolver = new AxisResolver();
-    return new PositionResolver(axis);
+    return new PositionResolver(axis, options);
   };
 
   beforeEach(() =>{
-    spyOn(AxisResolver.prototype, 'setVertical').and.callThrough();
+    
   });
 
   it('should create an instance of position resolver', () => {
-    const actual = createPositionResolver();
+    const mockDom = createMockDom();
+    const actual = createPositionResolver(mockDom.element, mockDom.container);
     expect(actual).toBeDefined();
   });
   
-  it('should set direction in config phase', () => {
-    const service = createPositionResolver();
-    const dom = createMockDom();
-    const options = {
-      container: dom.container,
-      documentElement: document,
-      isContainerWindow: true,
-      horizontal: false
-    };
-    service.config(options);
-    const actual = AxisResolver.prototype.setVertical;
-    const expected = !options.horizontal;
-    expect(actual).toHaveBeenCalledWith(expected);
-  });
-
   it('should calculate points', () => {
-    const service = createPositionResolver();
-    const dom = createMockDom();
-    const options = {
-      container: dom.container,
-      documentElement: document,
-      isContainerWindow: true,
-      horizontal: false
-    };
-    service.config(options);
-    const actual = service.calculatePoints(dom.element);
+    const mockDom = createMockDom();
+    const service = createPositionResolver(mockDom.element, mockDom.container);
+    const actual = service.calculatePoints(mockDom.element);
     expect(actual).toBeDefined();
   });
 })

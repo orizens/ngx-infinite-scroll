@@ -3,8 +3,8 @@ import {
   inject
 } from '@angular/core/testing';
 import { InfiniteScroll } from './infinite-scroll';
-import { AxisResolver } from './axis-resolver';
-import { PositionResolver } from './position-resolver';
+import { AxisResolverFactory } from './axis-resolver';
+import { PositionResolverFactory } from './position-resolver';
 
 import { ElementRef, NgZone, SimpleChanges, SimpleChange } from '@angular/core';
 
@@ -15,16 +15,16 @@ describe('Infinite Scroll Directive', () => {
     const mockedElement: ElementRef = new ElementRef(document.createElement('div'));
     return mockedElement;
   };
-  let positionResolver: PositionResolver;
+  let positionResolver: PositionResolverFactory;
   const createInfiniteScroll = () => {
     const mockedElement = createMockElement();
-    const axis: AxisResolver = new AxisResolver();
-    positionResolver = new PositionResolver(axis);
-    return new InfiniteScroll(mockedElement, zone, axis, positionResolver);
+    const axis: AxisResolverFactory = new AxisResolverFactory();
+    positionResolver = new PositionResolverFactory(axis);
+    return new InfiniteScroll(mockedElement, zone, positionResolver);
   };
 
   beforeEach(() =>{
-    spyOn(AxisResolver, 'constructor').and.callFake(() => {});
+    
   });
 
   it('should create an instance of the directive', () => {
@@ -53,9 +53,6 @@ describe('Infinite Scroll Directive', () => {
     const directive = createInfiniteScroll();
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
-    spyOn(positionResolver, 'calculatePoints').and.callFake(() => {
-      return { height: 150, scrolledUntilNow: 75, totalToScroll: 150 };
-    });
     directive.scroller.handler();
     expect(directive.onScrollDown).toHaveBeenCalled();
   });
@@ -64,10 +61,7 @@ describe('Infinite Scroll Directive', () => {
     const directive = createInfiniteScroll();
     spyOn(directive, 'onScrollUp');
     directive.ngOnInit();
-    spyOn(positionResolver, 'calculatePoints').and.callFake(() => {
-      return { height: 150, scrolledUntilNow: 30, totalToScroll: 150 };
-    });
-    directive.scroller.lastScrollPosition = 50;
+    directive.scroller.lastScrollPosition = 350;
     directive.scroller.handler();
     expect(directive.onScrollUp).toHaveBeenCalled();
   });

@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { AxisResolver, AxisModel } from './axis-resolver';
+import { AxisResolver, AxisResolverFactory } from './axis-resolver';
 
 export interface PositionElements {
   container: ElementRef;
@@ -9,20 +9,18 @@ export interface PositionElements {
 }
 
 @Injectable()
-export class PositionResolver {
-  public options: any;
-  private axis: AxisModel;
+export class PositionResolverFactory {
 
-  constructor(private axisResolver: AxisResolver) {
+  constructor(private axisResolver: AxisResolverFactory) {
   }
 
   create (options: PositionElements) {
-    return new PositionModel(this.axisResolver.create(!options.horizontal), options);
+    return new PositionResolver(this.axisResolver.create(!options.horizontal), options);
   }
 }
 
-export class PositionModel {
-  constructor (private axis: AxisModel, private options: PositionElements) {
+export class PositionResolver {
+  constructor (private axis: AxisResolver, private options: PositionElements) {
   }
 
   calculatePoints (element: ElementRef) {
