@@ -24,14 +24,5 @@
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true
-  },
-    "files": [
-    // "../typings/index.d.ts",
-    "./infinite-scroll.ts",
-    "./infinite-scroll.spec.ts",
-    "./scroller.ts",
-    "./axis-resolver.ts",
-    "./axis-resolver.spec.ts",
-    "./index.ts"
-    ]
+  }
 }

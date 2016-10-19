@@ -7,8 +7,11 @@
   "repository": "orizens/angular2-infinite-scroll",
   "scripts": {
     "build:test": "tsc --project ./src",
-    "clean": "rimraf src/*.js && rimraf src/*.d.ts && rimraf ./*scroll.js && rimraf ./*scroll.d.ts",
+    "clean": "npm run clean:jsfiles && npm run clean:typefiles && npm run clean:metadata",
+    "clean:jsfiles": "rimraf src/*.js && rimraf ./*scroll.js",
+    "clean:typefiles": "rimraf src/*.d.ts && rimraf ./*scroll.d.ts",
     "clean:node": "rimraf node_modules",
+    "clean:metadata": "rimraf ./*metadata.json && rimraf src/ngfactory && rimraf ./src/*.metadata.json",
     "dev": "npm run watch & karma start karma.conf.js --bdd",
     "lite": "lite-server",
     "postversion": "git push origin master",
