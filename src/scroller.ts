@@ -133,7 +133,7 @@ export class Scroller {
           this.handler();
           setTimeout(() => {
             const container = this.positionResolver.calculatePoints(this.$elementRef);
-            const reachedEndOfContainer = container.scrolledUntilNow >= container.totalToScroll;
+            const reachedEndOfContainer = container.scrolledUntilNow + container.height >= container.totalToScroll;
             if (reachedEndOfContainer) {
               this.handler();
             }
