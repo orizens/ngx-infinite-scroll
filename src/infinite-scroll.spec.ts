@@ -15,11 +15,11 @@ describe('Infinite Scroll Directive', () => {
     const mockedElement: ElementRef = new ElementRef(document.createElement('div'));
     return mockedElement;
   };
-
+  let positionResolver: PositionResolver;
   const createInfiniteScroll = () => {
     const mockedElement = createMockElement();
     const axis: AxisResolver = new AxisResolver();
-    const positionResolver = new PositionResolver(axis);
+    positionResolver = new PositionResolver(axis);
     return new InfiniteScroll(mockedElement, zone, axis, positionResolver);
   };
 
@@ -53,11 +53,10 @@ describe('Infinite Scroll Directive', () => {
     const directive = createInfiniteScroll();
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
-    spyOn(directive.scroller, 'calculatePoints').and.callFake(() => {
+    spyOn(positionResolver, 'calculatePoints').and.callFake(() => {
       return { height: 150, scrolledUntilNow: 75, totalToScroll: 150 };
     });
     directive.scroller.handler();
-    expect(directive.scroller.calculatePoints).toHaveBeenCalled();
     expect(directive.onScrollDown).toHaveBeenCalled();
   });
 
@@ -65,12 +64,11 @@ describe('Infinite Scroll Directive', () => {
     const directive = createInfiniteScroll();
     spyOn(directive, 'onScrollUp');
     directive.ngOnInit();
-    spyOn(directive.scroller, 'calculatePoints').and.callFake(() => {
+    spyOn(positionResolver, 'calculatePoints').and.callFake(() => {
       return { height: 150, scrolledUntilNow: 30, totalToScroll: 150 };
     });
     directive.scroller.lastScrollPosition = 50;
     directive.scroller.handler();
-    expect(directive.scroller.calculatePoints).toHaveBeenCalled();
     expect(directive.onScrollUp).toHaveBeenCalled();
   });
 

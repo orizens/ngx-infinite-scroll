@@ -1,3 +1,5 @@
+const singleRun = process.env.NODE_ENV !== 'bdd';
+
 module.exports = function(config) {
   var testWebpackConfig = require('./webpack.test.js');
 
@@ -47,7 +49,7 @@ module.exports = function(config) {
     */
     logLevel: config.LOG_INFO,
 
-    autoWatch: false,
+    autoWatch: true,
 
     browsers: [
       'PhantomJS'
@@ -60,7 +62,7 @@ module.exports = function(config) {
     //   }
     // },
 
-    singleRun: true
+    singleRun: singleRun
   };
 
   // if(process.env.TRAVIS){

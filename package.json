@@ -12,7 +12,7 @@
     "clean:typefiles": "rimraf src/*.d.ts && rimraf ./*scroll.d.ts",
     "clean:node": "rimraf node_modules",
     "clean:metadata": "rimraf ./*metadata.json && rimraf src/ngfactory && rimraf ./src/*.metadata.json",
-    "dev": "npm run watch & karma start karma.conf.js --bdd",
+    "bdd": "NODE_ENV='bdd' karma start karma.conf.js",
     "lite": "lite-server",
     "postversion": "git push origin master",
     "prepublish": "node ./node_modules/@angular/compiler-cli/src/main.js && node make.js",
