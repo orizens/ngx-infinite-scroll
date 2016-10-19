@@ -121,7 +121,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
                         if (reachedEndOfContainer) {
                             _this.handler();
                         }
-                    }, 100);
+                    }, throttle_1 + 50);
                 });
             }
         };
