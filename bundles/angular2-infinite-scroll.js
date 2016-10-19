@@ -117,7 +117,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
                     _this.handler();
                     setTimeout(function () {
                         var container = _this.positionResolver.calculatePoints(_this.$elementRef);
-                        var reachedEndOfContainer = container.scrolledUntilNow >= container.totalToScroll;
+                        var reachedEndOfContainer = container.scrolledUntilNow + container.height >= container.totalToScroll;
                         if (reachedEndOfContainer) {
                             _this.handler();
                         }
