@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, Output, EventEmitter, OnDestroy, OnInit, OnChanges, SimpleChanges, NgZone } from '@angular/core';
 import { Scroller } from './scroller';
 import { AxisResolver } from './axis-resolver';
+import { PositionResolver } from './position-resolver';
 
 @Directive({
   selector: '[infinite-scroll]'
@@ -23,7 +24,8 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   constructor(
     private element: ElementRef,
     private zone: NgZone,
-    private axis: AxisResolver
+    private axis: AxisResolver,
+    private positionResolver: PositionResolver
   ) {}
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
           this.onScrollDown.bind(this), this.onScrollUp.bind(this),
           this._distanceDown, this._distanceUp, {}, this._throttle,
           this._immediate, this._horizontal, this._alwaysCallback,
-          this._disabled, this.axis);
+          this._disabled, this.positionResolver);
     }
   }
 

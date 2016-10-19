@@ -4,6 +4,7 @@ import {
 } from '@angular/core/testing';
 import { InfiniteScroll } from './infinite-scroll';
 import { AxisResolver } from './axis-resolver';
+import { PositionResolver } from './position-resolver';
 
 import { ElementRef, NgZone, SimpleChanges, SimpleChange } from '@angular/core';
 
@@ -18,7 +19,8 @@ describe('Infinite Scroll Directive', () => {
   const createInfiniteScroll = () => {
     const mockedElement = createMockElement();
     const axis: AxisResolver = new AxisResolver();
-    return new InfiniteScroll(mockedElement, zone, axis);
+    const positionResolver = new PositionResolver(axis);
+    return new InfiniteScroll(mockedElement, zone, axis, positionResolver);
   };
 
   beforeEach(() =>{
