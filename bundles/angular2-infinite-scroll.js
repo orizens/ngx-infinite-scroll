@@ -12,7 +12,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
     $__require('rxjs/add/operator/delay');
     ;
     var Scroller = function () {
-        function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback, scrollDisabled, positionResolver) {
+        function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback, scrollDisabled, _positionResolver) {
             if (horizontal === void 0) {
                 horizontal = false;
             }
@@ -32,7 +32,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             this.horizontal = horizontal;
             this.alwaysCallback = alwaysCallback;
             this.scrollDisabled = scrollDisabled;
-            this.positionResolver = positionResolver;
+            this._positionResolver = _positionResolver;
             this.lastScrollPosition = 0;
             this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
             this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
@@ -42,7 +42,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             // }
             this.handleInfiniteScrollDisabled(scrollDisabled);
             this.defineContainer();
-            this.positionResolver.config({
+            this.positionResolver = this._positionResolver.create({
                 container: this.container,
                 documentElement: this.documentElement,
                 isContainerWindow: this.isContainerWindow,
@@ -138,7 +138,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
     exports.Scroller = Scroller;
     return module.exports;
 });
-System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', './axis-resolver', './position-resolver'], true, function ($__require, exports, module) {
+System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', './position-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
     var define,
@@ -146,14 +146,12 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
     var scroller_1 = $__require('./scroller');
-    var axis_resolver_1 = $__require('./axis-resolver');
     var position_resolver_1 = $__require('./position-resolver');
     var InfiniteScroll = function () {
-        function InfiniteScroll(element, zone, axis, positionResolver) {
+        function InfiniteScroll(element, zone, positionResolverFactory) {
             this.element = element;
             this.zone = zone;
-            this.axis = axis;
-            this.positionResolver = positionResolver;
+            this.positionResolverFactory = positionResolverFactory;
             this._distanceDown = 2;
             this._distanceUp = 1.5;
             this._throttle = 300;
@@ -168,7 +166,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
         InfiniteScroll.prototype.ngOnInit = function () {
             if (typeof window !== 'undefined') {
                 var containerElement = this.scrollWindow ? window : this.element;
-                this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback, this._disabled, this.positionResolver);
+                this.scroller = new scroller_1.Scroller(containerElement, setInterval, this.element, this.onScrollDown.bind(this), this.onScrollUp.bind(this), this._distanceDown, this._distanceUp, {}, this._throttle, this._immediate, this._horizontal, this._alwaysCallback, this._disabled, this.positionResolverFactory);
             }
         };
         InfiniteScroll.prototype.ngOnDestroy = function () {
@@ -184,7 +182,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
         InfiniteScroll.prototype.onScrollDown = function (data) {
             var _this = this;
             if (data === void 0) {
-                data = {};
+                data = { currentScrollPosition: 0 };
             }
             this.zone.run(function () {
                 return _this.scrolled.next(data);
@@ -193,7 +191,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
         InfiniteScroll.prototype.onScrollUp = function (data) {
             var _this = this;
             if (data === void 0) {
-                data = {};
+                data = { currentScrollPosition: 0 };
             }
             this.zone.run(function () {
                 return _this.scrolledUp.next(data);
@@ -203,7 +201,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './scroller', '.
                 selector: '[infinite-scroll]'
             }] }];
         /** @nocollapse */
-        InfiniteScroll.ctorParameters = [{ type: core_1.ElementRef }, { type: core_1.NgZone }, { type: axis_resolver_1.AxisResolver }, { type: position_resolver_1.PositionResolver }];
+        InfiniteScroll.ctorParameters = [{ type: core_1.ElementRef }, { type: core_1.NgZone }, { type: position_resolver_1.PositionResolverFactory }];
         InfiniteScroll.propDecorators = {
             '_distanceDown': [{ type: core_1.Input, args: ['infiniteScrollDistance'] }],
             '_distanceUp': [{ type: core_1.Input, args: ['infiniteScrollUpDistance'] }],
@@ -228,16 +226,27 @@ System.registerDynamic("src/axis-resolver", ["@angular/core"], true, function ($
         global = this || self,
         GLOBAL = global;
     var core_1 = $__require("@angular/core");
+    var AxisResolverFactory = function () {
+        function AxisResolverFactory() {}
+        AxisResolverFactory.prototype.create = function (vertical) {
+            if (vertical === void 0) {
+                vertical = true;
+            }
+            return new AxisResolver(vertical);
+        };
+        AxisResolverFactory.decorators = [{ type: core_1.Injectable }];
+        /** @nocollapse */
+        AxisResolverFactory.ctorParameters = [];
+        return AxisResolverFactory;
+    }();
+    exports.AxisResolverFactory = AxisResolverFactory;
     var AxisResolver = function () {
-        function AxisResolver() {
-            this.setVertical(true);
-        }
-        AxisResolver.prototype.setVertical = function (vertical) {
+        function AxisResolver(vertical) {
             if (vertical === void 0) {
                 vertical = true;
             }
             this.vertical = vertical;
-        };
+        }
         AxisResolver.prototype.clientHeightKey = function () {
             return this.vertical ? 'clientHeight' : 'clientWidth';
         };
@@ -259,9 +268,6 @@ System.registerDynamic("src/axis-resolver", ["@angular/core"], true, function ($
         AxisResolver.prototype.topKey = function () {
             return this.vertical ? 'top' : 'left';
         };
-        AxisResolver.decorators = [{ type: core_1.Injectable }];
-        /** @nocollapse */
-        AxisResolver.ctorParameters = [];
         return AxisResolver;
     }();
     exports.AxisResolver = AxisResolver;
@@ -275,17 +281,24 @@ System.registerDynamic('src/position-resolver', ['@angular/core', './axis-resolv
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
     var axis_resolver_1 = $__require('./axis-resolver');
-    var PositionResolver = function () {
-        function PositionResolver(axis) {
-            this.axis = axis;
+    var PositionResolverFactory = function () {
+        function PositionResolverFactory(axisResolver) {
+            this.axisResolver = axisResolver;
         }
-        PositionResolver.prototype.setDirection = function (horizontal) {
-            this.axis.setVertical(!horizontal);
+        PositionResolverFactory.prototype.create = function (options) {
+            return new PositionResolver(this.axisResolver.create(!options.horizontal), options);
         };
-        PositionResolver.prototype.config = function (options) {
+        PositionResolverFactory.decorators = [{ type: core_1.Injectable }];
+        /** @nocollapse */
+        PositionResolverFactory.ctorParameters = [{ type: axis_resolver_1.AxisResolverFactory }];
+        return PositionResolverFactory;
+    }();
+    exports.PositionResolverFactory = PositionResolverFactory;
+    var PositionResolver = function () {
+        function PositionResolver(axis, options) {
+            this.axis = axis;
             this.options = options;
-            this.setDirection(options.horizontal);
-        };
+        }
         PositionResolver.prototype.calculatePoints = function (element) {
             return this.options.isContainerWindow ? this.calculatePointsForWindow(element) : this.calculatePointsForElement(element);
         };
@@ -344,9 +357,6 @@ System.registerDynamic('src/position-resolver', ['@angular/core', './axis-resolv
                 return elem[offsetTop];
             }
         };
-        PositionResolver.decorators = [{ type: core_1.Injectable }];
-        /** @nocollapse */
-        PositionResolver.ctorParameters = [{ type: axis_resolver_1.AxisResolver }];
         return PositionResolver;
     }();
     exports.PositionResolver = PositionResolver;
@@ -368,7 +378,7 @@ System.registerDynamic('src/index', ['@angular/core', './infinite-scroll', './ax
                 imports: [],
                 declarations: [infinite_scroll_1.InfiniteScroll],
                 exports: [infinite_scroll_1.InfiniteScroll],
-                providers: [axis_resolver_1.AxisResolver, position_resolver_1.PositionResolver]
+                providers: [axis_resolver_1.AxisResolverFactory, position_resolver_1.PositionResolverFactory]
             }] }];
         /** @nocollapse */
         InfiniteScrollModule.ctorParameters = [];
