@@ -7,6 +7,11 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/throttle';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/delay';
+
+export interface InfiniteScrollEvent {
+  currentScrollPosition: number;
+};
 
 export class Scroller {
   public scrollDownDistance: number;
@@ -22,6 +27,7 @@ export class Scroller {
   private disposeScroll: Subscription;
   public lastScrollPosition: number = 0;
   // private axis: AxisResolver;
+  private _timeout: any;
 
   constructor(
     private windowElement: Window | ElementRef | any,
@@ -97,10 +103,13 @@ export class Scroller {
     this.checkWhenEnabled = shouldScroll;
 
     if (triggerCallback) {
+      const infiniteScrollEvent: InfiniteScrollEvent = { 
+        currentScrollPosition: container.scrolledUntilNow 
+      };
       if (scrollingDown) {
-        this.infiniteScrollDownCallback({currentScrollPosition: container.scrolledUntilNow});
+        this.infiniteScrollDownCallback(infiniteScrollEvent);
       } else {
-        this.infiniteScrollUpCallback({currentScrollPosition: container.scrolledUntilNow});
+        this.infiniteScrollUpCallback(infiniteScrollEvent);
       }
     }
     if (shouldClearInterval) {
@@ -120,7 +129,16 @@ export class Scroller {
       this.disposeScroll = Observable.fromEvent(this.container, 'scroll')
         .throttle(ev => Observable.timer(throttle))
         .filter(ev => this.scrollEnabled)
-        .subscribe(ev => this.handler());
+        .subscribe(ev => {
+          this.handler();
+          setTimeout(() => {
+            const container = this.positionResolver.calculatePoints(this.$elementRef);
+            const reachedEndOfContainer = container.scrolledUntilNow >= container.totalToScroll;
+            if (reachedEndOfContainer) {
+              this.handler();
+            }
+          }, 100);
+        });
     }
   }
 
