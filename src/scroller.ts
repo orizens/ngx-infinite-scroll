@@ -28,6 +28,7 @@ export class Scroller {
   public lastScrollPosition: number = 0;
   // private axis: AxisResolver;
   private positionResolver: PositionResolver;
+  private reachedEnd: boolean = false;
 
   constructor(
     private windowElement: Window | ElementRef | any,
@@ -130,12 +131,15 @@ export class Scroller {
         .throttle(ev => Observable.timer(throttle))
         .filter(ev => this.scrollEnabled)
         .subscribe(ev => {
-          this.handler();
+          !this.reachedEnd && this.handler();
           setTimeout(() => {
             const container = this.positionResolver.calculatePoints(this.$elementRef);
             const reachedEndOfContainer = container.scrolledUntilNow + container.height >= container.totalToScroll;
             if (reachedEndOfContainer) {
+              this.reachedEnd = true;
               this.handler();
+            } else {
+              this.reachedEnd = false;
             }
           }, throttle + 50);
         });
