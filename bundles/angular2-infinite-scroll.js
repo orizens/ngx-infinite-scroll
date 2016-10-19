@@ -34,6 +34,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             this.scrollDisabled = scrollDisabled;
             this._positionResolver = _positionResolver;
             this.lastScrollPosition = 0;
+            this.reachedEnd = false;
             this.isContainerWindow = Object.prototype.toString.call(this.windowElement).includes('Window');
             this.documentElement = this.isContainerWindow ? this.windowElement.document.documentElement : null;
             this.handleInfiniteScrollDistance(infiniteScrollDownDistance, infiniteScrollUpDistance);
@@ -114,12 +115,15 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
                 }).filter(function (ev) {
                     return _this.scrollEnabled;
                 }).subscribe(function (ev) {
-                    _this.handler();
+                    !_this.reachedEnd && _this.handler();
                     setTimeout(function () {
                         var container = _this.positionResolver.calculatePoints(_this.$elementRef);
                         var reachedEndOfContainer = container.scrolledUntilNow + container.height >= container.totalToScroll;
                         if (reachedEndOfContainer) {
+                            _this.reachedEnd = true;
                             _this.handler();
+                        } else {
+                            _this.reachedEnd = false;
                         }
                     }, throttle_1 + 50);
                 });
