@@ -1,4 +1,4 @@
-System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/timer', 'rxjs/add/operator/throttle', 'rxjs/add/operator/filter'], true, function ($__require, exports, module) {
+System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/timer', 'rxjs/add/operator/throttle', 'rxjs/add/operator/filter', 'rxjs/add/operator/delay'], true, function ($__require, exports, module) {
     "use strict";
 
     var define,
@@ -9,8 +9,9 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
     $__require('rxjs/add/observable/timer');
     $__require('rxjs/add/operator/throttle');
     $__require('rxjs/add/operator/filter');
+    $__require('rxjs/add/operator/delay');
+    ;
     var Scroller = function () {
-        // private axis: AxisResolver;
         function Scroller(windowElement, $interval, $elementRef, infiniteScrollDownCallback, infiniteScrollUpCallback, infiniteScrollDownDistance, infiniteScrollUpDistance, infiniteScrollParent, infiniteScrollThrottle, isImmediate, horizontal, alwaysCallback, scrollDisabled, positionResolver) {
             if (horizontal === void 0) {
                 horizontal = false;
@@ -86,10 +87,13 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             // }
             this.checkWhenEnabled = shouldScroll;
             if (triggerCallback) {
+                var infiniteScrollEvent = {
+                    currentScrollPosition: container.scrolledUntilNow
+                };
                 if (scrollingDown) {
-                    this.infiniteScrollDownCallback({ currentScrollPosition: container.scrolledUntilNow });
+                    this.infiniteScrollDownCallback(infiniteScrollEvent);
                 } else {
-                    this.infiniteScrollUpCallback({ currentScrollPosition: container.scrolledUntilNow });
+                    this.infiniteScrollUpCallback(infiniteScrollEvent);
                 }
             }
             if (shouldClearInterval) {
@@ -110,7 +114,14 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
                 }).filter(function (ev) {
                     return _this.scrollEnabled;
                 }).subscribe(function (ev) {
-                    return _this.handler();
+                    _this.handler();
+                    setTimeout(function () {
+                        var container = _this.positionResolver.calculatePoints(_this.$elementRef);
+                        var reachedEndOfContainer = container.scrolledUntilNow >= container.totalToScroll;
+                        if (reachedEndOfContainer) {
+                            _this.handler();
+                        }
+                    }, 100);
                 });
             }
         };
