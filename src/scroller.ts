@@ -137,7 +137,7 @@ export class Scroller {
             if (reachedEndOfContainer) {
               this.handler();
             }
-          }, 100);
+          }, throttle + 50);
         });
     }
   }
