@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Output, EventEmitter, OnDestroy, OnInit, OnChanges, SimpleChanges, NgZone } from '@angular/core';
-import { Scroller } from './scroller';
+import { Scroller, InfiniteScrollEvent } from './scroller';
 import { AxisResolver } from './axis-resolver';
 import { PositionResolver } from './position-resolver';
 
@@ -18,8 +18,8 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   @Input('horizontal') _horizontal: boolean = false;
   @Input('alwaysCallback') _alwaysCallback: boolean = false;
 
-  @Output() scrolled = new EventEmitter();
-  @Output() scrolledUp = new EventEmitter();
+  @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
+  @Output() scrolledUp = new EventEmitter<InfiniteScrollEvent>();
 
   constructor(
     private element: ElementRef,
@@ -51,11 +51,11 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
     }
   }
 
-  onScrollDown(data = {}) {
+  onScrollDown(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
     this.zone.run(() => this.scrolled.next(data));
   }
 
-  onScrollUp(data = {}) {
+  onScrollUp(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
     this.zone.run(() => this.scrolledUp.next(data));
   }
 }
