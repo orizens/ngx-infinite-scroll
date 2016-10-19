@@ -118,11 +118,11 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
                     !_this.reachedEnd && _this.handler();
                     setTimeout(function () {
                         var container = _this.positionResolver.calculatePoints(_this.$elementRef);
-                        var reachedEndOfContainer = container.scrolledUntilNow + container.height >= container.totalToScroll;
-                        if (reachedEndOfContainer) {
+                        var reachedEndOfContainer = container.scrolledUntilNow >= container.totalToScroll;
+                        if (!_this.reachedEnd && reachedEndOfContainer) {
                             _this.reachedEnd = true;
                             _this.handler();
-                        } else {
+                        } else if (!reachedEndOfContainer) {
                             _this.reachedEnd = false;
                         }
                     }, throttle_1 + 50);
