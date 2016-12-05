@@ -115,6 +115,12 @@ export class Scroller {
     if (shouldClearInterval) {
       clearInterval(this.checkInterval);
     }
+    setTimeout(() => {
+      const container = this.positionResolver.calculatePoints(this.$elementRef);
+      if (container.scrolledUntilNow >= container.totalToScroll) {
+        this.handler();
+      }
+    }, this.infiniteScrollThrottle);
   }
 
   handleInfiniteScrollDistance (scrollDownDistance: number | any, scrollUpDistance: number | any) {
