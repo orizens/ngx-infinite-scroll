@@ -67,6 +67,7 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             }
         };
         Scroller.prototype.handler = function () {
+            var _this = this;
             var container = this.positionResolver.calculatePoints(this.$elementRef);
             var scrollingDown = this.lastScrollPosition < container.scrolledUntilNow;
             this.lastScrollPosition = container.scrolledUntilNow;
@@ -99,6 +100,12 @@ System.registerDynamic('src/scroller', ['rxjs/Observable', 'rxjs/add/observable/
             if (shouldClearInterval) {
                 clearInterval(this.checkInterval);
             }
+            setTimeout(function () {
+                var container = _this.positionResolver.calculatePoints(_this.$elementRef);
+                if (container.scrolledUntilNow >= container.totalToScroll) {
+                    _this.handler();
+                }
+            }, this.infiniteScrollThrottle);
         };
         Scroller.prototype.handleInfiniteScrollDistance = function (scrollDownDistance, scrollUpDistance) {
             this.scrollDownDistance = parseFloat(scrollDownDistance) || 0;
