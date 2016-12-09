@@ -393,18 +393,22 @@ System.registerDynamic('angular2-infinite-scroll', ['./src/infinite-scroll', './
     var define,
         global = this || self,
         GLOBAL = global;
-    function __export(m) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-    }
     var infinite_scroll_1 = $__require('./src/infinite-scroll');
     var scroller_1 = $__require('./src/scroller');
     var position_resolver_1 = $__require('./src/position-resolver');
     var axis_resolver_1 = $__require('./src/axis-resolver');
-    __export($__require('./src/infinite-scroll'));
-    __export($__require('./src/scroller'));
-    __export($__require('./src/position-resolver'));
-    __export($__require('./src/axis-resolver'));
-    __export($__require('./src/index'));
+    var infinite_scroll_2 = $__require('./src/infinite-scroll');
+    exports.InfiniteScroll = infinite_scroll_2.InfiniteScroll;
+    var scroller_2 = $__require('./src/scroller');
+    exports.Scroller = scroller_2.Scroller;
+    var position_resolver_2 = $__require('./src/position-resolver');
+    exports.PositionResolver = position_resolver_2.PositionResolver;
+    exports.PositionResolverFactory = position_resolver_2.PositionResolverFactory;
+    var axis_resolver_2 = $__require('./src/axis-resolver');
+    exports.AxisResolver = axis_resolver_2.AxisResolver;
+    exports.AxisResolverFactory = axis_resolver_2.AxisResolverFactory;
+    var index_1 = $__require('./src/index');
+    exports.InfiniteScrollModule = index_1.InfiniteScrollModule;
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = {
         directives: [infinite_scroll_1.InfiniteScroll, scroller_1.Scroller, axis_resolver_1.AxisResolver, position_resolver_1.PositionResolver]
