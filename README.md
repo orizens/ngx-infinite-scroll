@@ -3,7 +3,7 @@
 # Angular 2 Infinite Scroll
 A port & modification of [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular 2.
 
-## Angular 2 Support 
+## Angular 2 Support
 Updated to support Angular 2 - **Final - 2.0.0**
 
 ## Installation
@@ -25,15 +25,15 @@ Currently supported attributes:
 ## Behavior
 By default, the directive listens to a window scroll event and invoked the callback.
 **To trigger the callback when the actual element is scrolled**, these settings should be configured:
-* [scrollWindow]="false" 
-* set an explict css "height" value to the element 
+* [scrollWindow]="false"
+* set an explict css "height" value to the element
 
-## DEMO 
-[Default Scroll By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)  
+## DEMO
+[Default Scroll By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
 [Scroll On a "Modal" - plunkr](https://plnkr.co/edit/QnQOwE9SEapwJCCFII3L?p=preview)
 
 ## Usage
-First, import the InfiniteScrollModule to your module: 
+First, import the InfiniteScrollModule to your module:
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -119,7 +119,7 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 		    [infiniteScrollDistance]="2"
 		    [infiniteScrollUpDistance]="1.5"
 		    [infiniteScrollThrottle]="500"
-		    (scrolled)="onScrollDown()">
+		    (scrolled)="onScrollDown()"
 		    (scrolledUp)="onScrollUp()">
 		</div>
 	`
