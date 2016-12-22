@@ -12,6 +12,7 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
   @Input('infiniteScrollThrottle') _throttle: number = 300;
   @Input('infiniteScrollDisabled') _disabled: boolean = false;
+  @Input('infiniteScrollContainer') _container: string = ''; // container
   @Input('scrollWindow') scrollWindow: boolean = true;
   @Input('immediateCheck') _immediate: boolean = false;
   @Input('horizontal') _horizontal: boolean = false;
@@ -27,6 +28,14 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
+
+    // if container exist set new container to element
+    if(this._container !== '') {
+      let ele: any = {};
+      ele.nativeElement = this.element.nativeElement.querySelector( this._container );
+      this.element = ele;
+    }
+
     if (typeof window !== 'undefined') {
       const containerElement = this.scrollWindow ? window : this.element;
       this.scroller = new Scroller(containerElement, setInterval, this.element,
