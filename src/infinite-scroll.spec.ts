@@ -21,8 +21,8 @@ describe('Infinite Scroll Directive', () => {
     const mockedElement: ElementRef = new ElementRef(document.createElement('div'));
     return mockedElement;
   };
-  const createInfiniteScroll = () => {
-    const mockedElement = createMockElement();
+  const createInfiniteScroll = (mockedElement?: any) => {
+    mockedElement = mockedElement || createMockElement();
     return new InfiniteScroll(
       mockedElement,
       zoneSpy,
@@ -50,7 +50,7 @@ describe('Infinite Scroll Directive', () => {
 
   it('should have default @Input properties values', () => {
     const directive = createInfiniteScroll();
-    const expectedInputs = {
+    const expectedInputs: Object = {
       _distanceDown: 2,
       _distanceUp: 1.5,
       _throttle: 300,
@@ -58,7 +58,8 @@ describe('Infinite Scroll Directive', () => {
       _immediate: false,
       _horizontal: false,
       _alwaysCallback: false,
-      _disabled: false
+      _disabled: false,
+      _container: null
     };
 
     Object.keys(expectedInputs).forEach(input =>
@@ -108,4 +109,77 @@ describe('Infinite Scroll Directive', () => {
     const actual = directive.onScrollDown;
     expect(actual).not.toHaveBeenCalled();
   });
-})
+
+  describe('resolving container', () => {
+    let directive: InfiniteScroll;
+    let mockedElement: ElementRef;
+    const container = {
+      height: 0,
+      scrolledUntilNow: 0,
+      totalToScroll: 0,
+    };
+
+    beforeEach(() => {
+      mockedElement = createMockElement();
+      directive = createInfiniteScroll(mockedElement);
+      spyOn(positionFactoryMock, 'create').and.callThrough();
+    });
+
+    describe('when container input is defined', () => {
+      describe('when css selector is used', () => {
+        beforeEach(() => {
+          spyOn(document, 'querySelector').and.returnValue(container);
+          directive._container = '.test';
+          directive.ngOnInit();
+        });
+
+        it('should find element in DOM', () => {
+          expect(document.querySelector).toHaveBeenCalledWith('.test');
+        });
+
+        it('should return container', () => {
+          expect(positionFactoryMock.create)
+              .toHaveBeenCalledWith(jasmine.objectContaining({windowElement: container}));
+        });
+      });
+
+      describe('when container is passed directly', () => {
+        beforeEach(() => {
+          directive._container = container;
+          directive.ngOnInit();
+        });
+
+        it('should return container', () => {
+          expect(positionFactoryMock.create)
+              .toHaveBeenCalledWith(jasmine.objectContaining({windowElement: container}));
+        });
+      });
+    });
+
+    describe('when container input is not defined', () => {
+      describe('when scrollWindow is true', () => {
+        beforeEach(() => {
+          directive.scrollWindow = true;
+          directive.ngOnInit();
+        });
+
+        it('should return window', () => {
+          expect(positionFactoryMock.create)
+              .toHaveBeenCalledWith(jasmine.objectContaining({windowElement: window}));
+        });
+      });
+
+      describe('when scrollWindow is false', () => {
+        beforeEach(() => {
+          directive.scrollWindow = false;
+          directive.ngOnInit();
+        });
+
+        it('should return current element', () => {
+          expect(positionFactoryMock.create)
+              .toHaveBeenCalledWith(jasmine.objectContaining({windowElement: mockedElement}));
+        });
+      });
+    });
+  });
+});

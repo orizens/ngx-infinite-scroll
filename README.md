@@ -16,6 +16,7 @@ Currently supported attributes:
 * "infiniteScrollDistance" - (number), (optional, default: **2**) - should get a number, the number of viewport lenghts from the bottom of the page at which the event will be triggered.
 * "infiniteScrollUpDistance" - (number), (optional, default: **1.5**) - should get a number
 * "infiniteScrollThrottle" - (number), (optional, default: **300**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
+* "infiniteScrollContainer" (string|HTMLElement), (optional, default: null) - should get a html element or css selector for a scrollable element; window or current element will be used if this attribute is empty.
 * "scrolled" - (function) - this will callback if the distance threshold has been reached on a scroll down.
 * "scrolledUp" - (function) (event: InfiniteScrollEvent) - this will callback if the distance threshold has been reached on a scroll up.
 * "scrollWindow" - (boolean), (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
