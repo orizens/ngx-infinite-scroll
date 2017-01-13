@@ -7,6 +7,7 @@ import { PositionResolverFactory } from './position-resolver';
 })
 export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   public scroller: Scroller;
+  private throttleType: string = 'throttle'
 
   @Input('infiniteScrollDistance') _distanceDown: number = 2;
   @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
@@ -16,6 +17,10 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   @Input('immediateCheck') _immediate: boolean = false;
   @Input('horizontal') _horizontal: boolean = false;
   @Input('alwaysCallback') _alwaysCallback: boolean = false;
+  @Input()
+  set debounce(value: string | boolean) {
+    this.throttleType = value === '' || !!value ? 'debounce' : 'throttle'
+  }
 
   @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
   @Output() scrolledUp = new EventEmitter<InfiniteScrollEvent>();
@@ -33,7 +38,7 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
           this.onScrollDown.bind(this), this.onScrollUp.bind(this),
           this._distanceDown, this._distanceUp, {}, this._throttle,
           this._immediate, this._horizontal, this._alwaysCallback,
-          this._disabled, this.positionResolverFactory);
+          this._disabled, this.positionResolverFactory, this.throttleType);
     }
   }
 
@@ -44,7 +49,7 @@ export class InfiniteScroll implements OnDestroy, OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['_disabled'] && this.scroller){
+    if (changes['_disabled'] && this.scroller) {
       this.scroller.handleInfiniteScrollDisabled(changes['_disabled'].currentValue);
     }
   }
