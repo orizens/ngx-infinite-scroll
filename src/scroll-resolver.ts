@@ -17,7 +17,6 @@ export class ScrollResolver {
       containerBreakpoint = container.height * distance.up + 1;
     }
     const shouldScroll: boolean = remaining <= containerBreakpoint;
-    console.log({containerBreakpoint, container, remaining });
     this.lastScrollPosition = container.scrolledUntilNow;
     return shouldScroll;
   }
