@@ -5,26 +5,42 @@ import {
 import { InfiniteScroll } from './infinite-scroll';
 import { AxisResolverFactory } from './axis-resolver';
 import { PositionResolverFactory } from './position-resolver';
+import { ScrollRegister } from './scroll-register';
+import { ScrollResolver } from './scroll-resolver';
 
 import { ElementRef, NgZone, SimpleChanges, SimpleChange } from '@angular/core';
 
 describe('Infinite Scroll Directive', () => {
   // const zone = new NgZone({ enableLongStackTrace: false });
-  const zone = jasmine.createSpyObj('zone', ['run']);
+  let isScrollingDown = true;
+  let zoneSpy: any, scrollResolverSpy: any, scrollRegisterSpy: any, positionResolverSpy: any;
+  const positionFactoryMock: any =  {
+    create: () => positionResolverSpy
+  };
   const createMockElement = () => {
     const mockedElement: ElementRef = new ElementRef(document.createElement('div'));
     return mockedElement;
   };
-  let positionResolver: PositionResolverFactory;
   const createInfiniteScroll = () => {
     const mockedElement = createMockElement();
-    const axis: AxisResolverFactory = new AxisResolverFactory();
-    positionResolver = new PositionResolverFactory(axis);
-    return new InfiniteScroll(mockedElement, zone, positionResolver);
+    return new InfiniteScroll(
+      mockedElement,
+      zoneSpy,
+      positionFactoryMock,
+      scrollRegisterSpy,
+      scrollResolverSpy
+    );
   };
 
   beforeEach(() =>{
-    
+    zoneSpy = jasmine.createSpyObj('zone', ['run']);
+    scrollResolverSpy = {
+      getScrollStats: () => {
+        return { shouldScroll: true, isScrollingDown };
+      }
+    };
+    scrollRegisterSpy = jasmine.createSpyObj('register', ['attachEvent'])
+    positionResolverSpy = jasmine.createSpyObj('pos', ['create', 'container']);
   });
 
   it('should create an instance of the directive', () => {
@@ -49,33 +65,47 @@ describe('Infinite Scroll Directive', () => {
       expect(directive[input]).toEqual(expectedInputs[input]));
   });
 
-  it('should trigger the onScrollDown event when scroll has passed _distandDown', () => {
+  it('should trigger the onScrollDown event when scroll has passed _distancedDown', () => {
     const directive = createInfiniteScroll();
+    const container = {
+      height: 0,
+      scrolledUntilNow: 0,
+      totalToScroll: 0,
+    }
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
-    directive.scroller.handler();
-    expect(directive.onScrollDown).toHaveBeenCalled();
+    directive.handleOnScroll(container)
+    const actual = directive.onScrollDown;
+    expect(actual).toHaveBeenCalled();
   });
 
   it('should trigger the onScrollUp event when scroll has passed _distanceUp', () => {
     const directive = createInfiniteScroll();
+    const container = {
+      height: 0,
+      scrolledUntilNow: 0,
+      totalToScroll: 0,
+    };
     spyOn(directive, 'onScrollUp');
     directive.ngOnInit();
-    directive.scroller.lastScrollPosition = 350;
-    directive.scroller.handler();
-    expect(directive.onScrollUp).toHaveBeenCalled();
+    isScrollingDown = false;
+    directive.handleOnScroll(container);
+    const actual = directive.onScrollUp;
+    expect(actual).toHaveBeenCalled();
   });
 
   it('should disable the scroller', () => {
     const directive = createInfiniteScroll();
-    const changes: SimpleChanges = {
-      '_disabled': new SimpleChange(false, true)
-    };
-    // spyOn(directive, 'onScrollUp');
+    const container = {
+      height: 0,
+      scrolledUntilNow: 0,
+      totalToScroll: 0,
+    }
+    spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
-    directive.ngOnChanges(changes);
-    const expected = false;
-    const actual = directive.scroller.scrollEnabled;
-    expect(actual).toBe(expected);
-  })
+    directive._disabled = true;
+    directive.handleOnScroll(container);
+    const actual = directive.onScrollDown;
+    expect(actual).not.toHaveBeenCalled();
+  });
 })
