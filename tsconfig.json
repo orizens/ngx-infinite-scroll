@@ -31,7 +31,6 @@
     "./angular2-infinite-scroll.ts",
     "./src/infinite-scroll.ts",
     "./src/infinite-scroll.spec.ts",
-    "./src/scroller.ts",
     "./src/axis-resolver.ts",
     "./src/axis-resolver.spec.ts",
     "./src/position-resolver.ts",
