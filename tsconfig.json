@@ -36,6 +36,9 @@
     "./src/axis-resolver.spec.ts",
     "./src/position-resolver.ts",
     "./src/position-resolver.spec.ts",
+    "./src/scroll-resolver.ts",
+    "./src/scroll-register.ts",
+    "./src/models.ts",
     "./src/index.ts"
   ],
   "angularCompilerOptions": {

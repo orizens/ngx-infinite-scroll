@@ -23,9 +23,7 @@ describe('Position Resolver', () => {
 
   const createPositionResolver = (element: ElementRef, container: ElementRef) => {
     const options = {
-      container: element,
-      documentElement: container,
-      isContainerWindow: true,
+      windowElement: element,
       horizontal: true
     };
     const axis: AxisResolver = new AxisResolver();

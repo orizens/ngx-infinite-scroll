@@ -23,7 +23,7 @@ export class PositionResolver {
     this.defineContainer(this.options.windowElement);
   }
 
-  defineContainer(windowElement) {
+  defineContainer(windowElement: ContainerRef) {
     if (this.resolveContainer(windowElement)) {
       this.container = windowElement;
     } else {
@@ -32,7 +32,7 @@ export class PositionResolver {
     return this.container;
   }
 
-  resolveContainer(windowElement: Window | ElementRef | any): boolean {
+  resolveContainer(windowElement: ContainerRef): boolean {
     const isContainerWindow = Object.prototype.toString.call(windowElement).includes('Window');
     this.isContainerWindow = isContainerWindow;
     return isContainerWindow;
