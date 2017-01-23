@@ -10,6 +10,7 @@ export { AxisResolver, AxisResolverFactory } from './src/axis-resolver';
 export { InfiniteScrollModule } from './src/index';
 export { ScrollRegister } from './src/scroll-register';
 export { ScrollResolver } from './src/scroll-resolver';
+export * from './src/models';
 
 export default {
 	directives: [ InfiniteScroll, AxisResolver, PositionResolver ]
