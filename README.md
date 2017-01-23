@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/orizens/angular2-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/angular2-infinite-scroll)
 
 # Angular 2 Infinite Scroll
-A port & modification of [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular 2.
+Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2).
 
 ## Angular 2 Support
-Updated to support Angular 2 - **Final - 2.0.0**
+Supports in Angular - **Final - 2.x.x**
 
 ## Installation
 ```
@@ -13,24 +13,24 @@ npm install angular2-infinite-scroll --save
 
 ## Supported API
 Currently supported attributes:
-* (number) "infiniteScrollDistance" (optional, default: **2**) - should get a number, the number of viewport lenghts from the bottom of the page at which the event will be triggered.
-* (number) "infiniteScrollUpDistance" (optional, default: **1.5**) - should get a number
-* (number) "infiniteScrollThrottle" (optional, default: **300**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
-* (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolled)="handleScrollDownCallback()"** - this will callback if the distance threshold has been reached on a scroll down.
-* (function) - instead of defining a callback function on the "infinite-scroll" attribute, you should use the event binding **(scrolledUp)="handleScrollUpCallback()"** - this will callback if the distance threshold has been reached on a scroll up.
-* (boolean) - "scrollWindow" (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
-* (boolean) - "immediateCheck" (optional, default: **false**) - invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled).
-* (boolean) - "infiniteScrollDisabled" (optional, default: **false**) - doesn't invoke the handler if set to true
+* "infiniteScrollDistance" - (number), (optional, default: **2**) - should get a number, the number of viewport lenghts from the bottom of the page at which the event will be triggered.
+* "infiniteScrollUpDistance" - (number), (optional, default: **1.5**) - should get a number
+* "infiniteScrollThrottle" - (number), (optional, default: **300**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
+* "scrolled" - (function) - this will callback if the distance threshold has been reached on a scroll down.
+* "scrolledUp" - (function) (event: InfiniteScrollEvent) - this will callback if the distance threshold has been reached on a scroll up.
+* "scrollWindow" - (boolean), (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
+* "immediateCheck" - (boolean), (optional, default: **false**) - invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled).
+* "infiniteScrollDisabled" - (boolean), (optional, default: **false**) - doesn't invoke the handler if set to true
 
 ## Behavior
-By default, the directive listens to a window scroll event and invoked the callback.
+By default, the directive listens to the **window scroll** event and invoked the callback.  
 **To trigger the callback when the actual element is scrolled**, these settings should be configured:
 * [scrollWindow]="false"
 * set an explict css "height" value to the element
 
 ## DEMO
-[Default Scroll By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
-[Scroll On a "Modal" - plunkr](https://plnkr.co/edit/QnQOwE9SEapwJCCFII3L?p=preview)
+- [**Default Scroll** By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview) 
+- [Scroll On a **"Modal"** - plunkr](https://plnkr.co/edit/QnQOwE9SEapwJCCFII3L?p=preview)
 
 ## Usage
 First, import the InfiniteScrollModule to your module:
@@ -63,7 +63,7 @@ import { Component } from '@angular/core';
 		<div class="search-results"
 		    infinite-scroll
 		    [infiniteScrollDistance]="2"
-		    [infiniteScrollThrottle]="500"
+		    [infiniteScrollThrottle]="300"
 		    (scrolled)="onScroll()">
 		</div>
 	`
