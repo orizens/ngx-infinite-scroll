@@ -370,7 +370,6 @@ System.registerDynamic("src/scroll-resolver", ["@angular/core"], true, function 
                 containerBreakpoint = container.height * distance.up + 1;
             }
             var shouldScroll = remaining <= containerBreakpoint;
-            console.log({ containerBreakpoint: containerBreakpoint, container: container, remaining: remaining });
             this.lastScrollPosition = container.scrolledUntilNow;
             return shouldScroll;
         };
