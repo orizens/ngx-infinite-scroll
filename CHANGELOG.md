@@ -1,3 +1,8 @@
+## v 0.3.1 (2017/02/15) 
+
+### Updates
+* added custom scrollable container from (#108)[https://github.com/orizens/angular2-infinite-scroll/pull/108/files]
+
 ## v 0.3.0 (2017/01/31) 
 
 ### Updates
