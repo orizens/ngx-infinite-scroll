@@ -1,8 +1,7 @@
 System.registerDynamic('src/infinite-scroll', ['@angular/core', './position-resolver', './scroll-register', './scroll-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
-    var define,
-        global = this || self,
+    var global = this || self,
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
     var position_resolver_1 = $__require('./position-resolver');
@@ -116,7 +115,9 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './position-reso
                 selector: '[infinite-scroll]'
             }] }];
         /** @nocollapse */
-        InfiniteScroll.ctorParameters = [{ type: core_1.ElementRef }, { type: core_1.NgZone }, { type: position_resolver_1.PositionResolverFactory }, { type: scroll_register_1.ScrollRegister }, { type: scroll_resolver_1.ScrollResolver }];
+        InfiniteScroll.ctorParameters = function () {
+            return [{ type: core_1.ElementRef }, { type: core_1.NgZone }, { type: position_resolver_1.PositionResolverFactory }, { type: scroll_register_1.ScrollRegister }, { type: scroll_resolver_1.ScrollResolver }];
+        };
         InfiniteScroll.propDecorators = {
             'scrolled': [{ type: core_1.Output }],
             'scrolledUp': [{ type: core_1.Output }],
@@ -134,13 +135,11 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './position-reso
         return InfiniteScroll;
     }();
     exports.InfiniteScroll = InfiniteScroll;
-    return module.exports;
 });
 System.registerDynamic('src/axis-resolver', ['@angular/core'], true, function ($__require, exports, module) {
     "use strict";
 
-    var define,
-        global = this || self,
+    var global = this || self,
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
     var AxisResolverFactory = function () {
@@ -153,7 +152,9 @@ System.registerDynamic('src/axis-resolver', ['@angular/core'], true, function ($
         };
         AxisResolverFactory.decorators = [{ type: core_1.Injectable }];
         /** @nocollapse */
-        AxisResolverFactory.ctorParameters = [];
+        AxisResolverFactory.ctorParameters = function () {
+            return [];
+        };
         return AxisResolverFactory;
     }();
     exports.AxisResolverFactory = AxisResolverFactory;
@@ -188,13 +189,11 @@ System.registerDynamic('src/axis-resolver', ['@angular/core'], true, function ($
         return AxisResolver;
     }();
     exports.AxisResolver = AxisResolver;
-    return module.exports;
 });
 System.registerDynamic('src/position-resolver', ['@angular/core', './axis-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
-    var define,
-        global = this || self,
+    var global = this || self,
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
     var axis_resolver_1 = $__require('./axis-resolver');
@@ -207,7 +206,9 @@ System.registerDynamic('src/position-resolver', ['@angular/core', './axis-resolv
         };
         PositionResolverFactory.decorators = [{ type: core_1.Injectable }];
         /** @nocollapse */
-        PositionResolverFactory.ctorParameters = [{ type: axis_resolver_1.AxisResolverFactory }];
+        PositionResolverFactory.ctorParameters = function () {
+            return [{ type: axis_resolver_1.AxisResolverFactory }];
+        };
         return PositionResolverFactory;
     }();
     exports.PositionResolverFactory = PositionResolverFactory;
@@ -295,13 +296,11 @@ System.registerDynamic('src/position-resolver', ['@angular/core', './axis-resolv
         return PositionResolver;
     }();
     exports.PositionResolver = PositionResolver;
-    return module.exports;
 });
 System.registerDynamic('src/index', ['@angular/core', './infinite-scroll', './axis-resolver', './position-resolver', './scroll-register', './scroll-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
-    var define,
-        global = this || self,
+    var global = this || self,
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
     var infinite_scroll_1 = $__require('./infinite-scroll');
@@ -318,17 +317,17 @@ System.registerDynamic('src/index', ['@angular/core', './infinite-scroll', './ax
                 providers: [axis_resolver_1.AxisResolverFactory, position_resolver_1.PositionResolverFactory, scroll_register_1.ScrollRegister, scroll_resolver_1.ScrollResolver]
             }] }];
         /** @nocollapse */
-        InfiniteScrollModule.ctorParameters = [];
+        InfiniteScrollModule.ctorParameters = function () {
+            return [];
+        };
         return InfiniteScrollModule;
     }();
     exports.InfiniteScrollModule = InfiniteScrollModule;
-    return module.exports;
 });
 System.registerDynamic('src/scroll-register', ['@angular/core', 'rxjs/Rx', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/timer', 'rxjs/add/observable/of', 'rxjs/add/operator/debounce', 'rxjs/add/operator/throttle', 'rxjs/add/operator/filter'], true, function ($__require, exports, module) {
     "use strict";
 
-    var define,
-        global = this || self,
+    var global = this || self,
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
     var Rx_1 = $__require('rxjs/Rx');
@@ -350,19 +349,19 @@ System.registerDynamic('src/scroll-register', ['@angular/core', 'rxjs/Rx', 'rxjs
         };
         ScrollRegister.decorators = [{ type: core_1.Injectable }];
         /** @nocollapse */
-        ScrollRegister.ctorParameters = [];
+        ScrollRegister.ctorParameters = function () {
+            return [];
+        };
         return ScrollRegister;
     }();
     exports.ScrollRegister = ScrollRegister;
-    return module.exports;
 });
 System.registerDynamic("src/scroll-resolver", ["@angular/core"], true, function ($__require, exports, module) {
     "use strict";
 
-    var define,
-        global = this || self,
+    var global = this || self,
         GLOBAL = global;
-    var core_1 = $__require("@angular/core");
+    var core_1 = $__require('@angular/core');
     var ScrollResolver = function () {
         function ScrollResolver() {
             this.lastScrollPosition = 0;
@@ -392,17 +391,17 @@ System.registerDynamic("src/scroll-resolver", ["@angular/core"], true, function 
         };
         ScrollResolver.decorators = [{ type: core_1.Injectable }];
         /** @nocollapse */
-        ScrollResolver.ctorParameters = [];
+        ScrollResolver.ctorParameters = function () {
+            return [];
+        };
         return ScrollResolver;
     }();
     exports.ScrollResolver = ScrollResolver;
-    return module.exports;
 });
 System.registerDynamic('angular2-infinite-scroll', ['./src/infinite-scroll', './src/position-resolver', './src/axis-resolver', './src/index', './src/scroll-register', './src/scroll-resolver'], true, function ($__require, exports, module) {
     "use strict";
 
-    var define,
-        global = this || self,
+    var global = this || self,
         GLOBAL = global;
     var infinite_scroll_1 = $__require('./src/infinite-scroll');
     var position_resolver_1 = $__require('./src/position-resolver');
@@ -425,5 +424,4 @@ System.registerDynamic('angular2-infinite-scroll', ['./src/infinite-scroll', './
     exports.default = {
         directives: [infinite_scroll_1.InfiniteScroll, axis_resolver_1.AxisResolver, position_resolver_1.PositionResolver]
     };
-    return module.exports;
 });
