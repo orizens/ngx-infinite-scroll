@@ -6,6 +6,14 @@ Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) dire
 ## Angular 2 Support
 Supports in Angular - **Final - 2.x.x**
 
+## Angular 2 Consulting Services
+I'm a Senior Javascript Engineer & A Front End Consultant at (Orizens)[http://orizens.com].
+My services include:  
+- consulting to companies and startups on how to approach code in their projects and keep it maintainable.  
+- I provide project bootstrapping and development - while afterwards, I integrate it on site and guide the team on it.  
+
+[Contact Me Here](http://orizens.com/contact)
+
 ## Installation
 ```
 npm install angular2-infinite-scroll --save
