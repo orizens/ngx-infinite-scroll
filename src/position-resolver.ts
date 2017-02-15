@@ -24,7 +24,7 @@ export class PositionResolver {
   }
 
   defineContainer(windowElement: ContainerRef) {
-    if (this.resolveContainer(windowElement)) {
+    if (this.resolveContainer(windowElement) || !windowElement.nativeElement) {
       this.container = windowElement;
     } else {
       this.container = windowElement.nativeElement;

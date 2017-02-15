@@ -46,4 +46,30 @@ describe('Position Resolver', () => {
     const actual = service.calculatePoints(mockDom.element);
     expect(actual).toBeDefined();
   });
-})
+
+  describe('creating instance for non-window element', () => {
+    let service: PositionResolver;
+
+    describe('when nativeElement is present', () => {
+      beforeEach(() => {
+        const mockDom = createMockDom();
+        service = createPositionResolver(mockDom.element, mockDom.container);
+      });
+
+      it('should use container as nativeElement', () => {
+        expect(service.container instanceof HTMLDivElement).toBeTruthy();
+      });
+    });
+
+    describe('when nativeElement is not present', () => {
+      beforeEach(() => {
+        const mockDom = createMockDom();
+        service = createPositionResolver(mockDom.element, mockDom.container.nativeElement);
+      });
+
+      it('should use container as nativeElement', () => {
+        expect(service.container instanceof HTMLDivElement).toBeTruthy();
+      });
+    });
+  });
+});

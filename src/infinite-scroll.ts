@@ -21,6 +21,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
   @Input('infiniteScrollThrottle') _throttle: number = 300;
   @Input('infiniteScrollDisabled') _disabled: boolean = false;
+  @Input('infiniteScrollContainer') _container: any = null;
   @Input('scrollWindow') scrollWindow: boolean = true;
   @Input('immediateCheck') _immediate: boolean = false;
   @Input('horizontal') _horizontal: boolean = false;
@@ -43,7 +44,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
-      const containerElement = this.scrollWindow ? window : this.element;
+      const containerElement = this.resolveContainerElement();
       const positionResolver = this.positionResolverFactory.create({
         windowElement: containerElement,
         horizontal: this._horizontal
@@ -96,5 +97,13 @@ export class InfiniteScroll implements OnDestroy, OnInit {
 
   onScrollUp(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
     this.zone.run(() => this.scrolledUp.emit(data));
+  }
+
+  private resolveContainerElement(): any {
+    if (this._container) {
+      return typeof(this._container) === 'string' ?  window.document.querySelector(this._container) : this._container;
+    } else {
+      return this.scrollWindow ? window : this.element;
+    }
   }
 }
