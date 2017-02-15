@@ -21,6 +21,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './position-reso
             this._distanceUp = 1.5;
             this._throttle = 300;
             this._disabled = false;
+            this._container = null;
             this.scrollWindow = true;
             this._immediate = false;
             this._horizontal = false;
@@ -37,7 +38,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './position-reso
         InfiniteScroll.prototype.ngOnInit = function () {
             var _this = this;
             if (typeof window !== 'undefined') {
-                var containerElement = this.scrollWindow ? window : this.element;
+                var containerElement = this.resolveContainerElement();
                 var positionResolver_1 = this.positionResolverFactory.create({
                     windowElement: containerElement,
                     horizontal: this._horizontal
@@ -104,6 +105,13 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './position-reso
                 return _this.scrolledUp.emit(data);
             });
         };
+        InfiniteScroll.prototype.resolveContainerElement = function () {
+            if (this._container) {
+                return typeof this._container === 'string' ? window.document.querySelector(this._container) : this._container;
+            } else {
+                return this.scrollWindow ? window : this.element;
+            }
+        };
         InfiniteScroll.decorators = [{ type: core_1.Directive, args: [{
                 selector: '[infinite-scroll]'
             }] }];
@@ -116,6 +124,7 @@ System.registerDynamic('src/infinite-scroll', ['@angular/core', './position-reso
             '_distanceUp': [{ type: core_1.Input, args: ['infiniteScrollUpDistance'] }],
             '_throttle': [{ type: core_1.Input, args: ['infiniteScrollThrottle'] }],
             '_disabled': [{ type: core_1.Input, args: ['infiniteScrollDisabled'] }],
+            '_container': [{ type: core_1.Input, args: ['infiniteScrollContainer'] }],
             'scrollWindow': [{ type: core_1.Input, args: ['scrollWindow'] }],
             '_immediate': [{ type: core_1.Input, args: ['immediateCheck'] }],
             '_horizontal': [{ type: core_1.Input, args: ['horizontal'] }],
@@ -210,7 +219,7 @@ System.registerDynamic('src/position-resolver', ['@angular/core', './axis-resolv
             this.defineContainer(this.options.windowElement);
         }
         PositionResolver.prototype.defineContainer = function (windowElement) {
-            if (this.resolveContainer(windowElement)) {
+            if (this.resolveContainer(windowElement) || !windowElement.nativeElement) {
                 this.container = windowElement;
             } else {
                 this.container = windowElement.nativeElement;
