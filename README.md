@@ -1,12 +1,12 @@
 [![Build Status](https://travis-ci.org/orizens/angular2-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/angular2-infinite-scroll)
 
-# Angular 2 Infinite Scroll
+# Angular Infinite Scroll
 Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2).
 
-## Angular 2 Support
+## Angular Support
 Supports in Angular - **Final - 2.x.x**
 
-## Angular 2 Consulting Services
+## Angular Consulting Services
 I'm a Senior Javascript Engineer & A Front End Consultant at (Orizens)[http://orizens.com].
 My services include:  
 - consulting to companies and startups on how to approach code in their projects and keep it maintainable.  
