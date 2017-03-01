@@ -1,7 +1,12 @@
+## v 0.3.2 (2017/03/01) 
+
+### Updates
+* fixes [#126](https://github.com/orizens/angular2-infinite-scroll/issues/126)
+
 ## v 0.3.1 (2017/02/15) 
 
 ### Updates
-* added custom scrollable container from (#108)[https://github.com/orizens/angular2-infinite-scroll/pull/108/files]
+* added custom scrollable container from [#108](https://github.com/orizens/angular2-infinite-scroll/pull/108/files)
 
 ## v 0.3.0 (2017/01/31) 
 
