@@ -29,7 +29,7 @@ describe('Scroll Regsiter', () => {
   it('should create a Subscription of scroll observable', () => {
     const mockDom = createMockDom();
     const scrollConfig: ScrollRegisterConfig = {
-      container: mockDom,
+      container: mockDom.container.nativeElement,
       filterBefore: () => true,
       mergeMap: (e: any) => e,
       scrollHandler: (ev: any) => ev,
