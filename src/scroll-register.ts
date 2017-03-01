@@ -1,6 +1,7 @@
 import { ContainerRef } from './models';
 import { Injectable, ElementRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/of';
