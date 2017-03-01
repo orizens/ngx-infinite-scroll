@@ -1,13 +1,14 @@
 import { ContainerRef } from './models';
 import { Injectable, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { Subscription } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/throttle';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/mergeMap';
 
 
 export interface ScrollRegisterConfig {
