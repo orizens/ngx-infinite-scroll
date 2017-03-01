@@ -324,13 +324,13 @@ System.registerDynamic('src/index', ['@angular/core', './infinite-scroll', './ax
     }();
     exports.InfiniteScrollModule = InfiniteScrollModule;
 });
-System.registerDynamic('src/scroll-register', ['@angular/core', 'rxjs/Rx', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/timer', 'rxjs/add/observable/of', 'rxjs/add/operator/debounce', 'rxjs/add/operator/throttle', 'rxjs/add/operator/filter'], true, function ($__require, exports, module) {
+System.registerDynamic('src/scroll-register', ['@angular/core', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/timer', 'rxjs/add/observable/of', 'rxjs/add/operator/debounce', 'rxjs/add/operator/throttle', 'rxjs/add/operator/filter'], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     var core_1 = $__require('@angular/core');
-    var Rx_1 = $__require('rxjs/Rx');
+    var Observable_1 = $__require('rxjs/Observable');
     $__require('rxjs/add/observable/fromEvent');
     $__require('rxjs/add/observable/timer');
     $__require('rxjs/add/observable/of');
@@ -340,10 +340,10 @@ System.registerDynamic('src/scroll-register', ['@angular/core', 'rxjs/Rx', 'rxjs
     var ScrollRegister = function () {
         function ScrollRegister() {}
         ScrollRegister.prototype.attachEvent = function (options) {
-            var scroller$ = Rx_1.Observable.fromEvent(options.container, 'scroll')[options.throttleType](function () {
-                return Rx_1.Observable.timer(options.throttleDuration);
+            var scroller$ = Observable_1.Observable.fromEvent(options.container, 'scroll')[options.throttleType](function () {
+                return Observable_1.Observable.timer(options.throttleDuration);
             }).filter(options.filterBefore).mergeMap(function (ev) {
-                return Rx_1.Observable.of(options.mergeMap(ev));
+                return Observable_1.Observable.of(options.mergeMap(ev));
             }).subscribe(options.scrollHandler);
             return scroller$;
         };
