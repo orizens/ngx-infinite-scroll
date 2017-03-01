@@ -1,3 +1,8 @@
+## v 0.3.3 (2017/03/01) 
+
+### Updates
+* reverted the fix of #126
+
 ## v 0.3.2 (2017/03/01) 
 
 ### Updates
