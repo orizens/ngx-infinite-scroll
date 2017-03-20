@@ -25,12 +25,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   @Input('immediateCheck') _immediate: boolean = false;
   @Input('horizontal') _horizontal: boolean = false;
   @Input('alwaysCallback') _alwaysCallback: boolean = false;
-  @Input()
-  set debounce(value: string | boolean) {
-    this.throttleType = value === '' || !!value ? 'debounce' : 'throttle';
-  }
 
-  private throttleType: string = 'throttle';
   private disposeScroller: Subscription;
 
   constructor(
@@ -50,7 +45,6 @@ export class InfiniteScroll implements OnDestroy, OnInit {
       });
       const options: ScrollRegisterConfig = {
         container: positionResolver.container,
-        throttleType: this.throttleType,
         throttleDuration: this._throttle,
         filterBefore: () => !this._disabled,
         mergeMap: () => positionResolver.calculatePoints(this.element),
