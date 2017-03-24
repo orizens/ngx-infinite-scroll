@@ -21,7 +21,7 @@ npm install angular2-infinite-scroll --save
 
 ## Supported API
 Currently supported attributes:
-* **infiniteScrollDistance**<_number_> - (optional, default: **2**) - should get a number, the number of viewport lenghts from the bottom of the page at which the event will be triggered.
+* **infiniteScrollDistance**<_number_> - (optional, default: **2**) - should get a number, the number of viewport lengths from the bottom of the page at which the event will be triggered.
 * **infiniteScrollUpDistance**<_number_> - (optional, default: **1.5**) - should get a number
 * **infiniteScrollThrottle**<_number_> - (optional, default: **300**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
 * **infiniteScrollContainer**<_string|HTMLElement_> - (optional, default: null) - should get a html element or css selector for a scrollable element; window or current element will be used if this attribute is empty.
