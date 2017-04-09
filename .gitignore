@@ -50,4 +50,11 @@ typings
 
 src/ngFactory
 *.metadata.json
-dist
+
+$ cat .gitignore
+/node_modules
+/dist
+/documentation
+
+*.log
+*.tgz
