@@ -1,6 +1,6 @@
 {
     "name": "ngx-infinite-scroll",
-    "version": "0.4.0-0",
+    "version": "0.4.0-2",
     "description": "Build an Angular library compatible with AoT compilation and Tree shaking",
     "main": "./bundles/ngx-infinite-scroll.umd.js",
     "module": "./modules/ngx-infinite-scroll.es5.js",
@@ -10,6 +10,7 @@
         "test": "karma start",
         "pack-lib": "npm pack ./dist",
         "publish-lib": "npm publish ./dist",
+        "publish:beta": "npm publish --tag beta ./dist",
         "compodoc": "compodoc -p tsconfig.json",
         "compodoc-serve": "compodoc -s"
     },
