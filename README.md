@@ -4,7 +4,7 @@
 Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2).
 
 ## Angular Support
-Supports in Angular **> +2, 4**
+Supports in Angular - **Final - 2.x.x**
 
 ## Angular Consulting Services
 I'm a Senior Javascript Engineer & A Front End Consultant at [Orizens](http://orizens.com).
@@ -143,6 +143,16 @@ export class AppComponent {
     }
 }
 ```
+
+## Testing
+To start developing tdd/bdd style: ```npm run dev```
+This will: compile ts files, watch for changes and start the test task. Whenever a ts file is changed, it will rerun the tests.
+
+Travis-ci is integrated
+
+### Credits For Tests Setup
+[ng2-test-seed](https://github.com/juliemr/ng2-test-seed) has been a huge help and source of inspiration. At first, copy & paste, then, customisation to adapt to this code repository.
+Thanks [@juliemr](https://github.com/juliemr)!
 
 # Showcase Examples
 * [Echoes Player Ng2 Version](http://orizens.github.io/echoes-ng2) ([github repo for echoes player](http://github.com/orizens/echoes-ng2))
