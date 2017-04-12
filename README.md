@@ -4,7 +4,7 @@
 Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2).
 
 ## Angular Support
-Supports in Angular **> +2, 4**
+Supports in Angular **> +2, 4 etc..**
 
 ## Angular Consulting Services
 I'm a Senior Javascript Engineer & A Front End Consultant at [Orizens](http://orizens.com).
@@ -16,7 +16,7 @@ My services include:
 
 ## Installation
 ```
-npm install angular2-infinite-scroll --save
+npm install ngx-infinite-scroll --save
 ```
 
 ## Supported API
@@ -47,7 +47,7 @@ First, import the InfiniteScrollModule to your module:
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppComponent } from './app';
 
@@ -117,7 +117,7 @@ In this example, the **onScrollDown** callback will be invoked when the window i
 
 ```typescript
 import { Component } from '@angular/core';
-import { InfiniteScroll } from 'angular2-infinite-scroll';
+import { InfiniteScroll } from 'ngx-infinite-scroll';
 
 @Component({
 	selector: 'app',
