@@ -1,9 +1,9 @@
 export default {
-    entry: './dist/modules/angular-library-starter.es5.js',
-    dest: './dist/bundles/angular-library-starter.umd.js',
+    entry: './dist/modules/ngx-infinite-scroll.es5.js',
+    dest: './dist/bundles/ngx-infinite-scroll.umd.js',
     format: 'umd',
     exports: 'named',
-    moduleName: 'ng.angularLibraryStarter',
+    moduleName: 'ng.ngxInfiniteScroll',
     external: [
         '@angular/core',
         '@angular/common',
