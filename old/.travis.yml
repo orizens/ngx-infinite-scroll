@@ -1,0 +1,14 @@
+language: node_js
+sudo: false
+node_js:
+- '5.9.1'
+
+install:
+- npm install
+
+after_script: 
+- process.exit()
+
+cache:
+  directories:
+  - $HOME/.nvm
