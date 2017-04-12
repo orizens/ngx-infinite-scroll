@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "bundles"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
+  "files": [
+    "./angular2-infinite-scroll.ts",
+    "./src/infinite-scroll.ts",
+    "./src/infinite-scroll.spec.ts",
+    "./src/axis-resolver.ts",
+    "./src/axis-resolver.spec.ts",
+    "./src/position-resolver.ts",
+    "./src/position-resolver.spec.ts",
+    "./src/scroll-resolver.ts",
+    "./src/scroll-register.ts",
+    "./src/models.ts",
+    "./src/index.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "./src/ngfactory",
+    "debug": false
+  }
+}
