@@ -1,6 +1,6 @@
 {
     "name": "ngx-infinite-scroll",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "Build an Angular library compatible with AoT compilation and Tree shaking",
     "main": "./bundles/ngx-infinite-scroll.umd.js",
     "module": "./modules/ngx-infinite-scroll.es5.js",
@@ -12,10 +12,11 @@
         "publish-lib": "npm publish ./dist",
         "publish:beta": "npm publish --tag beta ./dist",
         "compodoc": "compodoc -p tsconfig.json",
-        "compodoc-serve": "compodoc -s"
+        "compodoc-serve": "compodoc -s",
+        "transpile": "ngc -p ./tsconfig.json"
     },
     "typings": "./index.d.ts",
-    "author": "",
+    "author": "Oren Farhi (orizens.com)",
     "repository": {
         "type": "git",
         "url": "https://github.com/orizens/ngx-infinite-scroll.git"
@@ -35,14 +36,14 @@
         "@angular/core": ">= 4.0.0"
     },
     "devDependencies": {
-        "@angular/common": "4.0.0",
-        "@angular/compiler": "4.0.0",
-        "@angular/compiler-cli": "4.0.0",
-        "@angular/core": "4.0.0",
-        "@angular/platform-browser": "4.0.0",
-        "@angular/platform-browser-dynamic": "4.0.0",
-        "@angular/platform-server": "4.0.0",
-        "@angular/animations": "4.0.0",
+        "@angular/common": "^4.0.0",
+        "@angular/compiler": "^4.0.0",
+        "@angular/compiler-cli": "^4.0.0",
+        "@angular/core": "^4.0.0",
+        "@angular/platform-browser": "^4.0.0",
+        "@angular/platform-browser-dynamic": "^4.0.0",
+        "@angular/platform-server": "^4.0.0",
+        "@angular/animations": "^4.0.0",
         "@types/jasmine": "2.5.46",
         "@types/node": "7.0.10",
         "codelyzer": "3.0.0-beta.4",

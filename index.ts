@@ -1,1 +1,1 @@
-export * from './public_api';
+import { InfiniteScrollModule } from './src/ngx-infinite-scroll';

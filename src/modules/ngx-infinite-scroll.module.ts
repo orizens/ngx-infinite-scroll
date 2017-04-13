@@ -7,9 +7,9 @@ import { ScrollRegister } from '../services/scroll-register';
 import { ScrollResolver } from '../services/scroll-resolver';
 
 @NgModule({
-  imports: [],
   declarations: [InfiniteScroll],
   exports: [InfiniteScroll],
+  imports: [],
   providers: [
     AxisResolverFactory,
     PositionResolverFactory,

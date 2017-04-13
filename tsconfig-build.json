@@ -17,14 +17,13 @@
         ]
     },
     "files": [
-        "public_api.ts",
-        "node_modules/zone.js/dist/zone.js.d.ts"
+        "public_api.ts"
     ],
     "angularCompilerOptions": {
         "skipTemplateCodegen": true,
         "annotateForClosureCompiler": true,
         "strictMetadataEmit": true,
         "flatModuleOutFile": "index.js",
-        "flatModuleId": "angular-library-starter"
+        "flatModuleId": "ngx-infinite-scroll"
     }
 }
