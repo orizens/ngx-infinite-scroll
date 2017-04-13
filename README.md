@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/orizens/angular2-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/angular2-infinite-scroll)
+[![Build Status](https://travis-ci.org/orizens/ngx-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/angular2-infinite-scroll)
 
 # Angular Infinite Scroll
-Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2).
+Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2, 4).
 
 ## Angular Support
 Supports in Angular **> +2, 4 etc..**
