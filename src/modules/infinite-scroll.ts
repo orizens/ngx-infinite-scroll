@@ -7,7 +7,8 @@ import {
 import { PositionResolverFactory } from '../services/position-resolver';
 import { ScrollRegister, ScrollRegisterConfig } from '../services/scroll-register';
 import { ScrollResolver } from '../services/scroll-resolver';
-import { Subscription } from 'rxjs/Rx';
+import 'rxjs/Subscription';
+import 'rxjs/add/operator/mergeMap'
 
 
 @Directive({
