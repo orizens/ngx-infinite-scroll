@@ -71,7 +71,7 @@ import { Component } from '@angular/core';
 	selector: 'app',
 	template: `
 		<div class="search-results"
-		    infinite-scroll
+		    infiniteScroll
 		    [infiniteScrollDistance]="2"
 		    [infiniteScrollThrottle]="300"
 		    (scrolled)="onScroll()">
@@ -99,7 +99,7 @@ import { Component } from '@angular/core';
 	],
 	template: `
 		<div class="search-results"
-		    infinite-scroll
+		    infiniteScroll
 		    [infiniteScrollDistance]="2"
 		    [infiniteScrollThrottle]="500"
 		    (scrolled)="onScroll()"
@@ -125,7 +125,7 @@ import { InfiniteScroll } from 'ngx-infinite-scroll';
 	directives: [ InfiniteScroll ],
 	template: `
 		<div class="search-results"
-		    infinite-scroll
+		    infiniteScroll
 		    [infiniteScrollDistance]="2"
 		    [infiniteScrollUpDistance]="1.5"
 		    [infiniteScrollThrottle]="500"
@@ -146,4 +146,4 @@ export class AppComponent {
 ```
 
 # Showcase Examples
-* [Echoes Player Ng2 Version](http://orizens.github.io/echoes-ng2) ([github repo for echoes player](http://github.com/orizens/echoes-ng2))
+* [Echoes Player - Developed with Angular, angular-cli and ngrx](http://orizens.github.io/echoes-player) ([github repo for echoes player](http://github.com/orizens/echoes-player))
