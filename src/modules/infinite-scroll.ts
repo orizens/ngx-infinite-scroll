@@ -14,20 +14,20 @@ import { Subscription } from 'rxjs/Rx';
   selector: '[infinite-scroll]'
 })
 export class InfiniteScroll implements OnDestroy, OnInit {
-  @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
-  @Output() scrolledUp = new EventEmitter<InfiniteScrollEvent>();
+  @Output() public scrolled = new EventEmitter<InfiniteScrollEvent>();
+  @Output() public scrolledUp = new EventEmitter<InfiniteScrollEvent>();
 
-  @Input('infiniteScrollDistance') _distanceDown: number = 2;
-  @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
-  @Input('infiniteScrollThrottle') _throttle: number = 300;
-  @Input('infiniteScrollDisabled') _disabled: boolean = false;
-  @Input('infiniteScrollContainer') _container: any = null;
-  @Input('scrollWindow') scrollWindow: boolean = true;
-  @Input('immediateCheck') _immediate: boolean = false;
-  @Input('horizontal') _horizontal: boolean = false;
-  @Input('alwaysCallback') _alwaysCallback: boolean = false;
+  @Input('infiniteScrollDistance') public _distanceDown: number = 2;
+  @Input('infiniteScrollUpDistance') public _distanceUp: number = 1.5;
+  @Input('infiniteScrollThrottle') public _throttle: number = 300;
+  @Input('infiniteScrollDisabled') public _disabled: boolean = false;
+  @Input('infiniteScrollContainer') public _container: any = null;
+  @Input('scrollWindow') public scrollWindow: boolean = true;
+  @Input('immediateCheck') public _immediate: boolean = false;
+  @Input('horizontal') public _horizontal: boolean = false;
+  @Input('alwaysCallback') public _alwaysCallback: boolean = false;
   @Input()
-  set debounce(value: string | boolean) {
+  public set debounce(value: string | boolean) {
     this.throttleType = value === '' || !!value ? 'debounce' : 'throttle';
   }
 
@@ -91,11 +91,11 @@ export class InfiniteScroll implements OnDestroy, OnInit {
     }
   }
 
-  onScrollDown(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
+  public onScrollDown(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
     this.zone.run(() => this.scrolled.emit(data));
   }
 
-  onScrollUp(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
+  public onScrollUp(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
     this.zone.run(() => this.scrolledUp.emit(data));
   }
 
