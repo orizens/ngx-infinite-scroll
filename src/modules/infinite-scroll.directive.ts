@@ -7,11 +7,10 @@ import {
 import { PositionResolverFactory } from '../services/position-resolver';
 import { ScrollRegister, ScrollRegisterConfig } from '../services/scroll-register';
 import { ScrollResolver } from '../services/scroll-resolver';
-import { Subscription } from 'rxjs/Rx';
-
+import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
-  selector: '[infinite-scroll]'
+  selector: '[infiniteScroll],[infinite-scroll]'
 })
 export class InfiniteScroll implements OnDestroy, OnInit {
   @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();

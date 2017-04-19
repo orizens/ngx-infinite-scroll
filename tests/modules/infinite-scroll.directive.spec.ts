@@ -2,7 +2,7 @@ import {
   async,
   inject
 } from '@angular/core/testing';
-import { InfiniteScroll } from '../../src/modules/infinite-scroll';
+import { InfiniteScroll } from '../../src/modules/infinite-scroll.directive';
 import { AxisResolverFactory } from '../../src/services/axis-resolver';
 import { PositionResolverFactory } from '../../src/services/position-resolver';
 import { ScrollRegister } from '../../src/services/scroll-register';

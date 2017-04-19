@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { InfiniteScroll } from './infinite-scroll';
+import { InfiniteScroll } from './infinite-scroll.directive';
 import { AxisResolverFactory } from '../services/axis-resolver';
 import { PositionResolverFactory } from '../services/position-resolver';
 import { ScrollRegister } from '../services/scroll-register';

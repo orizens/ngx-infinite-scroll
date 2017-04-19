@@ -1,7 +1,7 @@
 {
     "name": "ngx-infinite-scroll",
-    "version": "0.4.1",
-    "description": "Build an Angular library compatible with AoT compilation and Tree shaking",
+    "version": "0.4.2-1",
+    "description": "An infinite scroll directive for Angular compatible with AoT compilation and Tree shaking",
     "main": "./bundles/ngx-infinite-scroll.umd.js",
     "module": "./modules/ngx-infinite-scroll.es5.js",
     "es2015": "./modules/ngx-infinite-scroll.js",

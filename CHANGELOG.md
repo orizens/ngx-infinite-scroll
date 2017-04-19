@@ -1,3 +1,8 @@
+## v 0.4.2 (2017/04/19)
+* [NEW] - added **'[infiniteScroll]'** by [Angular's styleguide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#02-06). **[infinite-scroll]** will be deprecated in future version.
+* reduced bundle size with imports for RxJS Observable and Subscription objects #126. 
+* removed old code directory from repo
+
 ## v 0.4.1 (2017/04/13)
 * Fixes #147 - (__InfiniteScrollModule is not an NgModule__)
 

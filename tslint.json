@@ -50,6 +50,7 @@
         ],
         "trailing-comma": [
             false
-        ]
+        ],
+        "member-access": [false, "check-accessor"]
     }
 }
