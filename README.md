@@ -4,8 +4,8 @@
 Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2, 4).
 
 ## Angular Support
-Supports in Angular **> 4**
-For Angular (<= 2.3.1), you can use ```npm i angular2-infinite-scroll``` (latest version is 0.3.42) - please notice **the angular2-infinite-scroll** package is deprecated
+Supports Angular **> 4**  
+For Angular version **<= 2.3.1**, you can use ```npm i angular2-infinite-scroll``` (latest version is 0.3.42) - please notice **the angular2-infinite-scroll** package is deprecated
 
 ## Angular Consulting Services
 I'm a Senior Javascript Engineer & A Front End Consultant at [Orizens](http://orizens.com).
