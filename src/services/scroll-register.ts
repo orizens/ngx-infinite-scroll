@@ -4,10 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/sampleTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/sampleTime';
-
 
 export interface ScrollRegisterConfig {
   container: ContainerRef;

@@ -26,7 +26,6 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   @Input() horizontal: boolean = false;
   @Input() alwaysCallback: boolean = false;
 
-  private throttleType: string = 'throttle';
   private disposeScroller: Subscription;
 
   constructor(
