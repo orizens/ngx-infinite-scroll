@@ -34,7 +34,6 @@ describe('Scroll Regsiter', () => {
       mergeMap: (e: any) => e,
       scrollHandler: (ev: any) => ev,
       throttleDuration: 300,
-      throttleType: 'throttle'
 
     };
     const scroller$: Subscription = scrollRegister.attachEvent(scrollConfig);
