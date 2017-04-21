@@ -1,5 +1,5 @@
 // Public classes.
-export { InfiniteScroll } from './modules/infinite-scroll.directive';
+export { InfiniteScrollDirective } from './modules/infinite-scroll.directive';
 export { PositionResolver, PositionResolverFactory } from './services/position-resolver';
 export { AxisResolver, AxisResolverFactory } from './services/axis-resolver';
 export { ScrollRegister } from './services/scroll-register';

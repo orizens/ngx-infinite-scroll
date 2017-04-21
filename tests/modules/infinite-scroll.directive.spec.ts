@@ -2,7 +2,7 @@ import {
   async,
   inject
 } from '@angular/core/testing';
-import { InfiniteScroll } from '../../src/modules/infinite-scroll.directive';
+import { InfiniteScrollDirective } from '../../src/modules/infinite-scroll.directive';
 import { AxisResolverFactory } from '../../src/services/axis-resolver';
 import { PositionResolverFactory } from '../../src/services/position-resolver';
 import { ScrollRegister } from '../../src/services/scroll-register';
@@ -23,7 +23,7 @@ describe('Infinite Scroll Directive', () => {
   };
   const createInfiniteScroll = (mockedElement?: any) => {
     mockedElement = mockedElement || createMockElement();
-    return new InfiniteScroll(
+    return new InfiniteScrollDirective(
       mockedElement,
       zoneSpy,
       positionFactoryMock,
@@ -51,18 +51,17 @@ describe('Infinite Scroll Directive', () => {
   it('should have default @Input properties values', () => {
     const directive: any = createInfiniteScroll();
     const expectedInputs: Object = {
-      _distanceDown: 2,
-      _distanceUp: 1.5,
-      _throttle: 300,
-      scrollWindow: true,
-      _immediate: false,
-      _horizontal: false,
-      _alwaysCallback: false,
-      _disabled: false,
-      _container: null
+      alwaysCallback: false,
+      horizontal: false,
+      infiniteScrollContainer: null,
+      infiniteScrollDisabled: false,
+      infiniteScrollDistance: 2,
+      infiniteScrollThrottle: 300,
+      infiniteScrollUpDistance: 1.5,
+      scrollWindow: true
     };
 
-    Object.keys(expectedInputs).forEach(input =>
+    Object.keys(expectedInputs).forEach((input) =>
       expect(directive[input]).toEqual(expectedInputs[input]));
   });
 
@@ -104,14 +103,14 @@ describe('Infinite Scroll Directive', () => {
     }
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
-    directive._disabled = true;
+    directive.infiniteScrollDisabled = true;
     directive.handleOnScroll(container);
     const actual = directive.onScrollDown;
     expect(actual).not.toHaveBeenCalled();
   });
 
   describe('resolving container', () => {
-    let directive: InfiniteScroll;
+    let directive: InfiniteScrollDirective;
     let mockedElement: ElementRef;
     const container = {
       height: 0,
@@ -129,7 +128,7 @@ describe('Infinite Scroll Directive', () => {
       describe('when css selector is used', () => {
         beforeEach(() => {
           spyOn(document, 'querySelector').and.returnValue(container);
-          directive._container = '.test';
+          directive.infiniteScrollContainer = '.test';
           directive.ngOnInit();
         });
 
@@ -145,7 +144,7 @@ describe('Infinite Scroll Directive', () => {
 
       describe('when container is passed directly', () => {
         beforeEach(() => {
-          directive._container = container;
+          directive.infiniteScrollContainer = container;
           directive.ngOnInit();
         });
 

@@ -10,25 +10,21 @@ import { ScrollResolver } from '../services/scroll-resolver';
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
-  selector: '[infiniteScroll],[infinite-scroll]'
+  selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]'
 })
-export class InfiniteScroll implements OnDestroy, OnInit {
+export class InfiniteScrollDirective implements OnDestroy, OnInit {
   @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
   @Output() scrolledUp = new EventEmitter<InfiniteScrollEvent>();
 
-  @Input('infiniteScrollDistance') _distanceDown: number = 2;
-  @Input('infiniteScrollUpDistance') _distanceUp: number = 1.5;
-  @Input('infiniteScrollThrottle') _throttle: number = 300;
-  @Input('infiniteScrollDisabled') _disabled: boolean = false;
-  @Input('infiniteScrollContainer') _container: any = null;
-  @Input('scrollWindow') scrollWindow: boolean = true;
-  @Input('immediateCheck') _immediate: boolean = false;
-  @Input('horizontal') _horizontal: boolean = false;
-  @Input('alwaysCallback') _alwaysCallback: boolean = false;
-  @Input()
-  set debounce(value: string | boolean) {
-    this.throttleType = value === '' || !!value ? 'debounce' : 'throttle';
-  }
+  @Input() infiniteScrollDistance: number = 2;
+  @Input() infiniteScrollUpDistance: number = 1.5;
+  @Input() infiniteScrollThrottle: number = 300;
+  @Input() infiniteScrollDisabled: boolean = false;
+  @Input() infiniteScrollContainer: any = null;
+  @Input() scrollWindow: boolean = true;
+  @Input() immediateCheck: boolean = false;
+  @Input() horizontal: boolean = false;
+  @Input() alwaysCallback: boolean = false;
 
   private throttleType: string = 'throttle';
   private disposeScroller: Subscription;
@@ -45,16 +41,15 @@ export class InfiniteScroll implements OnDestroy, OnInit {
     if (typeof window !== 'undefined') {
       const containerElement = this.resolveContainerElement();
       const positionResolver = this.positionResolverFactory.create({
-        windowElement: containerElement,
-        horizontal: this._horizontal
+        horizontal: this.horizontal,
+        windowElement: containerElement
       });
       const options: ScrollRegisterConfig = {
         container: positionResolver.container,
-        throttleType: this.throttleType,
-        throttleDuration: this._throttle,
-        filterBefore: () => !this._disabled,
+        filterBefore: () => !this.infiniteScrollDisabled,
         mergeMap: () => positionResolver.calculatePoints(this.element),
-        scrollHandler: (container: PositionStats) => this.handleOnScroll(container)
+        scrollHandler: (container: PositionStats) => this.handleOnScroll(container),
+        throttleDuration: this.infiniteScrollThrottle
       };
       this.disposeScroller = this.scrollRegister.attachEvent(options);
     }
@@ -63,8 +58,8 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   handleOnScroll(container: PositionStats) {
     const scrollResolverConfig = {
       distance: {
-        down: this._distanceDown,
-        up: this._distanceUp
+        down: this.infiniteScrollDistance,
+        up: this.infiniteScrollUpDistance
       }
     };
     const scrollStats: ScrollStats = this.scrollerResolver.getScrollStats(container, scrollResolverConfig);
@@ -81,7 +76,7 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   }
 
   shouldTriggerEvents(shouldScroll: boolean) {
-    return (this._alwaysCallback || shouldScroll) && !this._disabled;
+    return (this.alwaysCallback || shouldScroll) && !this.infiniteScrollDisabled;
   }
 
   ngOnDestroy () {
@@ -99,10 +94,15 @@ export class InfiniteScroll implements OnDestroy, OnInit {
   }
 
   private resolveContainerElement(): any {
-    if (this._container) {
-      return typeof(this._container) === 'string' ?  window.document.querySelector(this._container) : this._container;
-    } else {
-      return this.scrollWindow ? window : this.element;
+    const selector = this.infiniteScrollContainer;
+    const hasWindow = window && window.hasOwnProperty('document');
+    const containerIsString = selector && hasWindow && typeof(this.infiniteScrollContainer) === 'string';
+    let container = containerIsString
+      ? window.document.querySelector(selector)
+      : selector;
+    if (!selector) {
+      container = this.scrollWindow ? window : this.element;
     }
+    return container;
   }
 }
