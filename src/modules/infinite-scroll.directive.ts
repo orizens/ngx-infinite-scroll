@@ -1,12 +1,14 @@
-import { InfiniteScrollEvent, ScrollStats, PositionStats } from '../models';
+import { InfiniteScrollEvent, IScrollStats, IPositionStats, IResolver } from '../models';
 import {
   Directive, ElementRef, Input, Output,
   EventEmitter, OnDestroy, OnInit,
   SimpleChanges, NgZone
 } from '@angular/core';
-import { PositionResolverFactory } from '../services/position-resolver';
-import { ScrollRegister, ScrollRegisterConfig } from '../services/scroll-register';
+import { PositionResolver } from '../services/position-resolver';
+import { ScrollRegister, IScrollRegisterConfig } from '../services/scroll-register';
 import { ScrollResolver } from '../services/scroll-resolver';
+import { AxisResolver } from '../services/axis-resolver';
+
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
@@ -31,7 +33,7 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   constructor(
     private element: ElementRef,
     private zone: NgZone,
-    private positionResolverFactory: PositionResolverFactory,
+    private positionResolver: PositionResolver,
     private scrollRegister: ScrollRegister,
     private scrollerResolver: ScrollResolver
   ) {}
@@ -39,29 +41,27 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   ngOnInit() {
     if (typeof window !== 'undefined') {
       const containerElement = this.resolveContainerElement();
-      const positionResolver = this.positionResolverFactory.create({
-        horizontal: this.horizontal,
-        windowElement: containerElement
+      const resolver = this.positionResolver.create({
+        axis: new AxisResolver(!this.horizontal),
+        windowElement: containerElement,
       });
-      const options: ScrollRegisterConfig = {
-        container: positionResolver.container,
+      const options: IScrollRegisterConfig = {
+        container: resolver.container,
         filterBefore: () => !this.infiniteScrollDisabled,
-        mergeMap: () => positionResolver.calculatePoints(this.element),
-        scrollHandler: (container: PositionStats) => this.handleOnScroll(container),
+        mergeMap: () => this.positionResolver.calculatePoints(this.element, resolver),
+        scrollHandler: (container: IPositionStats) => this.handleOnScroll(container),
         throttleDuration: this.infiniteScrollThrottle
       };
       this.disposeScroller = this.scrollRegister.attachEvent(options);
     }
   }
 
-  handleOnScroll(container: PositionStats) {
-    const scrollResolverConfig = {
-      distance: {
-        down: this.infiniteScrollDistance,
-        up: this.infiniteScrollUpDistance
-      }
+  handleOnScroll(container: IPositionStats) {
+    const distance = {
+      down: this.infiniteScrollDistance,
+      up: this.infiniteScrollUpDistance
     };
-    const scrollStats: ScrollStats = this.scrollerResolver.getScrollStats(container, scrollResolverConfig);
+    const scrollStats: IScrollStats = this.scrollerResolver.getScrollStats(container, { distance });
     if (this.shouldTriggerEvents(scrollStats.shouldScroll)) {
       const infiniteScrollEvent: InfiniteScrollEvent = {
         currentScrollPosition: container.scrolledUntilNow

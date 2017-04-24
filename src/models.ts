@@ -6,18 +6,18 @@ export interface InfiniteScrollEvent {
   currentScrollPosition: number;
 };
 
-export interface PositionElements {
+export interface IPositionElements {
   windowElement: ContainerRef;
-  horizontal: boolean;
+  axis: any;
 }
 
-export interface PositionStats {
+export interface IPositionStats {
   height: number;
   scrolledUntilNow: number;
   totalToScroll: number;
 }
 
-export interface ScrollerConfig {
+export interface IScrollerConfig {
   distance: {
     down: number;
     up: number;
@@ -25,7 +25,13 @@ export interface ScrollerConfig {
   scrollParent?: ContainerRef;
 }
 
-export interface ScrollStats {
+export interface IScrollStats {
   isScrollingDown: boolean;
-  shouldScroll: boolean
+  shouldScroll: boolean;
+}
+
+export interface IResolver {
+  container: ContainerRef;
+  isWindow: boolean;
+  axis: any;
 }

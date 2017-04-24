@@ -1,75 +1,72 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { AxisResolver, AxisResolverFactory } from './axis-resolver';
-import { ContainerRef, PositionElements, PositionStats } from '../models';
+import { AxisResolver } from './axis-resolver';
+import { ContainerRef, IPositionElements, IPositionStats, IResolver } from '../models';
 
 @Injectable()
-export class PositionResolverFactory {
-
-  constructor(private axisResolver: AxisResolverFactory) {
-  }
-
-  create (options: PositionElements) {
-    return new PositionResolver(this.axisResolver.create(!options.horizontal), options);
-  }
-}
-
 export class PositionResolver {
-  private documentElement: ContainerRef;
-  private isContainerWindow: boolean;
-  public container: ContainerRef;
 
-  constructor (private axis: AxisResolver, private options: PositionElements) {
-    this.resolveContainer(this.options.windowElement);
-    this.defineContainer(this.options.windowElement);
+  create(options: IPositionElements): IResolver {
+    const isWindow = this.isElementWindow(options.windowElement);
+    const resolver: IResolver = {
+      axis: options.axis,
+      container: this.defineContainer(options.windowElement, isWindow),
+      isWindow,
+    };
+    return resolver;
   }
 
-  defineContainer(windowElement: ContainerRef) {
-    if (this.resolveContainer(windowElement) || !windowElement.nativeElement) {
-      this.container = windowElement;
-    } else {
-      this.container = windowElement.nativeElement;
-    }
-    return this.container;
+  defineContainer(windowElement: ContainerRef, isContainerWindow: boolean) {
+    const container = (isContainerWindow || !windowElement.nativeElement)
+      ? windowElement
+      : windowElement.nativeElement;
+    return container;
   }
 
-  resolveContainer(windowElement: ContainerRef): boolean {
-    const isContainerWindow = Object.prototype.toString.call(windowElement).includes('Window');
-    this.isContainerWindow = isContainerWindow;
-    return isContainerWindow;
+  isElementWindow(windowElement: ContainerRef): boolean {
+    const isWindow = Object.prototype.toString.call(windowElement).includes('Window');
+    return isWindow;
   }
 
-  getDocumentElement() {
-    return this.isContainerWindow
-      ? this.options.windowElement.document.documentElement
+  getDocumentElement(isContainerWindow: boolean, windowElement) {
+    return isContainerWindow
+      ? windowElement.document.documentElement
       : null;
   }
 
-  calculatePoints (element: ElementRef) {
-    return this.isContainerWindow
-      ? this.calculatePointsForWindow(element)
-      : this.calculatePointsForElement(element);
+  calculatePoints (element: ElementRef, resolver: IResolver) {
+    return resolver.isWindow
+      ? this.calculatePointsForWindow(element, resolver)
+      : this.calculatePointsForElement(element, resolver);
   }
 
-  calculatePointsForWindow (element: ElementRef): PositionStats {
+  calculatePointsForWindow (element: ElementRef, resolver: IResolver): IPositionStats {
+    const { axis, container, isWindow } = resolver;
+    const offsetHeightKey = axis.offsetHeightKey();
+    const clientHeightKey = axis.clientHeightKey();
+    const topKey = axis.topKey();
     // container's height
-    const height = this.height(this.container);
+    const height = this.height(container, isWindow, offsetHeightKey, clientHeightKey);
     // scrolled until now / current y point
-    const scrolledUntilNow = height + this.pageYOffset(this.getDocumentElement());
+    const scrolledUntilNow = height + this.pageYOffset(this.getDocumentElement(isWindow, container), axis, isWindow);
     // total height / most bottom y point
-    const totalToScroll = this.offsetTop(element.nativeElement) + this.height(element.nativeElement);
+    const nativeElementHeight = this.height(element.nativeElement, isWindow, offsetHeightKey, clientHeightKey);
+    const totalToScroll = this.offsetTop(element.nativeElement, axis, isWindow) + nativeElementHeight;
     return { height, scrolledUntilNow, totalToScroll };
   }
 
-  calculatePointsForElement (element: ElementRef) {
-    let scrollTop    = this.axis.scrollTopKey();
-    let scrollHeight = this.axis.scrollHeightKey();
-    const container = this.container;
+  calculatePointsForElement (element: ElementRef, resolver: IResolver) {
+    const { axis, container, isWindow } = resolver;
+    const offsetHeightKey = axis.offsetHeightKey();
+    const clientHeightKey = axis.clientHeightKey();
+    const scrollTop = axis.scrollTopKey();
+    const scrollHeight = axis.scrollHeightKey();
+    const topKey = axis.topKey();
 
-    const height = this.height(container);
+    const height = this.height(container, isWindow, offsetHeightKey, clientHeightKey);
     // perhaps use this.container.offsetTop instead of 'scrollTop'
     const scrolledUntilNow = container[scrollTop];
     let containerTopOffset = 0;
-    const offsetTop = this.offsetTop(container);
+    const offsetTop = this.offsetTop(container, axis, isWindow);
     if (offsetTop !== void 0) {
       containerTopOffset = offsetTop;
     }
@@ -77,36 +74,30 @@ export class PositionResolver {
     return { height, scrolledUntilNow, totalToScroll };
   }
 
-  private height (elem: any) {
-    let offsetHeight = this.axis.offsetHeightKey();
-    let clientHeight = this.axis.clientHeightKey();
-
-    // elem = elem.nativeElement;
-    if (isNaN(elem[offsetHeight])) {
-      return this.getDocumentElement()[clientHeight];
+  private height (elem: any, isWindow: boolean, offsetHeightKey: string, clientHeightKey: string) {
+    if (isNaN(elem[offsetHeightKey])) {
+      return this.getDocumentElement(isWindow, elem)[clientHeightKey];
     } else {
-      return elem[offsetHeight];
+      return elem[offsetHeightKey];
     }
   }
 
-  private offsetTop (elem: any) {
-    let top = this.axis.topKey();
-
+  private offsetTop (elem: ContainerRef, axis: AxisResolver, isWindow: boolean) {
+    const topKey = axis.topKey();
     // elem = elem.nativeElement;
     if (!elem.getBoundingClientRect) { // || elem.css('none')) {
       return;
     }
-    return elem.getBoundingClientRect()[top] + this.pageYOffset(elem);
+    return elem.getBoundingClientRect()[topKey] + this.pageYOffset(elem, axis, isWindow);
   }
 
-  pageYOffset (elem: any) {
-    let pageYOffset = this.axis.pageYOffsetKey();
-    let scrollTop   = this.axis.scrollTopKey();
-    let offsetTop   = this.axis.offsetTopKey();
+  private pageYOffset (elem: ContainerRef, axis: AxisResolver, isWindow: boolean) {
+    const pageYOffset = axis.pageYOffsetKey();
+    const scrollTop = axis.scrollTopKey();
+    const offsetTop = axis.offsetTopKey();
 
-    // elem = elem.nativeElement;
     if (isNaN(window[pageYOffset])) {
-      return this.getDocumentElement()[scrollTop];
+      return this.getDocumentElement(isWindow, elem)[scrollTop];
     } else if (elem.ownerDocument) {
       return elem.ownerDocument.defaultView[pageYOffset];
     } else {

@@ -1,14 +1,15 @@
-import { ContainerRef } from '../models';
+import { ContainerRef, IPositionStats, IScrollStats } from '../models';
 import { Injectable, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/sampleTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
 
-export interface ScrollRegisterConfig {
+export interface IScrollRegisterConfig {
   container: ContainerRef;
   throttleDuration: number;
   filterBefore: () => boolean;
@@ -18,7 +19,7 @@ export interface ScrollRegisterConfig {
 
 @Injectable()
 export class ScrollRegister {
-  attachEvent (options: ScrollRegisterConfig): Subscription {
+  attachEvent (options: IScrollRegisterConfig): Subscription {
     const scroller$: Subscription = Observable.fromEvent(options.container, 'scroll')
       .sampleTime(options.throttleDuration)
       .filter(options.filterBefore)

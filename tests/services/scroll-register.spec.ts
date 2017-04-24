@@ -3,7 +3,7 @@ import {
   async,
   inject
 } from '@angular/core/testing';
-import { ScrollRegister, ScrollRegisterConfig } from '../../src/services/scroll-register';
+import { ScrollRegister, IScrollRegisterConfig } from '../../src/services/scroll-register';
 import { ElementRef } from '@angular/core';
 
 describe('Scroll Regsiter', () => {
@@ -22,13 +22,13 @@ describe('Scroll Regsiter', () => {
     return { element: mockedElement, container: mockedContainer };
   };
 
-  beforeEach(() =>{
+  beforeEach(() => {
     scrollRegister = new ScrollRegister();
   });
 
   it('should create a Subscription of scroll observable', () => {
     const mockDom = createMockDom();
-    const scrollConfig: ScrollRegisterConfig = {
+    const scrollConfig: IScrollRegisterConfig = {
       container: mockDom.container.nativeElement,
       filterBefore: () => true,
       mergeMap: (e: any) => e,

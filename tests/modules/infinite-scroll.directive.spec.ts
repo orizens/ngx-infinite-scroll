@@ -3,8 +3,6 @@ import {
   inject
 } from '@angular/core/testing';
 import { InfiniteScrollDirective } from '../../src/modules/infinite-scroll.directive';
-import { AxisResolverFactory } from '../../src/services/axis-resolver';
-import { PositionResolverFactory } from '../../src/services/position-resolver';
 import { ScrollRegister } from '../../src/services/scroll-register';
 import { ScrollResolver } from '../../src/services/scroll-resolver';
 
@@ -14,6 +12,7 @@ describe('Infinite Scroll Directive', () => {
   // const zone = new NgZone({ enableLongStackTrace: false });
   let isScrollingDown = true;
   let zoneSpy: any, scrollResolverSpy: any, scrollRegisterSpy: any, positionResolverSpy: any;
+  let directive: InfiniteScrollDirective;
   const positionFactoryMock: any =  {
     create: () => positionResolverSpy
   };
@@ -41,15 +40,15 @@ describe('Infinite Scroll Directive', () => {
     };
     scrollRegisterSpy = jasmine.createSpyObj('register', ['attachEvent'])
     positionResolverSpy = jasmine.createSpyObj('pos', ['create', 'container']);
+    directive = createInfiniteScroll();
   });
 
   it('should create an instance of the directive', () => {
-    const actual = createInfiniteScroll();
+    const actual = directive;
     expect(actual).toBeDefined();
   });
 
   it('should have default @Input properties values', () => {
-    const directive: any = createInfiniteScroll();
     const expectedInputs: Object = {
       alwaysCallback: false,
       horizontal: false,
@@ -66,7 +65,6 @@ describe('Infinite Scroll Directive', () => {
   });
 
   it('should trigger the onScrollDown event when scroll has passed _distancedDown', () => {
-    const directive = createInfiniteScroll();
     const container = {
       height: 0,
       scrolledUntilNow: 0,
@@ -80,7 +78,6 @@ describe('Infinite Scroll Directive', () => {
   });
 
   it('should trigger the onScrollUp event when scroll has passed _distanceUp', () => {
-    const directive = createInfiniteScroll();
     const container = {
       height: 0,
       scrolledUntilNow: 0,
@@ -95,7 +92,6 @@ describe('Infinite Scroll Directive', () => {
   });
 
   it('should disable the scroller', () => {
-    const directive = createInfiniteScroll();
     const container = {
       height: 0,
       scrolledUntilNow: 0,

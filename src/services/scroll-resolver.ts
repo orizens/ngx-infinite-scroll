@@ -1,11 +1,11 @@
-import { PositionStats, ScrollerConfig } from '../models';
+import { IPositionStats, IScrollerConfig } from '../models';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ScrollResolver {
   public lastScrollPosition: number = 0;
 
-  shouldScroll (container: PositionStats, config: ScrollerConfig, scrollingDown: boolean) {
+  shouldScroll (container: IPositionStats, config: IScrollerConfig, scrollingDown: boolean) {
     const distance = config.distance;
     let remaining: number;
     let containerBreakpoint: number;
@@ -21,11 +21,11 @@ export class ScrollResolver {
     return shouldScroll;
   }
 
-  isScrollingDown (container: PositionStats) {
+  isScrollingDown (container: IPositionStats) {
     return this.lastScrollPosition < container.scrolledUntilNow;
   }
 
-  getScrollStats (container: PositionStats, config: ScrollerConfig) {
+  getScrollStats (container: IPositionStats, config: IScrollerConfig) {
     const isScrollingDown = this.isScrollingDown(container);
     const shouldScroll = this.shouldScroll(container, config, isScrollingDown);
     return { isScrollingDown, shouldScroll };

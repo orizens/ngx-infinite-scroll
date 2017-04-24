@@ -1,3 +1,6 @@
+## v 0.5.0 (2017/04/24)
+* [MAINTAINANCE] - code refactor - removing factories to rely more pure functional methods in PositionResolver, AxisResolver
+
 ## v 0.4.2 (2017/04/19)
 * [NEW] - added **'[infiniteScroll]'** by [Angular's styleguide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#02-06). **[infinite-scroll]** will be deprecated in future version.
 * reduced bundle size with imports for RxJS Observable and Subscription objects #126. 
