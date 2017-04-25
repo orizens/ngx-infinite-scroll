@@ -40,19 +40,21 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
-      const containerElement = this.resolveContainerElement();
-      const resolver = this.positionResolver.create({
-        axis: new AxisResolver(!this.horizontal),
-        windowElement: containerElement,
+      this.zone.runOutsideAngular(() => {
+        const containerElement = this.resolveContainerElement();
+        const resolver = this.positionResolver.create({
+          axis: new AxisResolver(!this.horizontal),
+          windowElement: containerElement,
+        });
+        const options: IScrollRegisterConfig = {
+          container: resolver.container,
+          filterBefore: () => !this.infiniteScrollDisabled,
+          mergeMap: () => this.positionResolver.calculatePoints(this.element, resolver),
+          scrollHandler: (container: IPositionStats) => this.handleOnScroll(container),
+          throttleDuration: this.infiniteScrollThrottle
+        };
+        this.disposeScroller = this.scrollRegister.attachEvent(options);
       });
-      const options: IScrollRegisterConfig = {
-        container: resolver.container,
-        filterBefore: () => !this.infiniteScrollDisabled,
-        mergeMap: () => this.positionResolver.calculatePoints(this.element, resolver),
-        scrollHandler: (container: IPositionStats) => this.handleOnScroll(container),
-        throttleDuration: this.infiniteScrollThrottle
-      };
-      this.disposeScroller = this.scrollRegister.attachEvent(options);
     }
   }
 

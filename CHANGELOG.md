@@ -1,3 +1,6 @@
+## v 0.5.1 (2017/04/25)
+* [FIX] - fixes #156 - running scroll logics outside of angular's zone
+
 ## v 0.5.0 (2017/04/24)
 * [MAINTAINANCE] - code refactor - removing factories to rely more pure functional methods in PositionResolver, AxisResolver
 
