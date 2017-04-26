@@ -33,6 +33,7 @@ describe('Infinite Scroll Directive', () => {
 
   beforeEach(() =>{
     zoneSpy = jasmine.createSpyObj('zone', ['run']);
+    zoneSpy.runOutsideAngular = (fn) => fn();
     scrollResolverSpy = {
       getScrollStats: () => {
         return { shouldScroll: true, isScrollingDown };
