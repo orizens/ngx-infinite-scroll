@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/orizens/ngx-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/ngx-infinite-scroll)
 
 # Angular Infinite Scroll
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/orizens/ngx-infinite-scroll.svg)](https://greenkeeper.io/)
 Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2, 4).
 
 ## Angular Support
