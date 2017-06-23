@@ -4,14 +4,14 @@
 Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2, 4).
 
 ## Angular Support
-Supports Angular **> 4**  
+Supports Angular **> 4**
 For Angular version **<= 2.3.1**, you can use ```npm i angular2-infinite-scroll``` (latest version is 0.3.42) - please notice **the angular2-infinite-scroll** package is deprecated
 
 ## Angular Consulting Services
 I'm a Senior Javascript Engineer & A Front End Consultant at [Orizens](http://orizens.com).
-My services include:  
-- consulting to companies and startups on how to approach code in their projects and keep it maintainable.  
-- I provide project bootstrapping and development - while afterwards, I integrate it on site and guide the team on it.  
+My services include:
+- consulting to companies and startups on how to approach code in their projects and keep it maintainable.
+- I provide project bootstrapping and development - while afterwards, I integrate it on site and guide the team on it.
 
 [Contact Me Here](http://orizens.com/contact)
 
@@ -29,17 +29,18 @@ Currently supported attributes:
 * **scrolled**<_function_> - this will callback if the distance threshold has been reached on a scroll down.
 * **scrolledUp**<_function_> - (event: InfiniteScrollEvent) - this will callback if the distance threshold has been reached on a scroll up.
 * **scrollWindow**<_boolean_> - (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
+* **scrollUpBy**<_boolean_> - (optional, default: **false**) - triggers **scrolledUp** when we have scrolled up _by_ **infiniteScrollUpDistance**, not **infiniteScrollUpDistance**-to-top.
 * **immediateCheck**<_boolean_> - (optional, default: **false**) - invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled).
 * **infiniteScrollDisabled**<_boolean_> - (optional, default: **false**) - doesn't invoke the handler if set to true
 
 ## Behavior
-By default, the directive listens to the **window scroll** event and invoked the callback.  
+By default, the directive listens to the **window scroll** event and invoked the callback.
 **To trigger the callback when the actual element is scrolled**, these settings should be configured:
 * [scrollWindow]="false"
 * set an explict css "height" value to the element
 
 ## DEMO
-- [**Default Scroll** By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview) 
+- [**Default Scroll** By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
 - [Scroll On a **"Modal"** - plunkr](https://plnkr.co/edit/QnQOwE9SEapwJCCFII3L?p=preview)
 
 ## Usage

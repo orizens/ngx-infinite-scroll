@@ -23,6 +23,7 @@ export interface IScrollerConfig {
     up: number;
   };
   scrollParent?: ContainerRef;
+  scrollUpBy: boolean;
 }
 
 export interface IScrollStats {

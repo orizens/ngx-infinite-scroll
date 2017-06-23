@@ -27,6 +27,7 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   @Input() immediateCheck: boolean = false;
   @Input() horizontal: boolean = false;
   @Input() alwaysCallback: boolean = false;
+  @Input() scrollUpBy: boolean = false;
 
   private disposeScroller: Subscription;
 
@@ -61,9 +62,10 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   handleOnScroll(container: IPositionStats) {
     const distance = {
       down: this.infiniteScrollDistance,
-      up: this.infiniteScrollUpDistance
+      up: this.infiniteScrollUpDistance,
     };
-    const scrollStats: IScrollStats = this.scrollerResolver.getScrollStats(container, { distance });
+    const scrollUpBy: boolean = this.scrollUpBy;
+    const scrollStats: IScrollStats = this.scrollerResolver.getScrollStats(container, { distance, scrollUpBy });
     if (this.shouldTriggerEvents(scrollStats.shouldScroll)) {
       const infiniteScrollEvent: InfiniteScrollEvent = {
         currentScrollPosition: container.scrolledUntilNow

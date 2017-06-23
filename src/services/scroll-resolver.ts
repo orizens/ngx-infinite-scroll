@@ -7,14 +7,19 @@ export class ScrollResolver {
 
   shouldScroll (container: IPositionStats, config: IScrollerConfig, scrollingDown: boolean) {
     const distance = config.distance;
+    const scrollUpBy = config.scrollUpBy;
     let remaining: number;
     let containerBreakpoint: number;
     if (scrollingDown) {
-      remaining = container.totalToScroll - container.scrolledUntilNow;
       containerBreakpoint = container.height * distance.down + 1;
+      remaining = container.totalToScroll - container.scrolledUntilNow;
     } else {
-      remaining = container.scrolledUntilNow;
       containerBreakpoint = container.height * distance.up + 1;
+      if (scrollUpBy === false) {
+        remaining = container.scrolledUntilNow;
+      } else {
+        remaining = this.lastScrollPosition - container.scrolledUntilNow;
+      }
     }
     const shouldScroll: boolean = remaining <= containerBreakpoint;
     this.lastScrollPosition = container.scrolledUntilNow;

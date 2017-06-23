@@ -58,6 +58,7 @@ describe('Infinite Scroll Directive', () => {
       infiniteScrollDistance: 2,
       infiniteScrollThrottle: 300,
       infiniteScrollUpDistance: 1.5,
+      scrollUpBy: false,
       scrollWindow: true
     };
 
