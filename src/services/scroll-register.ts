@@ -7,6 +7,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/sampleTime';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/mergeMap';
 
 export interface IScrollRegisterConfig {
@@ -21,6 +22,7 @@ export interface IScrollRegisterConfig {
 export class ScrollRegister {
   attachEvent (options: IScrollRegisterConfig): Subscription {
     const scroller$: Subscription = Observable.fromEvent(options.container, 'scroll')
+      .merge(Observable.fromEvent(options.container, "touchmove"))
       .sampleTime(options.throttleDuration)
       .filter(options.filterBefore)
       .mergeMap((ev: any) => Observable.of(options.mergeMap(ev)))
