@@ -96,8 +96,7 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
 
   private resolveContainerElement(): any {
     const selector = this.infiniteScrollContainer;
-    const hasWindow = window && window.hasOwnProperty('document');
-    const containerIsString = selector && hasWindow && typeof(this.infiniteScrollContainer) === 'string';
+    const containerIsString = selector && typeof(selector) === 'string';
     let container = containerIsString
       ? window.document.querySelector(selector)
       : selector;
