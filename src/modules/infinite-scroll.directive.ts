@@ -43,7 +43,7 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   }
 
   ngOnChanges({ infiniteScrollContainer }: SimpleChanges) {
-    if (infiniteScrollContainer) {
+    if (infiniteScrollContainer && !infiniteScrollContainer.firstChange) {
       this.init();
     }
   }
