@@ -12,7 +12,8 @@ import { AxisResolver } from '../services/axis-resolver';
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
-  selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]'
+  selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]',
+  providers: [ScrollResolver]
 })
 export class InfiniteScrollDirective implements OnDestroy, OnInit {
   @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
