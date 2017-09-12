@@ -23,7 +23,7 @@
         "skipTemplateCodegen": true,
         "annotateForClosureCompiler": true,
         "strictMetadataEmit": true,
-        "flatModuleOutFile": "index.js",
+        "flatModuleOutFile": "ngx-infinite-scroll.js",
         "flatModuleId": "ngx-infinite-scroll"
     }
 }

@@ -15,7 +15,7 @@
         "compodoc-serve": "compodoc -s",
         "transpile": "ngc -p ./tsconfig.json"
     },
-    "typings": "./index.d.ts",
+    "typings": "./ngx-infinite-scroll.d.ts",
     "author": "Oren Farhi (orizens.com)",
     "repository": {
         "type": "git",

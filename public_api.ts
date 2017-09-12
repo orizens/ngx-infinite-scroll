@@ -9,5 +9,5 @@
 /**
  * Entry point for all public APIs of the package.
  */
-export { InfiniteScrollModule } from './src/modules/ngx-infinite-scroll.module';
+export * from './src/ngx-infinite-scroll';
 
