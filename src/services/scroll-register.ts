@@ -21,7 +21,7 @@ export interface IScrollRegisterConfig {
 export class ScrollRegister {
   attachEvent (options: IScrollRegisterConfig): Subscription {
     const scroller$: Subscription = Observable.fromEvent(options.container, 'scroll')
-      .sampleTime(options.throttleDuration)
+      .throttle(v => Observable.interval(options.throttleDuration))
       .filter(options.filterBefore)
       .mergeMap((ev: any) => Observable.of(options.mergeMap(ev)))
       .subscribe(options.scrollHandler);
