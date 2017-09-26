@@ -1,0 +1,5 @@
+{
+  "port": 8000,
+  "files": ["./example**/*.{html,htm,css,js}"],
+  "server": [ "./example", "./dist/bundles" ]
+}

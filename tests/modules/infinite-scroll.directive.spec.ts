@@ -39,7 +39,7 @@ describe('Infinite Scroll Directive', () => {
         return { shouldScroll: true, isScrollingDown };
       }
     };
-    scrollRegisterSpy = jasmine.createSpyObj('register', ['attachEvent'])
+    scrollRegisterSpy = jasmine.createSpyObj('register', ['attachEvent']);
     positionResolverSpy = jasmine.createSpyObj('pos', ['create', 'container']);
     directive = createInfiniteScroll();
   });
@@ -70,10 +70,10 @@ describe('Infinite Scroll Directive', () => {
       height: 0,
       scrolledUntilNow: 0,
       totalToScroll: 0,
-    }
+    };
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
-    directive.handleOnScroll(container)
+    directive.handleOnScroll(container);
     const actual = directive.onScrollDown;
     expect(actual).toHaveBeenCalled();
   });
@@ -97,7 +97,7 @@ describe('Infinite Scroll Directive', () => {
       height: 0,
       scrolledUntilNow: 0,
       totalToScroll: 0,
-    }
+    };
     spyOn(directive, 'onScrollDown');
     directive.ngOnInit();
     directive.infiniteScrollDisabled = true;
@@ -174,6 +174,19 @@ describe('Infinite Scroll Directive', () => {
         it('should return current element', () => {
           expect(positionFactoryMock.create)
               .toHaveBeenCalledWith(jasmine.objectContaining({windowElement: mockedElement}));
+        });
+
+        it('should initialize again when infiniteScrollContainer has changed', () => {
+          const anotherContainer = {
+            height: 0,
+            scrolledUntilNow: 0,
+            totalToScroll: 0,
+          };
+          directive.infiniteScrollContainer = anotherContainer;
+          const change = new SimpleChange(container, anotherContainer, false);
+          directive.ngOnChanges({ infiniteScrollContainer: change });
+          expect(positionFactoryMock.create)
+              .toHaveBeenCalledWith(jasmine.objectContaining({windowElement: anotherContainer}));
         });
       });
     });

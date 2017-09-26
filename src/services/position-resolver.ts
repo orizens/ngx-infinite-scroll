@@ -23,7 +23,7 @@ export class PositionResolver {
   }
 
   isElementWindow(windowElement: ContainerRef): boolean {
-    const isWindow = Object.prototype.toString.call(windowElement).includes('Window');
+    const isWindow = ['Window', 'global'].some((obj) => Object.prototype.toString.call(windowElement).includes(obj));
     return isWindow;
   }
 

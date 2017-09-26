@@ -1,20 +1,29 @@
 import { InfiniteScrollEvent, IScrollStats, IPositionStats, IResolver } from '../models';
 import {
-  Directive, ElementRef, Input, Output,
-  EventEmitter, OnDestroy, OnInit,
-  SimpleChanges, NgZone
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
 } from '@angular/core';
 import { PositionResolver } from '../services/position-resolver';
 import { ScrollRegister, IScrollRegisterConfig } from '../services/scroll-register';
 import { ScrollResolver } from '../services/scroll-resolver';
 import { AxisResolver } from '../services/axis-resolver';
+import { resolveContainerElement } from '../services/ngx-ins-utils';
 
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
-  selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]'
+  providers: [ScrollResolver],
+  selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]',
 })
-export class InfiniteScrollDirective implements OnDestroy, OnInit {
+export class InfiniteScrollDirective implements OnDestroy, OnInit, OnChanges {
   @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
   @Output() scrolledUp = new EventEmitter<InfiniteScrollEvent>();
 
@@ -39,9 +48,21 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   ) {}
 
   ngOnInit() {
+    this.setup();
+  }
+
+  ngOnChanges({ infiniteScrollContainer }: SimpleChanges) {
+    const scrollContainerChanged = infiniteScrollContainer && !infiniteScrollContainer.firstChange;
+    if (scrollContainerChanged) {
+      this.destroyScroller();
+      this.setup();
+    }
+  }
+
+  setup() {
     if (typeof window !== 'undefined') {
       this.zone.runOutsideAngular(() => {
-        const containerElement = this.resolveContainerElement();
+        const containerElement = resolveContainerElement(this.infiniteScrollContainer, this.scrollWindow, this.element);
         const resolver = this.positionResolver.create({
           axis: new AxisResolver(!this.horizontal),
           windowElement: containerElement,
@@ -81,9 +102,7 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
   }
 
   ngOnDestroy () {
-    if (this.disposeScroller) {
-      this.disposeScroller.unsubscribe();
-    }
+    this.destroyScroller();
   }
 
   onScrollDown(data: InfiniteScrollEvent = { currentScrollPosition: 0 }) {
@@ -94,16 +113,9 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
     this.zone.run(() => this.scrolledUp.emit(data));
   }
 
-  private resolveContainerElement(): any {
-    const selector = this.infiniteScrollContainer;
-    const hasWindow = window && window.hasOwnProperty('document');
-    const containerIsString = selector && hasWindow && typeof(this.infiniteScrollContainer) === 'string';
-    let container = containerIsString
-      ? window.document.querySelector(selector)
-      : selector;
-    if (!selector) {
-      container = this.scrollWindow ? window : this.element;
+  destroyScroller() {
+    if (this.disposeScroller) {
+      this.disposeScroller.unsubscribe();
     }
-    return container;
   }
 }
