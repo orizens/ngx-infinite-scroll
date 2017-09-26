@@ -12,7 +12,8 @@ import { AxisResolver } from '../services/axis-resolver';
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
-  selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]'
+  selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]',
+  providers: [ScrollResolver]
 })
 export class InfiniteScrollDirective implements OnDestroy, OnInit {
   @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
@@ -36,9 +37,19 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
     private positionResolver: PositionResolver,
     private scrollRegister: ScrollRegister,
     private scrollerResolver: ScrollResolver
-  ) {}
+  ) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  ngOnChanges({ infiniteScrollContainer }: SimpleChanges) {
+    if (infiniteScrollContainer && !infiniteScrollContainer.firstChange) {
+      this.init();
+    }
+  }
+
+  private init() {
     if (typeof window !== 'undefined') {
       this.zone.runOutsideAngular(() => {
         const containerElement = this.resolveContainerElement();
@@ -80,7 +91,7 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
     return (this.alwaysCallback || shouldScroll) && !this.infiniteScrollDisabled;
   }
 
-  ngOnDestroy () {
+  ngOnDestroy() {
     if (this.disposeScroller) {
       this.disposeScroller.unsubscribe();
     }
@@ -96,8 +107,8 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
 
   private resolveContainerElement(): any {
     const selector = this.infiniteScrollContainer;
-    const hasWindow = window && window.hasOwnProperty('document');
-    const containerIsString = selector && hasWindow && typeof(this.infiniteScrollContainer) === 'string';
+    const hasWindow = window && window.document && window.document.documentElement;
+    const containerIsString = selector && hasWindow && typeof (this.infiniteScrollContainer) === 'string';
     let container = containerIsString
       ? window.document.querySelector(selector)
       : selector;

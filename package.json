@@ -1,7 +1,7 @@
 {
     "name": "ngx-infinite-scroll",
-    "version": "0.5.1",
-    "description": "An infinite scroll directive for Angular compatible with AoT compilation and Tree shaking",
+    "version": "0.5.2-celum.1",
+    "description": "An infinite scroll directive for Angular compatible with AoT compilation and Tree shaking. With CELUM bugfix",
     "main": "./bundles/ngx-infinite-scroll.umd.js",
     "module": "./modules/ngx-infinite-scroll.es5.js",
     "es2015": "./modules/ngx-infinite-scroll.js",
@@ -17,9 +17,8 @@
     },
     "typings": "./ngx-infinite-scroll.d.ts",
     "author": "Oren Farhi (orizens.com)",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/orizens/ngx-infinite-scroll.git"
+    "publishConfig": {
+        "registry": "https://nexus.celum.company/repository/npm-internal/"
     },
     "bugs": {
         "url": "https://github.com/orizens/ngx-infinite-scroll/issues"

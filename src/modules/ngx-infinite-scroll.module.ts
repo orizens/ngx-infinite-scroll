@@ -11,8 +11,7 @@ import { ScrollResolver } from '../services/scroll-resolver';
   imports: [],
   providers: [
     PositionResolver,
-    ScrollRegister,
-    ScrollResolver
+    ScrollRegister
   ]
 })
 export class InfiniteScrollModule { }
