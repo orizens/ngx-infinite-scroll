@@ -1,3 +1,7 @@
+## v 0.5.2 (2017/09/27)
+* [FIX] -  fix #157, fix #162, fix #171, fix #188
+* [DOCS] - added example for development
+
 ## v 0.5.1 (2017/04/25)
 * [FIX] - fixes #156 - running scroll logics outside of angular's zone
 
