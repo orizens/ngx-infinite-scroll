@@ -5,10 +5,46 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   width: 100%;
 }
 .title small {
   color: #eaeaea;
+}
+.fixed {
+  height: 300px;
+  width: 200px;
+  overflow: scroll;
+  display: block;
+  position: fixed;
+}
+.fixed .info {
+  position: fixed;
+}
+.first {
+  top: 0;
+  right: 0;
+  background-color: tomato;
+}
+.second {
+  bottom: 0;
+  right: 0;
+  background-color: lime;
+}
+.dummy {
+  bottom: 0;
+  right: 200px;
+  background-color: crimson;
+}
+.third {
+  bottom: 0;
+  right: 400px;
+  background-color: darkslategrey;
+}
+
+.inner {
+  bottom: 0;
+  right: 600px;
+  background-color: goldenrod;
 }

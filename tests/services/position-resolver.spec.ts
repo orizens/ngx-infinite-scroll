@@ -1,16 +1,14 @@
-import {
-  async,
-  inject
-} from '@angular/core/testing';
-import { PositionResolver } from '../../src/services/position-resolver';
-import { AxisResolver } from '../../src/services/axis-resolver';
 import { ElementRef } from '@angular/core';
-import { IResolver } from '../../src/models';
+
+import { ContainerRef } from '../../src/models';
+import { AxisResolver } from '../../src/services/axis-resolver';
+import { createResolver, createResolverWithContainer } from '../../src/services/position-resolver';
 
 describe('Position Resolver', () => {
   let mockedElement: ElementRef;
   let mockedContainer: ElementRef;
-  let mockDom, positionResolver, axis: AxisResolver;
+  let axis: AxisResolver;
+  let mockDom: ContainerRef;
 
   const createMockDom = () => {
     const container = document.createElement('section');
@@ -23,58 +21,74 @@ describe('Position Resolver', () => {
     return { element: mockedElement, container: mockedContainer };
   };
 
-  const createPositionResolver = () => {
-    return new PositionResolver();
-  };
-
   beforeEach(() => {
     axis = new AxisResolver(false);
     mockDom = createMockDom();
-    positionResolver = createPositionResolver();
   });
 
-  it('should create an instance of position resolver', () => {
-    const actual = positionResolver.create({
-      horizontal: false,
-      windowElement: mockDom.element
-    })
-    expect(actual).toBeDefined();
-  });
-
-  it('should calculate points', () => {
-    const resolver = positionResolver.create({
-      axis,
-      windowElement: mockDom.element
+  describe('Resolver Maker', () => {
+    it('should create an instance of position resolver', () => {
+      const actual = createResolver({
+        axis,
+        windowElement: mockDom.element,
+        isWindow: true
+      });
+      expect(actual).toBeDefined();
     });
-    const actual = positionResolver.calculatePoints(mockDom.element, resolver);
-    expect(actual).toBeDefined();
-  });
 
-  describe('creating instance for non-window element', () => {
-    let service: IResolver;
-
-    describe('when nativeElement is present', () => {
-      beforeEach(() => {
-        service = positionResolver.create({
+    it('should return the native element if container is not window', () => {
+      mockDom.element.nativeElement = { mocked: true };
+      const resolver = createResolverWithContainer(
+        {
           axis,
-          windowElement: mockDom.element
-        });
-      });
-
-      it('should use container as nativeElement', () => {
-        expect(service.container instanceof HTMLDivElement).toBeTruthy();
-      });
+          isWindow: false
+        },
+        mockDom.element
+      );
+      const actual = resolver.container;
+      const expected = mockDom.element.nativeElement;
+      expect(actual).toEqual(expected);
     });
-
-    // describe('when nativeElement is not present', () => {
-    //   beforeEach(() => {
-    //     const mockDom = createMockDom();
-    //     service = createPositionResolver(mockDom.element, mockDom.container.nativeElement);
-    //   });
-
-    //   it('should use container as nativeElement', () => {
-    //     expect(service.container instanceof HTMLDivElement).toBeTruthy();
-    //   });
-    // });
   });
+
+  // describe('Points Calculation', () => {
+  //   it('should calculate points', () => {
+  //     const resolver: IResolver = {
+  //       isWindow: true,
+  //       axis,
+  //       container: {}
+  //     };
+  //     const points = calculatePoints(mockDom.element, resolver);
+  //     const actual = calculatePointsForWindow;
+  //     expect(actual).toHaveBeenCalledWith(mockDom.element, resolver);
+  //   });
+  // });
+
+  // describe("creating instance for non-window element", () => {
+  //   let service: IResolver;
+
+  //   describe("when nativeElement is present", () => {
+  //     beforeEach(() => {
+  //       service = positionResolver.create({
+  //         axis,
+  //         windowElement: mockDom.element
+  //       });
+  //     });
+
+  //     it("should use container as nativeElement", () => {
+  //       expect(service.container instanceof HTMLDivElement).toBeTruthy();
+  //     });
+  //   });
+
+  // describe('when nativeElement is not present', () => {
+  //   beforeEach(() => {
+  //     const mockDom = createMockDom();
+  //     service = createPositionResolver(mockDom.element, mockDom.container.nativeElement);
+  //   });
+
+  //   it('should use container as nativeElement', () => {
+  //     expect(service.container instanceof HTMLDivElement).toBeTruthy();
+  //   });
+  // });
+  // });
 });

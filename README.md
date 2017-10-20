@@ -33,6 +33,7 @@ Currently supported attributes:
 * **infiniteScrollDisabled**<_boolean_> - (optional, default: **false**) - doesn't invoke the handler if set to true
 * **horizontal**<_boolean_> - (optional, default: false) - sets the scroll to listen for horizontal events  
 * **alwaysCallback**<_boolean_> - (optional, default: false) - instructs the scroller to always trigger events 
+* **fromRoot**<_boolean_> - (optional, default: false) - if **infiniteScrollContainer** is set, this instructs the scroller to query the container selector from the root of the **document** object. 
 
 ## Behavior
 By default, the directive listens to the **window scroll** event and invoked the callback.  

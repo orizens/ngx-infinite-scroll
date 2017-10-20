@@ -1,3 +1,4 @@
+/*
 import {
   async,
   inject
@@ -192,3 +193,4 @@ describe('Infinite Scroll Directive', () => {
     });
   });
 });
+*/

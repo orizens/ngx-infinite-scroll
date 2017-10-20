@@ -1,3 +1,7 @@
+## v 0.6.1 (2017/10/20)
+* [REFACTOR] - updated code to be functional based
+* [FIX] - fix #67, fix #191, fix #190
+
 ## v 0.5.2 (2017/09/27)
 * [FIX] -  fix #157, fix #162, fix #171, fix #188
 * [DOCS] - added example for development

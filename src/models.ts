@@ -4,11 +4,12 @@ export type ContainerRef = Window | ElementRef | any;
 
 export interface InfiniteScrollEvent {
   currentScrollPosition: number;
-};
+}
 
 export interface IPositionElements {
   windowElement: ContainerRef;
   axis: any;
+  isWindow: boolean;
 }
 
 export interface IPositionStats {

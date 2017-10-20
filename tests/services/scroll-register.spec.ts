@@ -1,3 +1,4 @@
+/*
 import { Subscription } from 'rxjs/Rx';
 import {
   async,
@@ -41,3 +42,4 @@ describe('Scroll Regsiter', () => {
     expect(actual).toBeDefined();
   });
 });
+*/

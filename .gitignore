@@ -58,3 +58,5 @@ $ cat .gitignore
 
 *.log
 *.tgz
+
+npm-debug.*
