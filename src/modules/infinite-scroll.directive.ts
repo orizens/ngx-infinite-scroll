@@ -49,7 +49,7 @@ export class InfiniteScrollDirective
     if (inputPropChanged(infiniteScrollContainer) || inputPropChanged(infiniteScrollDisabled)) {
       this.destroyScroller();
       
-      if ((!inputPropChanged(infiniteScrollDisabled) && !this.infiniteScrollDisabled)) ||
+      if ((!inputPropChanged(infiniteScrollDisabled) && !this.infiniteScrollDisabled) ||
           (inputPropChanged(infiniteScrollDisabled) && !infiniteScrollDisabled.currentValue)) {
         this.setup();
       }
