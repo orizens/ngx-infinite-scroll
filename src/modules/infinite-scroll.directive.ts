@@ -46,11 +46,14 @@ export class InfiniteScrollDirective
   }
 
   ngOnChanges({ infiniteScrollContainer, infiniteScrollDisabled }: SimpleChanges) {
-    if (inputPropChanged(infiniteScrollContainer) || inputPropChanged(infiniteScrollDisabled)) {
+    var containerChanged: boolean = inputPropChanged(infiniteScrollContainer);
+    var disabledChanged: boolean = inputPropChanged(infiniteScrollDisabled)
+    
+    if (containerChanged || disabledChanged) {
       this.destroyScroller();
       
-      if ((!inputPropChanged(infiniteScrollDisabled) && !this.infiniteScrollDisabled) ||
-          (inputPropChanged(infiniteScrollDisabled) && !infiniteScrollDisabled.currentValue)) {
+      if ((!disabledChanged && !this.infiniteScrollDisabled) ||
+          (disabledChanged && !infiniteScrollDisabled.currentValue)) {
         this.setup();
       }
     }
