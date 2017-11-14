@@ -148,5 +148,48 @@ export class AppComponent {
 }
 ```
 
+In this example, the **infiniteScrollContainer** attribute is used to point directive to the scrollable container using a css selector. **fromRoot** is used to determine whether the scroll container has to be searched within the whole document (`[fromRoot]="true"`) or just inside the **infiniteScroll** directive (`[fromRoot]="false"`, default option).
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+	selector: 'app',
+	styles: [
+		`.main-panel {
+			height: 100px;
+			overflow-y: scroll;
+		}`
+	],
+	template: `
+		<div class="main-panel">
+			<div infiniteScroll
+			    [infiniteScrollDistance]="2"
+			    [infiniteScrollThrottle]="50"
+			    [infiniteScrollContainer]="selector"
+			    [fromRoot]="true"
+			    (scrolled)="onScroll()">
+			</div>
+		</div>
+	`
+})
+export class AppComponent {
+	selector: string = '.main-panel';
+	
+	onScroll () {
+	    console.log('scrolled!!')
+	}
+}
+```
+
+It is also possible to use **infiniteScrollContainer** without additional variable by using single quotes inside double quotes:
+
+```
+[infiniteScrollContainer]="'.main-panel'"
+```
+
+
+
+
 # Showcase Examples
 * [Echoes Player - Developed with Angular, angular-cli and ngrx](http://orizens.github.io/echoes-player) ([github repo for echoes player](http://github.com/orizens/echoes-player))
