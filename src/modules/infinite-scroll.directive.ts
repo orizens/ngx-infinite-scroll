@@ -46,8 +46,8 @@ export class InfiniteScrollDirective
   }
 
   ngOnChanges({ infiniteScrollContainer, infiniteScrollDisabled }: SimpleChanges) {
-    var containerChanged: boolean = inputPropChanged(infiniteScrollContainer);
-    var disabledChanged: boolean = inputPropChanged(infiniteScrollDisabled)
+    const containerChanged: boolean = inputPropChanged(infiniteScrollContainer);
+    const disabledChanged: boolean = inputPropChanged(infiniteScrollDisabled)
     
     if (containerChanged || disabledChanged) {
       this.destroyScroller();
