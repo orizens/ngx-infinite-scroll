@@ -40,13 +40,24 @@ export class InfiniteScrollDirective
   constructor(private element: ElementRef, private zone: NgZone) {}
 
   ngAfterViewInit() {
-    this.setup();
+    if (!this.infiniteScrollDisabled) {
+      this.setup();
+    }
   }
 
-  ngOnChanges({ infiniteScrollContainer, infiniteScrollDistance }: SimpleChanges) {
-    if (inputPropChanged(infiniteScrollContainer) || inputPropChanged(infiniteScrollDistance)) {
+  ngOnChanges({ infiniteScrollContainer, infiniteScrollDisabled, infiniteScrollDistance }: SimpleChanges) {
+    const containerChanged = inputPropChanged(infiniteScrollContainer);
+    const disabledChanged = inputPropChanged(infiniteScrollDisabled);
+    const distanceChanged = inputPropChanged(infiniteScrollDistance);
+    const shouldSetup = (!disabledChanged && !this.infiniteScrollDisabled) ||
+          (disabledChanged && !infiniteScrollDisabled.currentValue) || distanceChanged;
+    
+    if (containerChanged || disabledChanged || distanceChanged) {
       this.destroyScroller();
-      this.setup();
+      
+      if (shouldSetup) {
+        this.setup();
+      }
     }
   }
 
