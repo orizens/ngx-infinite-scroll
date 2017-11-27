@@ -31,7 +31,6 @@ describe('Scroll Regsiter', () => {
     const mockDom = createMockDom();
     const scrollConfig: IScrollRegisterConfig = {
       container: mockDom.container.nativeElement,
-      filterBefore: () => true,
       mergeMap: (e: any) => e,
       scrollHandler: (ev: any) => ev,
       throttleDuration: 300,

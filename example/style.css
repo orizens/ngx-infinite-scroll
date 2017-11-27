@@ -18,6 +18,10 @@
   overflow: scroll;
   display: block;
   position: fixed;
+  transition: width .3s ease-out;
+}
+.fixed:hover {
+  width: 350px;
 }
 .fixed .info {
   position: fixed;

@@ -1,8 +1,7 @@
 {
   "name": "ngx-infinite-scroll",
-  "version": "0.6.1",
-  "description":
-    "An infinite scroll directive for Angular compatible with AoT compilation and Tree shaking",
+  "version": "0.7.0",
+  "description": "An infinite scroll directive for Angular compatible with AoT compilation and Tree shaking",
   "main": "./bundles/ngx-infinite-scroll.umd.js",
   "module": "./modules/ngx-infinite-scroll.es5.js",
   "es2015": "./modules/ngx-infinite-scroll.js",
@@ -28,7 +27,11 @@
     "url": "https://github.com/orizens/ngx-infinite-scroll/issues"
   },
   "homepage": "https://github.com/orizens/ngx-infinite-scroll",
-  "keywords": ["angular", "javascript", "typescript"],
+  "keywords": [
+    "angular",
+    "javascript",
+    "typescript"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": ">= 4.0.0",

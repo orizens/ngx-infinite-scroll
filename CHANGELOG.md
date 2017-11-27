@@ -1,3 +1,9 @@
+## v 0.7.0 (2017/11/27)
+* [ADD] - watch changes for: infiniteScrollDisabled - fix #196
+* [ADD] - watch changes for: infiniteScrollDistance - fix #202
+* [FIX] - fix for IE11 - fix #203 
+* [REFACTOR] - "disable" now removes the scroll listener instead of rxjs/filter
+
 ## v 0.6.1 (2017/10/20)
 * [REFACTOR] - updated code to be functional based
 * [FIX] - fix #67, fix #191, fix #190

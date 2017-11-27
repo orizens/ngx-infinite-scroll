@@ -17,7 +17,8 @@ import { ListMaker } from './list.service';
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()"
          (scrolledUp)="onUp()">
-      <h3 class="info">{{ className }}{{ info }}</h3>
+      <h3 class="info">{{ className }}, {{ info }}</h3>
+      <p>{{ info }}</p>
       <section class="content">
         <p *ngFor="let i of array">
           {{ i }}
@@ -34,21 +35,22 @@ export class TestInnerComponent {
   @Input() info = '';
 
   array = this.listMaker.array;
-  throttle = 300;
+  throttle = 20;
   scrollDistance = 1;
   scrollUpDistance = 2;
 
-  constructor(public listMaker: ListMaker) {}
+  constructor(public listMaker: ListMaker) { }
 
   onScrollDown(ev) {
-    console.log('scrolled down!!', ev);
+    console.log(`scrolled down, from ${this.className} ${this.info}`);
     this.listMaker.setDirectionDown();
   }
 
   onUp(ev) {
-    console.log('scrolled up!', ev);
+    console.log(`scrolled up, from  ${this.className} ${this.info}`);
     this.listMaker.setDirectionUp();
   }
+
   generateWord() {
     return chance.word();
   }

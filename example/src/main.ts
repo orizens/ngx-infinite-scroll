@@ -1,6 +1,7 @@
 // main entry point
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
@@ -10,9 +11,9 @@ import { TestInnerComponent } from './test.inner';
 
 @NgModule({
   declarations: [AppComponent, TestComponent, TestInnerComponent],
-  imports: [BrowserModule, InfiniteScrollModule],
+  imports: [BrowserModule, InfiniteScrollModule, FormsModule],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
 
 platformBrowserDynamic().bootstrapModule(AppModule);

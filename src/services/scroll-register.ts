@@ -18,7 +18,6 @@ import { getScrollStats, updateScrollPosition } from './scroll-resolver';
 export interface IScrollRegisterConfig {
   container: ContainerRef;
   throttleDuration: number;
-  filterBefore: () => boolean;
   mergeMap: Function;
   scrollHandler: (value: any) => void;
 }
@@ -31,7 +30,6 @@ export interface IScroller {
   scrollWindow: boolean;
   element: ElementRef;
   scrollContainer: string | ElementRef;
-  filterBefore: () => boolean;
   alwaysCallback: boolean;
   downDistance: number;
   upDistance: number;
@@ -46,7 +44,6 @@ export function attachScrollEvent(
 ): Subscription {
   return Observable.fromEvent(options.container, 'scroll')
     .sampleTime(options.throttleDuration)
-    .filter(options.filterBefore)
     .mergeMap((ev: any) => Observable.of(options.mergeMap(ev)))
     .subscribe(options.scrollHandler);
 }
@@ -68,7 +65,6 @@ export function createScroller(config: IScroller): Subscription {
   };
   const options: IScrollRegisterConfig = {
     container: resolver.container,
-    filterBefore: config.filterBefore,
     mergeMap: () => calculatePoints(config.element, resolver),
     scrollHandler: (positionStats: IPositionStats) =>
       handleOnScroll(scrollPosition, positionStats, config),

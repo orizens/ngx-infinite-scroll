@@ -12,12 +12,16 @@ import { ListMaker } from './list.service';
     data-infinite-scroll
     [infiniteScrollContainer]="selector"
     [fromRoot]="fromRoot"
+    [infiniteScrollDisabled]="disableScroll"
     [infiniteScrollDistance]="scrollDistance"
     [infiniteScrollUpDistance]="scrollUpDistance"
     [infiniteScrollThrottle]="throttle"
     (scrolled)="onScrollDown()"
     (scrolledUp)="onUp()">
-      <h3 class="info">{{ className }}{{info}}</h3>
+      <h3 class="info">
+        {{ className }}, {{info}}
+        <input type="checkbox" name="_disable" [(ngModel)]="disableScroll" title="disables scroll">
+      </h3>
       <p *ngFor="let i of array">
         {{ i }}
       </p>
@@ -31,20 +35,22 @@ export class TestComponent {
   @Input() fromRoot = false;
   @Input() info = '';
 
+  disableScroll = false;
+
   array = this.listMaker.array;
-  throttle = 300;
-  scrollDistance = 1;
+  throttle = 20;
+  scrollDistance = 3;
   scrollUpDistance = 2;
 
-  constructor(public listMaker: ListMaker) {}
+  constructor(public listMaker: ListMaker) { }
 
   onScrollDown(ev) {
-    console.log('scrolled down!!', ev);
+    console.log(`scrolled down, from ${this.className} ${this.info}`);
     this.listMaker.setDirectionDown();
   }
 
   onUp(ev) {
-    console.log('scrolled up!', ev);
+    console.log(`scrolled up, from  ${this.className} ${this.info}`);
     this.listMaker.setDirectionUp();
   }
   generateWord() {

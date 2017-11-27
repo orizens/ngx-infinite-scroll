@@ -75,7 +75,6 @@ export class InfiniteScrollDirective
             // tslint:disable-next-line:arrow-parens
             up: event => this.zone.run(() => this.scrolledUp.emit(event))
           },
-          filterBefore: () => !this.infiniteScrollDisabled,
           horizontal: this.horizontal,
           scrollContainer: this.infiniteScrollContainer,
           scrollWindow: this.scrollWindow,
