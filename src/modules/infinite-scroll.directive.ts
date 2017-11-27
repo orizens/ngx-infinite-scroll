@@ -37,7 +37,7 @@ export class InfiniteScrollDirective
 
   private disposeScroller: Subscription;
 
-  constructor(private element: ElementRef, private zone: NgZone) {}
+  constructor(private element: ElementRef, private zone: NgZone) { }
 
   ngAfterViewInit() {
     if (!this.infiniteScrollDisabled) {
@@ -50,11 +50,10 @@ export class InfiniteScrollDirective
     const disabledChanged = inputPropChanged(infiniteScrollDisabled);
     const distanceChanged = inputPropChanged(infiniteScrollDistance);
     const shouldSetup = (!disabledChanged && !this.infiniteScrollDisabled) ||
-          (disabledChanged && !infiniteScrollDisabled.currentValue) || distanceChanged;
-    
+      (disabledChanged && !infiniteScrollDisabled.currentValue) || distanceChanged;
+
     if (containerChanged || disabledChanged || distanceChanged) {
       this.destroyScroller();
-      
       if (shouldSetup) {
         this.setup();
       }
