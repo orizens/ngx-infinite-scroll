@@ -1,3 +1,4 @@
+import * as console from 'console';
 import { ElementRef, SimpleChange } from '@angular/core';
 
 export function resolveContainerElement(
@@ -14,6 +15,9 @@ export function resolveContainerElement(
     container = containerIsString
       ? findElement(selector, defaultElement.nativeElement, fromRoot)
       : selector;
+    if (!container) {
+      throw new Error('ngx-infinite-scroll {resolveContainerElement()}: selector for');
+    }
   }
   return container;
 }

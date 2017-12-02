@@ -18,10 +18,10 @@ import { ListMaker } from './list.service';
     [infiniteScrollThrottle]="throttle"
     (scrolled)="onScrollDown()"
     (scrolledUp)="onUp()">
-      <h3 class="info">
-        {{ className }}, {{info}}
-        <input type="checkbox" name="_disable" [(ngModel)]="disableScroll" title="disables scroll">
-      </h3>
+      <h4 class="info">
+        {{ className }}, {{info}}<br>
+        disable scroll <input type="checkbox" name="_disable" [(ngModel)]="disableScroll" title="disables scroll">
+      </h4>
       <p *ngFor="let i of array">
         {{ i }}
       </p>
@@ -34,11 +34,11 @@ export class TestComponent {
   @Input() selector = null;
   @Input() fromRoot = false;
   @Input() info = '';
+  @Input() throttle = 20;
 
   disableScroll = false;
 
   array = this.listMaker.array;
-  throttle = 20;
   scrollDistance = 3;
   scrollUpDistance = 2;
 

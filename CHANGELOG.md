@@ -1,3 +1,6 @@
+## v 0.7.1 (2017/11/27)
+* [FIX] - use html container if passed in #217 - fix #216
+
 ## v 0.7.0 (2017/11/27)
 * [ADD] - watch changes for: infiniteScrollDisabled - fix #196
 * [ADD] - watch changes for: infiniteScrollDistance - fix #202

@@ -28,12 +28,12 @@
 }
 .first {
   top: 0;
-  right: 0;
+  right: 20px;
   background-color: tomato;
 }
 .second {
   bottom: 0;
-  right: 0;
+  right: 0px;
   background-color: lime;
 }
 .dummy {
@@ -47,6 +47,11 @@
   background-color: darkslategrey;
 }
 
+.with-error {
+  top: 0;
+  right: 220px;
+  background-color: gray;
+}
 .inner {
   bottom: 0;
   right: 600px;
