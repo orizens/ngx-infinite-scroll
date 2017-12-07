@@ -1,3 +1,6 @@
+## v 0.7.2 (2017/12/07)
+* [FIX] - fix for ie11 - fix #157
+
 ## v 0.7.1 (2017/11/27)
 * [FIX] - use html container if passed in #217 - fix #216
 
