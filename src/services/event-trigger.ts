@@ -20,16 +20,11 @@ export interface IDistanceRange {
 
 export interface IScrollConfig {
   alwaysCallback: boolean;
-  disable: boolean;
-  shouldScroll: boolean;
+  shouldFireScrollEvent: boolean;
 }
 
-export function shouldTriggerEvents({
-  alwaysCallback,
-  shouldScroll,
-  disable
-}: IScrollConfig) {
-  return (alwaysCallback || shouldScroll) && !disable;
+export function shouldTriggerEvents({ alwaysCallback, shouldFireScrollEvent }: IScrollConfig) {
+  return (alwaysCallback || shouldFireScrollEvent);
 }
 
 export function triggerEvents(

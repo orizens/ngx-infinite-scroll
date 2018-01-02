@@ -9,49 +9,44 @@ const props = {
 } as IScrollerProps;
 
 describe('EventTrigger', () => {
-  it('should return true when alwaysCallback, not disabled', () => {
+  it('should return true when alwaysCallback', () => {
     const actual = shouldTriggerEvents({
       alwaysCallback: true,
-      shouldScroll: false,
-      disable: false
+      shouldFireScrollEvent: false,
     });
     expect(actual).toBeTruthy();
   });
 
-  it('should return true when alwaysCallback, shouldScroll and not disabled', () => {
+  it('should return true when alwaysCallback, shouldFireScrollEvent', () => {
     const actual = shouldTriggerEvents({
       alwaysCallback: true,
-      shouldScroll: true,
-      disable: false
+      shouldFireScrollEvent: true,
     });
     expect(actual).toBeTruthy();
   });
 
-  it('should return true when not alwaysCallback, shouldScroll is true and not disabled', () => {
+  it('should return true when not alwaysCallback, shouldFireScrollEvent is true', () => {
     const actual = shouldTriggerEvents({
       alwaysCallback: false,
-      shouldScroll: true,
-      disable: false
+      shouldFireScrollEvent: true,
     });
     expect(actual).toBeTruthy();
   });
 
-  it('should return false when alwaysCallback, shouldScroll is true and disabled', () => {
+  it('should return false when alwaysCallback, shouldFireScrollEvent is true', () => {
     const actual = shouldTriggerEvents({
       alwaysCallback: true,
-      shouldScroll: true,
-      disable: true
+      shouldFireScrollEvent: true,
     });
-    expect(actual).toBeFalsy();
+    expect(actual).toBeTruthy();
   });
 
-  it('should return false when not alwaysCallback, shouldScroll is true and disabled', () => {
+  it('should return false when not alwaysCallback, shouldFireScrollEvent is true', () => {
     const actual = shouldTriggerEvents({
       alwaysCallback: false,
-      shouldScroll: true,
-      disable: true
+      shouldFireScrollEvent: true,
     });
-    expect(actual).toBeFalsy();
+    expect(actual).toBeTruthy();
   });
 
   describe('triggerEvents', () => {

@@ -9,7 +9,6 @@ export interface InfiniteScrollEvent {
 export interface IPositionElements {
   windowElement: ContainerRef;
   axis: any;
-  isWindow: boolean;
 }
 
 export interface IPositionStats {
@@ -29,6 +28,13 @@ export interface IScrollerConfig {
 export interface IScrollStats {
   isScrollingDown: boolean;
   shouldScroll: boolean;
+}
+
+export interface IScrollState {
+  lastTotalToScroll: number;
+  totalToScroll: number;
+  isTriggeredTotal: boolean;
+  lastScrollPosition: number;
 }
 
 export interface IResolver {

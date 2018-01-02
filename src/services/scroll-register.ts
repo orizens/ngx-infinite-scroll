@@ -8,12 +8,13 @@ import { ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ContainerRef, IPositionStats } from '../models';
+import { ContainerRef, IPositionStats, IScrollState } from '../models';
 import { AxisResolver } from './axis-resolver';
 import { shouldTriggerEvents, triggerEvents } from './event-trigger';
 import { resolveContainerElement } from './ngx-ins-utils';
-import { calculatePoints, createResolver, isElementWindow } from './position-resolver';
-import { getScrollStats, updateScrollPosition } from './scroll-resolver';
+import { calculatePoints, createResolver } from './position-resolver';
+import * as ScrollResolver from './scroll-resolver';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export interface IScrollRegisterConfig {
   container: ContainerRef;
@@ -39,6 +40,29 @@ export interface IScroller {
   };
 }
 
+export function createScroller(config: IScroller): Subscription {
+  const { scrollContainer, scrollWindow, element, fromRoot } = config;
+  const resolver = createResolver({
+    axis: new AxisResolver(!config.horizontal),
+    windowElement: resolveContainerElement(scrollContainer, scrollWindow, element, fromRoot)
+  });
+  const stats = calculatePoints(element, resolver);
+  const scrollState: IScrollState = {
+    lastScrollPosition: 0,
+    lastTotalToScroll: 0,
+    totalToScroll: stats.totalToScroll,
+    isTriggeredTotal: false
+  };
+  const options: IScrollRegisterConfig = {
+    container: resolver.container,
+    mergeMap: () => calculatePoints(element, resolver),
+    scrollHandler: (positionStats: IPositionStats) =>
+      handleOnScroll(scrollState, positionStats, config),
+    throttleDuration: config.throttle
+  };
+  return attachScrollEvent(options);
+}
+
 export function attachScrollEvent(
   options: IScrollRegisterConfig
 ): Subscription {
@@ -48,33 +72,8 @@ export function attachScrollEvent(
     .subscribe(options.scrollHandler);
 }
 
-export function createScroller(config: IScroller): Subscription {
-  const containerElement = resolveContainerElement(
-    config.scrollContainer,
-    config.scrollWindow,
-    config.element,
-    config.fromRoot
-  );
-  const resolver = createResolver({
-    axis: new AxisResolver(!config.horizontal),
-    isWindow: isElementWindow(containerElement),
-    windowElement: containerElement
-  });
-  const scrollPosition = {
-    last: 0
-  };
-  const options: IScrollRegisterConfig = {
-    container: resolver.container,
-    mergeMap: () => calculatePoints(config.element, resolver),
-    scrollHandler: (positionStats: IPositionStats) =>
-      handleOnScroll(scrollPosition, positionStats, config),
-    throttleDuration: config.throttle
-  };
-  return attachScrollEvent(options);
-}
-
 export function handleOnScroll(
-  scrollPosition,
+  scrollState: IScrollState,
   positionStats: IPositionStats,
   config: IScroller
 ) {
@@ -82,20 +81,19 @@ export function handleOnScroll(
     down: config.downDistance,
     up: config.upDistance
   };
-  const { isScrollingDown, shouldScroll } = getScrollStats(
-    scrollPosition.last,
+  const { isScrollingDown, shouldFireScrollEvent } = ScrollResolver.getScrollStats(
+    scrollState.lastScrollPosition,
     positionStats,
-    {
-      distance
-    }
+    { distance }
   );
   const scrollConfig = {
     alwaysCallback: config.alwaysCallback,
-    disable: config.disable,
-    shouldScroll
+    shouldFireScrollEvent
   };
-  updateScrollPosition(positionStats.scrolledUntilNow, scrollPosition);
-  if (shouldTriggerEvents(scrollConfig)) {
+  ScrollResolver.updateScrollState(scrollState, positionStats.scrolledUntilNow, positionStats.totalToScroll);
+  const shouldTrigger = shouldTriggerEvents(scrollConfig);
+  if (shouldTrigger && !scrollState.isTriggeredTotal) {
+    ScrollResolver.updateTriggeredFlag(scrollState, true);
     triggerEvents(
       config.events,
       isScrollingDown,

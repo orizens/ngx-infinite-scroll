@@ -1,3 +1,8 @@
+## v 0.8.0 (2018/01/02)
+* [FIX] - now triggers only once when in or after target (#200) 
+* [REFACTOR] - "distance" number has been refined to be the percentage point of the scroll nob. 
+* [REFACTOR] - added more unit tests. 
+
 ## v 0.7.2 (2017/12/07)
 * [FIX] - fix for ie11 - fix #157
 

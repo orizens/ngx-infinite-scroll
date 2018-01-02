@@ -22,7 +22,8 @@ npm install ngx-infinite-scroll --save
 
 ## Supported API
 Currently supported attributes:
-* **infiniteScrollDistance**<_number_> - (optional, default: **2**) - should get a number, the number of viewport lengths from the bottom of the page at which the event will be triggered.
+* **infiniteScrollDistance**<_number_> - (optional, default: **2**) - the bottom percentage point of the scroll nob relatively to the infinite-scroll container (i.e, 2 (2 * 10 = 20%) is event is triggered when 80% (100% - 20%) has been scrolled).  
+if container.height is 900px, when the container is scrolled to or past the 720px, it will fire the scrolled event. 
 * **infiniteScrollUpDistance**<_number_> - (optional, default: **1.5**) - should get a number
 * **infiniteScrollThrottle**<_number_> - (optional, default: **300**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
 * **infiniteScrollContainer**<_string|HTMLElement_> - (optional, default: null) - should get a html element or css selector for a scrollable element; window or current element will be used if this attribute is empty.

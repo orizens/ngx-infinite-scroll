@@ -4,15 +4,11 @@ import { ContainerRef, IPositionElements, IPositionStats, IResolver } from '../m
 import { AxisResolver } from './axis-resolver';
 
 export function createResolver({
-  isWindow,
   windowElement,
   axis
 }: IPositionElements): IResolver {
   return createResolverWithContainer(
-    {
-      axis,
-      isWindow
-    },
+    { axis, isWindow: isElementWindow(windowElement) },
     windowElement
   );
 }

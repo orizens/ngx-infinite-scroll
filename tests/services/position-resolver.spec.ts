@@ -31,7 +31,6 @@ describe('Position Resolver', () => {
       const actual = createResolver({
         axis,
         windowElement: mockDom.element,
-        isWindow: true
       });
       expect(actual).toBeDefined();
     });
