@@ -45,14 +45,15 @@ export class InfiniteScrollDirective
     }
   }
 
-  ngOnChanges({ infiniteScrollContainer, infiniteScrollDisabled, infiniteScrollDistance }: SimpleChanges) {
+  ngOnChanges({ infiniteScrollContainer, infiniteScrollDisabled, infiniteScrollDistance, infiniteScrollUpDistance }: SimpleChanges) {
     const containerChanged = inputPropChanged(infiniteScrollContainer);
     const disabledChanged = inputPropChanged(infiniteScrollDisabled);
     const distanceChanged = inputPropChanged(infiniteScrollDistance);
+    const distanceUpChanged = inputPropChanged(infiniteScrollUpDistance);
     const shouldSetup = (!disabledChanged && !this.infiniteScrollDisabled) ||
-      (disabledChanged && !infiniteScrollDisabled.currentValue) || distanceChanged;
+      (disabledChanged && !infiniteScrollDisabled.currentValue)  || distanceChanged;
 
-    if (containerChanged || disabledChanged || distanceChanged) {
+    if (containerChanged || disabledChanged || distanceChanged || distanceUpChanged) {
       this.destroyScroller();
       if (shouldSetup) {
         this.setup();
@@ -73,7 +74,8 @@ export class InfiniteScrollDirective
             // tslint:disable-next-line:arrow-parens
             down: event => this.zone.run(() => this.scrolled.emit(event)),
             // tslint:disable-next-line:arrow-parens
-            up: event => this.zone.run(() => this.scrolledUp.emit(event))
+            up: event => this.zone.run(() => this.scrolledUp.emit(event)),
+            
           },
           horizontal: this.horizontal,
           scrollContainer: this.infiniteScrollContainer,
