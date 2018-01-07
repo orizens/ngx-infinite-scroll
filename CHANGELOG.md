@@ -1,3 +1,6 @@
+## v 0.8.1 (2018/01/07)
+* [REFACTOR] - performance optimization for scroll events 
+
 ## v 0.8.0 (2018/01/02)
 * [FIX] - now triggers only once when in or after target (#200) 
 * [REFACTOR] - "distance" number has been refined to be the percentage point of the scroll nob. 

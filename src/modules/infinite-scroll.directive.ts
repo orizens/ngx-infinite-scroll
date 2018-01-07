@@ -12,9 +12,9 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { InfiniteScrollEvent } from '../models';
+import { InfiniteScrollEvent, IInfiniteScrollAction } from '../models';
 import { hasWindowDefined, inputPropChanged } from '../services/ngx-ins-utils';
-import { createScroller } from '../services/scroll-register';
+import { createScroller, InfiniteScrollActions } from '../services/scroll-register';
 
 @Directive({
   selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]'
@@ -69,19 +69,26 @@ export class InfiniteScrollDirective
           disable: this.infiniteScrollDisabled,
           downDistance: this.infiniteScrollDistance,
           element: this.element,
-          events: {
-            // tslint:disable-next-line:arrow-parens
-            down: event => this.zone.run(() => this.scrolled.emit(event)),
-            // tslint:disable-next-line:arrow-parens
-            up: event => this.zone.run(() => this.scrolledUp.emit(event))
-          },
           horizontal: this.horizontal,
           scrollContainer: this.infiniteScrollContainer,
           scrollWindow: this.scrollWindow,
           throttle: this.infiniteScrollThrottle,
           upDistance: this.infiniteScrollUpDistance
-        });
+        }).subscribe((payload: any) => this.zone.run(() => this.handleOnScroll(payload)));
       });
+    }
+  }
+
+  handleOnScroll({ type, payload }: IInfiniteScrollAction) {
+    switch (type) {
+      case InfiniteScrollActions.DOWN:
+        return this.scrolled.emit(payload);
+
+      case InfiniteScrollActions.UP:
+        return this.scrolledUp.emit(payload);
+
+      default:
+        return;
     }
   }
 

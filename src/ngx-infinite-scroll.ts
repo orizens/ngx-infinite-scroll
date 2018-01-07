@@ -4,8 +4,6 @@ export {
   InfiniteScrollEvent,
   IPositionElements,
   IPositionStats,
-  IScrollStats,
-  IScrollerConfig,
   IResolver
 } from './models';
 

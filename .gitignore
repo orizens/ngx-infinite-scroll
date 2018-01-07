@@ -60,3 +60,4 @@ $ cat .gitignore
 *.tgz
 
 npm-debug.*
+examples/ 

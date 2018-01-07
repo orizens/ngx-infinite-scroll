@@ -1,15 +1,17 @@
-import { Subscription } from 'rxjs/Rx';
+import * as Models from '../../src/models';
+import { Observable } from 'rxjs/Observable';
 import {
   async,
   inject
 } from '@angular/core/testing';
 import * as ScrollRegister from '../../src/services/scroll-register';
+import * as ScrollResolver from '../../src/services/scroll-resolver';
+import * as EventTrigger from '../../src/services/event-trigger';
 import { ElementRef } from '@angular/core';
 
 describe('Scroll Regsiter', () => {
   let mockedElement: ElementRef;
   let mockedContainer: ElementRef;
-  // let scrollRegister: ScrollRegister;
 
   const createMockDom = () => {
     const container = document.createElement('section');
@@ -22,62 +24,71 @@ describe('Scroll Regsiter', () => {
     return { element: mockedElement, container: mockedContainer };
   };
 
-  beforeEach(() => {
-    // scrollRegister = new ScrollRegister();
-  });
+  // beforeEach(() => {
 
-  it('should create a Subscription of scroll observable', () => {
+  // });
+
+  it('should create a Observable of scroll observable', () => {
     const mockDom = createMockDom();
-    const scrollConfig: ScrollRegister.IScrollRegisterConfig = {
+    const scrollConfig: Models.IScrollRegisterConfig = {
       container: mockDom.container.nativeElement,
-      mergeMap: (e: any) => e,
-      scrollHandler: (ev: any) => ev,
-      throttleDuration: 300,
+      throttle: 300,
 
     };
-    const scroller$: Subscription = ScrollRegister.attachScrollEvent(scrollConfig);
+    const scroller$: Observable<{}> = ScrollRegister.attachScrollEvent(scrollConfig);
     const actual = scroller$;
     expect(actual).toBeDefined();
   });
 
-  // describe('Manage Scroll State', () => {
-  //   it('should backup old Total and update the new one', () => {
-  //     const state = {
-  //       totalToScroll: 10,
-  //       lastTotalToScroll: 0
-  //     } as any;
-  //     const newTotal = 20;
-  //     ScrollRegister.updateTotalToScroll(newTotal, state);
-  //     const actual = state.totalToScroll;
-  //     const expected = newTotal;
-  //     expect(actual).toEqual(expected);
-  //   });
+  it('should create a scroll params object', () => {
+    const lastScrollPosition = 0;
+    const positionStats = {} as Models.IPositionStats;
+    const distance = {
+      down: 2,
+      up: 3,
+    } as Models.IScrollerDistance;
+    const scrollStats = {
+      isScrollingDown: true,
+      shouldFireScrollEvent: true
+    };
+    spyOn(ScrollResolver, 'getScrollStats').and.returnValue(scrollStats);
+    const actual = ScrollRegister.toInfiniteScrollParams(lastScrollPosition, positionStats, distance);
+    const expected = 3;
+    expect(Object.keys(actual).length).toEqual(expected);
+  });
 
-  //   it('should return false when total != lastTotal', () => {
-  //     const state = {
-  //       totalToScroll: 10,
-  //       lastTotalToScroll: 0
-  //     } as any;
-  //     const actual = ScrollRegister.isSameTotalToScroll(state);
-  //     expect(actual).toBeFalsy();
-  //   });
+  describe('toInfiniteScrollAction', () => {
+    let response;
 
-  //   it('should return true total = lastTotal', () => {
-  //     const state = {
-  //       totalToScroll: 10,
-  //       lastTotalToScroll: 10
-  //     } as any;
-  //     const actual = ScrollRegister.isSameTotalToScroll(state);
-  //     expect(actual).toBeTruthy();
-  //   });
+    beforeEach(() => {
+      response = {
+        positionStats: {
+          scrolledUntilNow: 100
+        }
+      } as Models.IScrollParams;
+    });
 
-  //   it('should set the isTriggeredTotal', () => {
-  //     const state = {
-  //       isTriggeredTotal: false
-  //     } as any;
-  //     ScrollRegister.updateTriggeredFlag(state, true);
-  //     const actual = state.isTriggeredTotal;
-  //     expect(actual).toBeTruthy();
-  //   });
-  // });
+    [
+      {
+        it: 'should trigger down event when scrolling down',
+        params: {
+          isScrollingDown: true
+        },
+        expected: ScrollRegister.InfiniteScrollActions.DOWN
+      },
+      {
+        it: 'should trigger up event when scrolling up',
+        params: {
+          isScrollingDown: false
+        },
+        expected: ScrollRegister.InfiniteScrollActions.UP
+      }
+    ].forEach((spec) => {
+      it(spec.it, () => {
+        const params = { ...response, ...spec.params };
+        const actual = ScrollRegister.toInfiniteScrollAction(params);
+        expect(actual.type).toBe(spec.expected);
+      });
+    });
+  });
 });

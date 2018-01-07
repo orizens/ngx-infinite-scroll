@@ -23,18 +23,9 @@ export interface IScrollConfig {
   shouldFireScrollEvent: boolean;
 }
 
-export function shouldTriggerEvents({ alwaysCallback, shouldFireScrollEvent }: IScrollConfig) {
-  return (alwaysCallback || shouldFireScrollEvent);
-}
-
-export function triggerEvents(
-  callbacks: ITriggerEvents,
-  isScrollingDown: boolean,
-  scrolledUntilNow: number
-) {
-  const eventData: InfiniteScrollEvent = {
-    currentScrollPosition: scrolledUntilNow
-  };
-  const callback = isScrollingDown ? callbacks.down : callbacks.up;
-  callback(eventData);
+export function shouldTriggerEvents(
+  alwaysCallback: boolean,
+  shouldFireScrollEvent: boolean,
+  isTriggeredCurrentTotal: boolean) {
+  return (alwaysCallback || shouldFireScrollEvent) && !isTriggeredCurrentTotal;
 }

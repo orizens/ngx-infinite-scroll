@@ -1,11 +1,10 @@
-import { IPositionStats, IScrollerConfig, IScrollState } from '../models';
+import { IPositionStats, IScrollState, IScrollerDistance } from '../models';
 
 export function shouldFireScrollEvent(
   container: IPositionStats,
-  config: IScrollerConfig,
+  distance: IScrollerDistance,
   scrollingDown: boolean
 ) {
-  const distance = config.distance;
   let remaining: number;
   let containerBreakpoint: number;
   if (scrollingDown) {
@@ -30,11 +29,11 @@ export function isScrollingDownwards(
 export function getScrollStats(
   lastScrollPosition: number,
   container: IPositionStats,
-  config: IScrollerConfig
+  distance: IScrollerDistance
 ) {
   const isScrollingDown = isScrollingDownwards(lastScrollPosition, container);
   return {
-    shouldFireScrollEvent: shouldFireScrollEvent(container, config, isScrollingDown),
+    shouldFireScrollEvent: shouldFireScrollEvent(container, distance, isScrollingDown),
     isScrollingDown
   };
 }

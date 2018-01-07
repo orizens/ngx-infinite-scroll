@@ -1,4 +1,4 @@
-import { IScrollerProps, shouldTriggerEvents, triggerEvents } from '../../src/services/event-trigger';
+import { IScrollerProps, shouldTriggerEvents } from '../../src/services/event-trigger';
 
 const props = {
   alwaysCallback: true,
@@ -9,64 +9,84 @@ const props = {
 } as IScrollerProps;
 
 describe('EventTrigger', () => {
-  it('should return true when alwaysCallback', () => {
-    const actual = shouldTriggerEvents({
-      alwaysCallback: true,
-      shouldFireScrollEvent: false,
-    });
-    expect(actual).toBeTruthy();
-  });
-
-  it('should return true when alwaysCallback, shouldFireScrollEvent', () => {
-    const actual = shouldTriggerEvents({
-      alwaysCallback: true,
-      shouldFireScrollEvent: true,
-    });
-    expect(actual).toBeTruthy();
-  });
-
-  it('should return true when not alwaysCallback, shouldFireScrollEvent is true', () => {
-    const actual = shouldTriggerEvents({
-      alwaysCallback: false,
-      shouldFireScrollEvent: true,
-    });
-    expect(actual).toBeTruthy();
-  });
-
-  it('should return false when alwaysCallback, shouldFireScrollEvent is true', () => {
-    const actual = shouldTriggerEvents({
-      alwaysCallback: true,
-      shouldFireScrollEvent: true,
-    });
-    expect(actual).toBeTruthy();
-  });
-
-  it('should return false when not alwaysCallback, shouldFireScrollEvent is true', () => {
-    const actual = shouldTriggerEvents({
-      alwaysCallback: false,
-      shouldFireScrollEvent: true,
-    });
-    expect(actual).toBeTruthy();
-  });
-
-  describe('triggerEvents', () => {
-    let callbacks;
-
-    beforeEach(() => {
-      callbacks = {
-        down: jasmine.createSpy('down'),
-        up: jasmine.createSpy('up')
-      };
-    });
-
-    it('should trigger down event when scrolling down', () => {
-      triggerEvents(callbacks, true, 9);
-      expect(callbacks.down).toHaveBeenCalled();
-    });
-
-    it('should trigger up event when scrolling up', () => {
-      triggerEvents(callbacks, false, 9);
-      expect(callbacks.up).toHaveBeenCalled();
+  [
+    {
+      it: 'should return TRUE when alwaysCallback',
+      params: {
+        alwaysCallback: true,
+        shouldFireScrollEvent: false,
+        isTriggeredTotal: false
+      },
+      expected: true
+    },
+    {
+      it: 'should return FALSE when alwaysCallback, isTriggeredTotal',
+      params: {
+        alwaysCallback: true,
+        shouldFireScrollEvent: false,
+        isTriggeredTotal: true
+      },
+      expected: false
+    },
+    {
+      it: 'should return TRUE when alwaysCallback, shouldFireScrollEvent',
+      params: {
+        alwaysCallback: true,
+        shouldFireScrollEvent: true,
+        isTriggeredTotal: false
+      },
+      expected: true
+    },
+    {
+      it: 'should return FALSE when alwaysCallback, shouldFireScrollEvent, isTriggeredTotal',
+      params: {
+        alwaysCallback: true,
+        shouldFireScrollEvent: true,
+        isTriggeredTotal: true
+      },
+      expected: false
+    },
+    {
+      it: 'should return TRUE when shouldFireScrollEvent ONLY',
+      params: {
+        alwaysCallback: false,
+        shouldFireScrollEvent: true,
+        isTriggeredTotal: false
+      },
+      expected: true
+    },
+    {
+      it: 'should return FALSE when shouldFireScrollEvent, isTriggeredTotal',
+      params: {
+        alwaysCallback: false,
+        shouldFireScrollEvent: true,
+        isTriggeredTotal: true
+      },
+      expected: false
+    },
+    {
+      it: 'should return FALSE when not alwaysCallback, shouldFireScrollEvent is false',
+      params: {
+        alwaysCallback: false,
+        shouldFireScrollEvent: false,
+        isTriggeredTotal: false
+      },
+      expected: false
+    },
+    {
+      it: 'should return FALSE when isTriggeredTotal ONLY',
+      params: {
+        alwaysCallback: false,
+        shouldFireScrollEvent: false,
+        isTriggeredTotal: true
+      },
+      expected: false
+    }
+  ].forEach((spec) => {
+    it(spec.it, () => {
+      const { isTriggeredTotal, alwaysCallback, shouldFireScrollEvent } = spec.params;
+      const actual = shouldTriggerEvents(alwaysCallback, shouldFireScrollEvent, isTriggeredTotal);
+      expect(actual).toBe(spec.expected);
     });
   });
 });
