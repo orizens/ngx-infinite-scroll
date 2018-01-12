@@ -7,9 +7,8 @@
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": ".",
-    "inlineSourceMap": false,
     "sourceMap": true,
-    "inlineSources": true,
+    "inlineSources": false,
     "target": "es2015",
     "skipLibCheck": true,
     "lib": [
@@ -17,6 +16,12 @@
       "dom"
     ]
   },
+  "exclude": [
+    "node_modules",
+    "example",
+    "examples",
+    "dist"
+],
   "files": [
     "public_api.ts"
   ],

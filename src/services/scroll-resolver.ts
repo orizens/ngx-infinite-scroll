@@ -7,11 +7,12 @@ export function shouldFireScrollEvent(
 ) {
   let remaining: number;
   let containerBreakpoint: number;
+  const scrolledUntilNow = container.height + container.scrolled;
   if (scrollingDown) {
-    remaining = (container.totalToScroll - container.scrolledUntilNow) / container.totalToScroll;
+    remaining = (container.totalToScroll - scrolledUntilNow) / container.totalToScroll;
     containerBreakpoint = distance.down / 10;
   } else {
-    remaining = container.scrolledUntilNow / container.totalToScroll;
+    remaining = scrolledUntilNow / container.totalToScroll;
     containerBreakpoint = distance.up / 10;
   }
 
@@ -23,7 +24,7 @@ export function isScrollingDownwards(
   lastScrollPosition: number,
   container: IPositionStats
 ) {
-  return lastScrollPosition < container.scrolledUntilNow;
+  return lastScrollPosition < container.scrolled;
 }
 
 export function getScrollStats(
@@ -31,10 +32,10 @@ export function getScrollStats(
   container: IPositionStats,
   distance: IScrollerDistance
 ) {
-  const isScrollingDown = isScrollingDownwards(lastScrollPosition, container);
+  const scrollDown = isScrollingDownwards(lastScrollPosition, container);
   return {
-    shouldFireScrollEvent: shouldFireScrollEvent(container, distance, isScrollingDown),
-    isScrollingDown
+    fire: shouldFireScrollEvent(container, distance, scrollDown),
+    scrollDown
   };
 }
 
@@ -43,23 +44,36 @@ export function updateScrollPosition(position: number, scrollState: IScrollState
 }
 
 export function updateTotalToScroll(totalToScroll: number, scrollState: IScrollState) {
-  scrollState.lastTotalToScroll = scrollState.totalToScroll;
-  scrollState.totalToScroll = totalToScroll;
+  if (scrollState.lastTotalToScroll !== totalToScroll) {
+    scrollState.lastTotalToScroll = scrollState.totalToScroll;
+    scrollState.totalToScroll = totalToScroll;
+  }
 }
 
-export function isSameTotalToScroll(scrollState) {
+export function isSameTotalToScroll(scrollState: IScrollState) {
   return scrollState.totalToScroll === scrollState.lastTotalToScroll;
 }
 
-export function updateTriggeredFlag(scrollState, triggered: boolean) {
-  scrollState.isTriggeredTotal = triggered;
+export function updateTriggeredFlag(scroll, scrollState: IScrollState, triggered: boolean, isScrollingDown: boolean) {
+  if (isScrollingDown) {
+    scrollState.triggered.down = scroll;
+  } else {
+    scrollState.triggered.up = scroll;
+  }
 }
 
-export function updateScrollState(scrollState: IScrollState, scrolledUntilNow: number, totalToScroll: number) {
+export function isTriggeredScroll(totalToScroll, scrollState: IScrollState, isScrollingDown: boolean) {
+  return isScrollingDown
+    ? scrollState.triggered.down === totalToScroll
+    : scrollState.triggered.up === totalToScroll;
+}
+
+export function updateScrollState(
+  scrollState: IScrollState, scrolledUntilNow: number, totalToScroll: number) {
   updateScrollPosition(scrolledUntilNow, scrollState);
   updateTotalToScroll(totalToScroll, scrollState);
-  const isSameTotal = isSameTotalToScroll(scrollState);
-  if (!isSameTotal) {
-    updateTriggeredFlag(scrollState, false);
-  }
+  // const isSameTotal = isSameTotalToScroll(scrollState);
+  // if (!isSameTotal) {
+  //   updateTriggeredFlag(scrollState, false, isScrollingDown);
+  // }
 }

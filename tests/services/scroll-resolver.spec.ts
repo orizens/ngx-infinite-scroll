@@ -1,3 +1,4 @@
+import * as Models from '../../src/models';
 import * as ScrollResolver from '../../src/services/scroll-resolver';
 
 describe('Manage Scroll State', () => {
@@ -31,12 +32,29 @@ describe('Manage Scroll State', () => {
     expect(actual).toBeTruthy();
   });
 
-  it('should set the isTriggeredTotal', () => {
-    const state = {
-      isTriggeredTotal: false
-    } as any;
-    ScrollResolver.updateTriggeredFlag(state, true);
-    const actual = state.isTriggeredTotal;
-    expect(actual).toBeTruthy();
+  [
+    {
+      it: 'should set the triggered to down',
+      down: true,
+      state: {
+        triggered: { down: 0 }
+      } as Models.IScrollState,
+      prop: 'down'
+    },
+    {
+      it: 'should set the triggered to up',
+      down: false,
+      state: {
+        triggered: { up: 0 }
+      } as Models.IScrollState,
+      prop: 'up'
+    }
+  ].forEach((spec) => {
+    it(spec.it, () => {
+      const total = 1000;
+      ScrollResolver.updateTriggeredFlag(total, spec.state, true, spec.down);
+      const actual = spec.state.triggered[spec.prop];
+      expect(actual).toBe(total);
+    });
   });
 });

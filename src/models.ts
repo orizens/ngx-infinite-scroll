@@ -13,7 +13,7 @@ export interface IPositionElements {
 
 export interface IPositionStats {
   height: number;
-  scrolledUntilNow: number;
+  scrolled: number;
   totalToScroll: number;
 }
 export interface IScrollerDistance {
@@ -24,7 +24,10 @@ export interface IScrollerDistance {
 export interface IScrollState {
   lastTotalToScroll: number;
   totalToScroll: number;
-  isTriggeredTotal: boolean;
+  triggered: {
+    down: number;
+    up: number;
+  };
   lastScrollPosition: number;
 }
 
@@ -53,9 +56,9 @@ export interface IScroller {
 }
 
 export interface IScrollParams {
-  isScrollingDown: boolean;
-  shouldFireScrollEvent: boolean;
-  positionStats: IPositionStats;
+  scrollDown: boolean;
+  fire: boolean;
+  stats: IPositionStats;
 }
 
 export interface IInfiniteScrollAction {

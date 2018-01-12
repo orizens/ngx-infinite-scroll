@@ -24,12 +24,15 @@ export function createScroller(config: Models.IScroller) {
     axis: new AxisResolver(!config.horizontal),
     windowElement: resolveContainerElement(scrollContainer, scrollWindow, element, fromRoot)
   });
-  const stats = calculatePoints(element, resolver);
+  const { totalToScroll: startWithTotal } = calculatePoints(element, resolver);
   const scrollState: Models.IScrollState = {
     lastScrollPosition: 0,
     lastTotalToScroll: 0,
-    totalToScroll: stats.totalToScroll,
-    isTriggeredTotal: false
+    totalToScroll: startWithTotal,
+    triggered: {
+      down: 0,
+      up: 0
+    }
   };
   const options: Models.IScrollRegisterConfig = {
     container: resolver.container,
@@ -43,17 +46,18 @@ export function createScroller(config: Models.IScroller) {
     .mergeMap((ev: any) => of(calculatePoints(element, resolver)))
     .map((positionStats: Models.IPositionStats) =>
       toInfiniteScrollParams(scrollState.lastScrollPosition, positionStats, distance))
-    .do(({ positionStats }: Models.IScrollParams) =>
+    .do(({ stats, scrollDown }: Models.IScrollParams) =>
       ScrollResolver.updateScrollState(
         scrollState,
-        positionStats.scrolledUntilNow,
-        positionStats.totalToScroll
+        stats.scrolled,
+        stats.totalToScroll,
       ))
-    .filter(({ shouldFireScrollEvent }: Models.IScrollParams) =>
-      shouldTriggerEvents(shouldFireScrollEvent, config.alwaysCallback, scrollState.isTriggeredTotal)
+    .filter(({ fire, scrollDown, stats: { totalToScroll } }: Models.IScrollParams) =>
+      shouldTriggerEvents(
+        fire, config.alwaysCallback, ScrollResolver.isTriggeredScroll(totalToScroll, scrollState, scrollDown))
     )
-    .do(() => {
-      ScrollResolver.updateTriggeredFlag(scrollState, true);
+    .do(({ scrollDown, stats: { totalToScroll } }: Models.IScrollParams) => {
+      ScrollResolver.updateTriggeredFlag(totalToScroll, scrollState, true, scrollDown);
     })
     .map(toInfiniteScrollAction);
 }
@@ -66,18 +70,18 @@ export function attachScrollEvent(options: Models.IScrollRegisterConfig): Observ
 
 export function toInfiniteScrollParams(
   lastScrollPosition: number,
-  positionStats: Models.IPositionStats,
+  stats: Models.IPositionStats,
   distance: Models.IScrollerDistance
 ): Models.IScrollParams {
-  const { isScrollingDown, shouldFireScrollEvent } = ScrollResolver.getScrollStats(
+  const { scrollDown, fire } = ScrollResolver.getScrollStats(
     lastScrollPosition,
-    positionStats,
+    stats,
     distance
   );
   return {
-    isScrollingDown,
-    shouldFireScrollEvent,
-    positionStats
+    scrollDown,
+    fire,
+    stats
   };
 }
 
@@ -87,9 +91,9 @@ export const InfiniteScrollActions = {
 };
 
 export function toInfiniteScrollAction(response: Models.IScrollParams): Models.IInfiniteScrollAction {
-  const { isScrollingDown, positionStats: { scrolledUntilNow: currentScrollPosition } } = response;
+  const { scrollDown, stats: { scrolled: currentScrollPosition } } = response;
   return {
-    type: isScrollingDown ? InfiniteScrollActions.DOWN : InfiniteScrollActions.UP,
+    type: scrollDown ? InfiniteScrollActions.DOWN : InfiniteScrollActions.UP,
     payload: {
       currentScrollPosition
     }

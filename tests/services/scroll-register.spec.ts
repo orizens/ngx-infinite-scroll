@@ -62,8 +62,8 @@ describe('Scroll Regsiter', () => {
 
     beforeEach(() => {
       response = {
-        positionStats: {
-          scrolledUntilNow: 100
+        stats: {
+          scrolled: 100
         }
       } as Models.IScrollParams;
     });
@@ -72,14 +72,14 @@ describe('Scroll Regsiter', () => {
       {
         it: 'should trigger down event when scrolling down',
         params: {
-          isScrollingDown: true
+          scrollDown: true
         },
         expected: ScrollRegister.InfiniteScrollActions.DOWN
       },
       {
         it: 'should trigger up event when scrolling up',
         params: {
-          isScrollingDown: false
+          scrollDown: false
         },
         expected: ScrollRegister.InfiniteScrollActions.UP
       }

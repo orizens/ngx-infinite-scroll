@@ -1,3 +1,8 @@
+## v 0.8.2 (2018/01/07)
+* [FIX] - fix for #221 - action not fired on Windows scrolling
+* [FIX] - fix for #228 - scrolling back up to the top of the list and then scroll down doesn't trigger event 
+* [REFACTOR] - shorten var names 
+
 ## v 0.8.1 (2018/01/07)
 * [REFACTOR] - performance optimization for scroll events 
 

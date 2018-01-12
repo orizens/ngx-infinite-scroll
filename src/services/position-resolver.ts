@@ -50,7 +50,7 @@ export function calculatePointsForWindow(
   const { axis, container, isWindow } = resolver;
   const { offsetHeightKey, clientHeightKey } = extractHeightPropKeys(axis);
   // scrolled until now / current y point
-  const scrolledUntilNow =
+  const scrolled =
     height +
     getElementPageYOffset(
       getDocumentElement(isWindow, container),
@@ -67,7 +67,7 @@ export function calculatePointsForWindow(
   const totalToScroll =
     getElementOffsetTop(element.nativeElement, axis, isWindow) +
     nativeElementHeight;
-  return { height, scrolledUntilNow, totalToScroll };
+  return { height, scrolled, totalToScroll };
 }
 
 export function calculatePointsForElement(
@@ -77,9 +77,9 @@ export function calculatePointsForElement(
 ): IPositionStats {
   const { axis, container } = resolver;
   // perhaps use container.offsetTop instead of 'scrollTop'
-  const scrolledUntilNow = container[axis.scrollTopKey()];
+  const scrolled = container[axis.scrollTopKey()];
   const totalToScroll = container[axis.scrollHeightKey()];
-  return { height, scrolledUntilNow, totalToScroll };
+  return { height, scrolled, totalToScroll };
 }
 
 export function extractHeightPropKeys(axis: AxisResolver) {
