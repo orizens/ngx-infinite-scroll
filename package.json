@@ -15,7 +15,8 @@
     "compodoc": "compodoc -p tsconfig.json",
     "compodoc-serve": "compodoc -s",
     "transpile": "ngc -p ./tsconfig.json",
-    "serve:prod": "npm run build && lite-server -c ./example/bs-config.json"
+    "serve:prod": "npm run build && lite-server -c ./example/bs-config.json",
+    "postinstall": "opencollective postinstall"
   },
   "typings": "./ngx-infinite-scroll.d.ts",
   "author": "Oren Farhi (orizens.com)",
@@ -72,5 +73,13 @@
     "uglify-js": "2.8.15",
     "sorcery": "0.10.0",
     "yargs": "7.0.2"
+  },
+  "dependencies": {
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/ngx-infinite-scroll",
+    "logo": "https://opencollective.com/ngx-infinite-scroll/logo.txt"
   }
 }
