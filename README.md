@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/orizens/ngx-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/ngx-infinite-scroll)
+[![Build Status](https://travis-ci.org/orizens/ngx-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/ngx-infinite-scroll) [![Backers on Open Collective](https://opencollective.com/ngx-infinite-scroll/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/ngx-infinite-scroll/sponsors/badge.svg)](#sponsors) 
 
 # Angular Infinite Scroll
 Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular.
@@ -194,3 +194,33 @@ It is also possible to use **infiniteScrollContainer** without additional variab
 
 # Showcase Examples
 * [Echoes Player - Developed with Angular, angular-cli and ngrx](http://orizens.github.io/echoes-player) ([github repo for echoes player](http://github.com/orizens/echoes-player))
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/ngx-infinite-scroll/contributors.svg?width=890" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/ngx-infinite-scroll#backer)]
+
+<a href="https://opencollective.com/ngx-infinite-scroll#backers" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/ngx-infinite-scroll#sponsor)]
+
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/2/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/3/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/4/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/5/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/6/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/9/avatar.svg"></a>
+
+
