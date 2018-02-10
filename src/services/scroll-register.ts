@@ -63,9 +63,14 @@ export function createScroller(config: Models.IScroller) {
 }
 
 export function attachScrollEvent(options: Models.IScrollRegisterConfig): Observable<{}> {
-  return Observable
-    .fromEvent(options.container, 'scroll')
-    .sampleTime(options.throttle);
+  let obs = Observable.fromEvent(options.container, 'scroll');
+  // For an unknown reason calling `sampleTime()` causes trouble for many users, even with `options.throttle = 0`.
+  // Let's avoid calling the function unless needed.
+  // See https://github.com/orizens/ngx-infinite-scroll/issues/198
+  if (options.throttle) {
+    obs = obs.sampleTime(options.throttle);
+  }
+  return obs;
 }
 
 export function toInfiniteScrollParams(
