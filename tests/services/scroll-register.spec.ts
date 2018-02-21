@@ -24,20 +24,49 @@ describe('Scroll Regsiter', () => {
     return { element: mockedElement, container: mockedContainer };
   };
 
-  // beforeEach(() => {
-
-  // });
-
   it('should create a Observable of scroll observable', () => {
     const mockDom = createMockDom();
     const scrollConfig: Models.IScrollRegisterConfig = {
       container: mockDom.container.nativeElement,
       throttle: 300,
-
     };
     const scroller$: Observable<{}> = ScrollRegister.attachScrollEvent(scrollConfig);
     const actual = scroller$;
     expect(actual).toBeDefined();
+  });
+
+  [
+    {
+      it: 'should create a Observable of scroll observable with default 300 throttle',
+      config: {
+        throttle: 300,
+      },
+      expected: 300
+    },
+    {
+      it: 'should create a Observable of scroll observable without a sampleTime if throttle is 0',
+      config: {
+        throttle: 0
+      },
+      expected: 0
+    }
+  ].forEach((spec) => {
+    it(spec.it, (done) => {
+      const mockDom = createMockDom();
+      const scrollConfig: Models.IScrollRegisterConfig = {
+        container: mockDom.container.nativeElement,
+        ...spec.config
+      };
+      const scroller$: Observable<{}> = ScrollRegister.attachScrollEvent(scrollConfig);
+      const start = new Date();
+      scroller$.subscribe((result) => {
+        const end = new Date();
+        const actual = end.getTime() - start.getTime();
+        expect(actual).toBeGreaterThanOrEqual(spec.expected);
+        done();
+      });
+      mockDom.container.nativeElement.dispatchEvent(new Event('scroll'));
+    });
   });
 
   it('should create a scroll params object', () => {

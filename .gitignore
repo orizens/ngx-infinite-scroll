@@ -61,3 +61,4 @@ $ cat .gitignore
 
 npm-debug.*
 examples/ 
+package-lock.json

@@ -26,7 +26,7 @@ export class InfiniteScrollDirective
 
   @Input() infiniteScrollDistance: number = 2;
   @Input() infiniteScrollUpDistance: number = 1.5;
-  @Input() infiniteScrollThrottle: number = 300;
+  @Input() infiniteScrollThrottle: number = 150;
   @Input() infiniteScrollDisabled: boolean = false;
   @Input() infiniteScrollContainer: any = null;
   @Input() scrollWindow: boolean = true;
