@@ -1,3 +1,7 @@
+## v 0.8.3 (2018/02/21)
+* [FIX] - fix for #198 - takes a long time for onscroll to fire 
+* [UPDATE] - default value for throttle changed to 150  
+
 ## v 0.8.2 (2018/01/07)
 * [FIX] - fix for #221 - action not fired on Windows scrolling
 * [FIX] - fix for #228 - scrolling back up to the top of the list and then scroll down doesn't trigger event 

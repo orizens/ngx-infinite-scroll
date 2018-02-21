@@ -25,7 +25,7 @@ Currently supported attributes:
 * **infiniteScrollDistance**<_number_> - (optional, default: **2**) - the bottom percentage point of the scroll nob relatively to the infinite-scroll container (i.e, 2 (2 * 10 = 20%) is event is triggered when 80% (100% - 20%) has been scrolled).  
 if container.height is 900px, when the container is scrolled to or past the 720px, it will fire the scrolled event. 
 * **infiniteScrollUpDistance**<_number_> - (optional, default: **1.5**) - should get a number
-* **infiniteScrollThrottle**<_number_> - (optional, default: **300**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
+* **infiniteScrollThrottle**<_number_> - (optional, default: **150**) - should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user *stops* scrolling.
 * **infiniteScrollContainer**<_string|HTMLElement_> - (optional, default: null) - should get a html element or css selector for a scrollable element; window or current element will be used if this attribute is empty.
 * **scrolled**<_function_> - this will callback if the distance threshold has been reached on a scroll down.
 * **scrolledUp**<_function_> - (event: InfiniteScrollEvent) - this will callback if the distance threshold has been reached on a scroll up.
