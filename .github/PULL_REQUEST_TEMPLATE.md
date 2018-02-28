@@ -27,3 +27,4 @@ Make sure these boxes are checked:
 - [ ] tests are updated (added/changed/removed)  
 - [ ] tests run successfully (local) 
 - [ ] tests run successfully (TravisCI) 
+- [ ] please follow this [styleguide](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#subject-line) for this pr title 
