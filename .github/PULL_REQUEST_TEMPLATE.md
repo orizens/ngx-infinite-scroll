@@ -9,11 +9,11 @@ Thanks for submitting a pull request! Please provide enough information so that 
 
 This PR fixes/implements the following **bugs/features**
 
-* [ ] #issue1
-* [ ] #issue2
-* [ ] #Feature1
-* [ ] #Feature2
-* [ ] Breaking changes
+- [ ] #issue1
+- [ ] #issue2
+- [ ] #Feature1
+- [ ] #Feature2
+- [ ] Breaking changes
 
 <!-- You can skip this if you're fixing a typo or adding an app to the Showcase. -->
 

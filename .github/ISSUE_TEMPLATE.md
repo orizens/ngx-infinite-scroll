@@ -26,7 +26,7 @@ Please search on the [issue track](../) before creating one.
 
 ### Your Environment
 <!--- Include as many relevant details about the environment you experienced the bug in -->
-[ ] Version used: 
-[ ] Browser Name and version:
-[ ] (Optional) Operating System and version (desktop or mobile):
-[ ] (Optional) Link to your project: 
+- [ ] Version used: 
+- [ ] Browser Name and version:
+- [ ] (Optional) Operating System and version (desktop or mobile):
+- [ ] (Optional) Link to your project: 
