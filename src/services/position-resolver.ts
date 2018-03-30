@@ -109,7 +109,8 @@ export function getElementHeight(
   clientHeightKey: string
 ) {
   if (isNaN(elem[offsetHeightKey])) {
-    return getDocumentElement(isWindow, elem)[clientHeightKey];
+    const docElem = getDocumentElement(isWindow, elem);
+    return docElem ? docElem[clientHeightKey] : 0;
   } else {
     return elem[offsetHeightKey];
   }
