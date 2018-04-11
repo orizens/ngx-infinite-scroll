@@ -1,11 +1,48 @@
+const VerticalProps = {
+  clientHeight: "clientHeight",
+  offsetHeight: "offsetHeight",
+  scrollHeight: "scrollHeight",
+  pageYOffset: "pageYOffset",
+  offsetTop: "offsetTop",
+  scrollTop: "scrollTop",
+  top: "top"
+};
+
+const HorizontalProps = {
+  clientHeight: "clientWidth",
+  offsetHeight: "offsetWidth",
+  scrollHeight: "scrollWidth",
+  pageYOffset: "pageXOffset",
+  offsetTop: "offsetLeft",
+  scrollTop: "scrollLeft",
+  top: "left"
+};
+
 export class AxisResolver {
+  private propsMap: any;
+
   constructor(private vertical: boolean = true) {
+    this.propsMap = vertical ? VerticalProps : HorizontalProps;
   }
-  clientHeightKey() { return this.vertical ? 'clientHeight' : 'clientWidth'; }
-  offsetHeightKey() { return this.vertical ? 'offsetHeight' : 'offsetWidth'; }
-  scrollHeightKey() { return this.vertical ? 'scrollHeight' : 'scrollWidth'; }
-  pageYOffsetKey() { return this.vertical ? 'pageYOffset' : 'pageXOffset'; }
-  offsetTopKey() { return this.vertical ? 'offsetTop' : 'offsetLeft'; }
-  scrollTopKey() { return this.vertical ? 'scrollTop' : 'scrollLeft'; }
-  topKey() { return this.vertical ? 'top' : 'left'; }
+  clientHeightKey() {
+    return this.propsMap.clientHeight;
+  }
+  offsetHeightKey() {
+    return this.propsMap.offsetHeight;
+  }
+  scrollHeightKey() {
+    return this.propsMap.scrollHeight;
+  }
+  pageYOffsetKey() {
+    return this.propsMap.pageYOffset;
+  }
+  offsetTopKey() {
+    return this.propsMap.offsetTop;
+  }
+  scrollTopKey() {
+    return this.propsMap.scrollTop;
+  }
+  topKey() {
+    return this.propsMap.top;
+  }
 }
