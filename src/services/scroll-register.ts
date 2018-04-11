@@ -55,7 +55,7 @@ export function createScroller(config: Models.IScroller) {
       ))
     .filter(({ fire, scrollDown, stats: { totalToScroll } }: Models.IScrollParams) =>
       shouldTriggerEvents(
-        fire, config.alwaysCallback, ScrollResolver.isTriggeredScroll(totalToScroll, scrollState, scrollDown))
+        config.alwaysCallback, fire, ScrollResolver.isTriggeredScroll(totalToScroll, scrollState, scrollDown))
     )
     .do(({ scrollDown, stats: { totalToScroll } }: Models.IScrollParams) => {
       ScrollResolver.updateTriggeredFlag(totalToScroll, scrollState, true, scrollDown);
