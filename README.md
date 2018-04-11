@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/orizens/ngx-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/ngx-infinite-scroll) [![Backers on Open Collective](https://opencollective.com/ngx-infinite-scroll/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/ngx-infinite-scroll/sponsors/badge.svg)](#sponsors)
 [![npm version](https://badge.fury.io/js/ngx-infinite-scroll.svg)](https://badge.fury.io/js/ngx-infinite-scroll)
+[![npm version](https://badge.fury.io/js/ngx-infinite-scroll.svg)](https://badge.fury.io/js/ngx-infinite-scroll)
+[![npm downloads a month](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)
+[![npm downloads a week](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)
 
 # Angular Infinite Scroll
 
