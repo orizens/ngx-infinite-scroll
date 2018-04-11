@@ -10,6 +10,7 @@ import { ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operator/map';
 import { of } from 'rxjs/observable/of';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 
 import * as Models from '../models';
 import { AxisResolver } from './axis-resolver';
@@ -63,7 +64,7 @@ export function createScroller(config: Models.IScroller) {
 }
 
 export function attachScrollEvent(options: Models.IScrollRegisterConfig): Observable<{}> {
-  let obs = Observable.fromEvent(options.container, 'scroll');
+  let obs = fromEvent(options.container, 'scroll');
   // For an unknown reason calling `sampleTime()` causes trouble for many users, even with `options.throttle = 0`.
   // Let's avoid calling the function unless needed.
   // See https://github.com/orizens/ngx-infinite-scroll/issues/198
