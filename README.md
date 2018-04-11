@@ -8,6 +8,7 @@ Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) dire
 ## Angular Support
 
 **Supports Angular > 4**  
+**Supports rxjs > 5.5**  
 For Angular version **<= 2.3.1**, you can use `npm i angular2-infinite-scroll` (latest version is 0.3.42) - please notice **the angular2-infinite-scroll** package is deprecated
 
 ## Angular Consulting Services
