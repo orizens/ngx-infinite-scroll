@@ -1,5 +1,5 @@
 import * as Models from '../../src/models';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 import {
   async,
   inject
