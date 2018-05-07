@@ -10,7 +10,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 import { InfiniteScrollEvent, IInfiniteScrollAction } from '../models';
 import { hasWindowDefined, inputPropChanged } from '../services/ngx-ins-utils';

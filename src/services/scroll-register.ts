@@ -1,7 +1,4 @@
-import { ElementRef } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
-import { fromEvent } from "rxjs/observable/fromEvent";
+import { Observable, of, fromEvent } from "rxjs";
 import { map, mergeMap, tap, sampleTime, filter } from "rxjs/operators";
 
 import * as Models from "../models";
