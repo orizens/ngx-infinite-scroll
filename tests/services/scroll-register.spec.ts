@@ -1,12 +1,7 @@
 import * as Models from '../../src/models';
-import { Observable } from 'rxjs/Observable';
-import {
-  async,
-  inject
-} from '@angular/core/testing';
+import { Observable } from 'rxjs';
 import * as ScrollRegister from '../../src/services/scroll-register';
 import * as ScrollResolver from '../../src/services/scroll-resolver';
-import * as EventTrigger from '../../src/services/event-trigger';
 import { ElementRef } from '@angular/core';
 
 describe('Scroll Regsiter', () => {
