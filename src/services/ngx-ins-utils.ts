@@ -1,4 +1,3 @@
-import * as console from 'console';
 import { ElementRef, SimpleChange } from '@angular/core';
 
 export function resolveContainerElement(
