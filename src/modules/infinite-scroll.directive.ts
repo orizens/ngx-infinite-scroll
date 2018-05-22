@@ -10,11 +10,11 @@ import {
     Output,
     SimpleChanges
 } from '@angular/core';
-import {Subscription} from 'rxjs/index';
+import { Subscription } from 'rxjs';
 
-import {IInfiniteScrollAction, InfiniteScrollEvent} from '../models';
-import {hasWindowDefined, inputPropChanged} from '../services/ngx-ins-utils';
-import {createScroller, InfiniteScrollActions} from '../services/scroll-register';
+import { InfiniteScrollEvent, IInfiniteScrollAction } from '../models';
+import { hasWindowDefined, inputPropChanged } from '../services/ngx-ins-utils';
+import { createScroller, InfiniteScrollActions } from '../services/scroll-register';
 
 @Directive({
     selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]'
@@ -37,8 +37,7 @@ export class InfiniteScrollDirective
 
     private disposeScroller: Subscription;
 
-    constructor(private element: ElementRef, private zone: NgZone) {
-    }
+    constructor(private element: ElementRef, private zone: NgZone) { }
 
     ngAfterViewInit() {
         if (!this.infiniteScrollDisabled) {
@@ -46,7 +45,7 @@ export class InfiniteScrollDirective
         }
     }
 
-    ngOnChanges({infiniteScrollContainer, infiniteScrollDisabled, infiniteScrollDistance}: SimpleChanges) {
+    ngOnChanges({ infiniteScrollContainer, infiniteScrollDisabled, infiniteScrollDistance }: SimpleChanges) {
         const containerChanged = inputPropChanged(infiniteScrollContainer);
         const disabledChanged = inputPropChanged(infiniteScrollDisabled);
         const distanceChanged = inputPropChanged(infiniteScrollDistance);
@@ -80,7 +79,7 @@ export class InfiniteScrollDirective
         }
     }
 
-    handleOnScroll({type, payload}: IInfiniteScrollAction) {
+    handleOnScroll({ type, payload }: IInfiniteScrollAction) {
         switch (type) {
             case InfiniteScrollActions.DOWN:
                 return this.scrolled.emit(payload);

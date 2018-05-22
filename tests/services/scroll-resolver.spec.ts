@@ -1,6 +1,5 @@
 import * as Models from '../../src/models';
 import * as ScrollResolver from '../../src/services/scroll-resolver';
-import {} from 'jasmine';
 describe('Manage Scroll State', () => {
   it('should backup old Total and update the new one', () => {
     const state = {

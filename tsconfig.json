@@ -17,7 +17,8 @@
         "target": "es5",
         "skipLibCheck": true,
         "types": [
-            "jasmine"
+            "jasmine",
+            "node"
         ]
     },
     "exclude": [
