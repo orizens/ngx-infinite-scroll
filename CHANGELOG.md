@@ -1,4 +1,4 @@
-## v 0.9.0 (2018/05/22)
+## v 6.0.0 (2018/05/22)
 
 * [UPGRADE] - upgrade to Angular 6 & rxjs 6
 
