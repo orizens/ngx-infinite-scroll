@@ -1,6 +1,7 @@
 ## v 6.0.0 (2018/05/22)
 
 * [UPGRADE] - upgrade to Angular 6 & rxjs 6
+* [CHORE] - demo now with https://stackblitz.com
 
 ## v 0.8.4 (2018/04/11)
 

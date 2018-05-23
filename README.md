@@ -59,8 +59,7 @@ By default, the directive listens to the **window scroll** event and invoked the
 
 ## DEMO
 
-* [**Default Scroll** By Window - plunkr](https://plnkr.co/edit/DrEDetYnZkFxR7OWWrxS?p=preview)
-* [Scroll On a **"Modal"** - plunkr](https://plnkr.co/edit/QnQOwE9SEapwJCCFII3L?p=preview)
+[Try the Demo in StackBlitz](https://stackblitz.com/edit/ngx-infinite-scroll)
 
 ## Usage
 
