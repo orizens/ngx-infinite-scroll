@@ -12,7 +12,8 @@ export function shouldFireScrollEvent(
     remaining = (container.totalToScroll - scrolledUntilNow) / container.totalToScroll;
     containerBreakpoint = distance.down / 10;
   } else {
-    remaining = scrolledUntilNow / container.totalToScroll;
+    const totalHiddenContentHeight = container.scrolled + (container.totalToScroll - scrolledUntilNow);
+    remaining = container.scrolled / totalHiddenContentHeight;
     containerBreakpoint = distance.up / 10;
   }
 
