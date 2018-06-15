@@ -60,5 +60,4 @@ $ cat .gitignore
 *.tgz
 
 npm-debug.*
-examples/ 
 package-lock.json

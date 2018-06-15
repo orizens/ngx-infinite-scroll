@@ -1,57 +1,62 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
-import { ListMaker } from './list.service';
+import { ListService } from "./list.service";
 
 // our root app component
 @Component({
-  selector: 'test-inner',
-  providers: [ListMaker],
+  selector: "test-inner",
+  providers: [ListService],
   template: `
-    <div class="results {{className}}"
+    <div class="{{className}}"
         [scrollWindow]="scrollWindow"
-         data-infinite-scroll
+         infiniteScroll
          [infiniteScrollContainer]="selector"
          [fromRoot]="fromRoot"
          [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollUpDistance]="scrollUpDistance"
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()"
-         (scrolledUp)="onUp()">
-      <h3 class="info">{{ className }}, {{ info }}</h3>
-      <p>{{ info }}</p>
+         (scrolledUp)="onUp()"
+      >
       <section class="content">
-        <p *ngFor="let i of array">
+        <div *ngFor="let i of array()">
           {{ i }}
-        </p>
+        </div>
       </section>
     </div>
   `
 })
 export class TestInnerComponent {
   @Input() scrollWindow = true;
-  @Input() className = '';
+  @Input() className = "";
   @Input() selector = null;
   @Input() fromRoot = false;
-  @Input() info = '';
+  @Input() info = "";
 
-  array = this.listMaker.array;
-  throttle = 20;
-  scrollDistance = 1;
+  throttle = 300;
+  scrollDistance = 2;
   scrollUpDistance = 2;
 
-  constructor(public listMaker: ListMaker) { }
+  constructor(public listMaker: ListService) {}
 
+  array() {
+    return this.listMaker.array;
+  }
   onScrollDown(ev) {
+    // setTimeout(() => {
     console.log(`scrolled down, from ${this.className} ${this.info}`);
     this.listMaker.setDirectionDown();
+    // }, 3000);
   }
 
   onUp(ev) {
+    // setTimeout(() => {
     console.log(`scrolled up, from  ${this.className} ${this.info}`);
     this.listMaker.setDirectionUp();
+    // }, 3000);
   }
 
   generateWord() {
-    return chance.word();
+    return window["chance"].word();
   }
 }

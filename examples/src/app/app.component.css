@@ -18,7 +18,7 @@
   overflow: scroll;
   display: block;
   position: fixed;
-  transition: width .3s ease-out;
+  transition: width 0.3s ease-out;
 }
 .fixed:hover {
   width: 350px;
@@ -56,4 +56,19 @@
   bottom: 0;
   right: 600px;
   background-color: goldenrod;
+}
+
+.test1 {
+  height: 300px;
+  overflow: auto;
+  width: 500px;
+}
+/* .test2 .content {
+  display: flex;
+} */
+.modal-body {
+  /* max-height: 200px; */
+  height: 200px;
+  width: 300px;
+  overflow: auto;
 }
