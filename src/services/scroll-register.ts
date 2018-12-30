@@ -1,12 +1,19 @@
-import { Observable, of, fromEvent } from "rxjs";
-import { map, mergeMap, tap, sampleTime, filter } from "rxjs/operators";
+import { Observable, of, fromEvent } from 'rxjs';
+import {
+  map,
+  mergeMap,
+  tap,
+  sampleTime,
+  filter,
+  pairwise
+} from 'rxjs/operators';
 
-import * as Models from "../models";
-import { AxisResolver } from "./axis-resolver";
-import { shouldTriggerEvents, IScrollConfig } from "./event-trigger";
-import { resolveContainerElement } from "./ngx-ins-utils";
-import { calculatePoints, createResolver } from "./position-resolver";
-import * as ScrollResolver from "./scroll-resolver";
+import * as Models from '../models';
+import { AxisResolver } from './axis-resolver';
+import { shouldTriggerEvents, IScrollConfig } from './event-trigger';
+import { resolveContainerElement } from './ngx-ins-utils';
+import { calculatePoints, createResolver } from './position-resolver';
+import * as ScrollResolver from './scroll-resolver';
 
 export function createScroller(config: Models.IScroller) {
   const { scrollContainer, scrollWindow, element, fromRoot } = config;
@@ -38,7 +45,7 @@ export function createScroller(config: Models.IScroller) {
     down: config.downDistance
   };
   return attachScrollEvent(options).pipe(
-    mergeMap((ev: any) => of(calculatePoints(element, resolver))),
+    mergeMap(() => of(calculatePoints(element, resolver))),
     map((positionStats: Models.IPositionStats) =>
       toInfiniteScrollParams(
         scrollState.lastScrollPosition,
@@ -80,7 +87,7 @@ export function createScroller(config: Models.IScroller) {
 export function attachScrollEvent(
   options: Models.IScrollRegisterConfig
 ): Observable<{}> {
-  let obs = fromEvent(options.container, "scroll");
+  let obs = fromEvent(options.container, 'scroll');
   // For an unknown reason calling `sampleTime()` causes trouble for many users, even with `options.throttle = 0`.
   // Let's avoid calling the function unless needed.
   // See https://github.com/orizens/ngx-infinite-scroll/issues/198
@@ -108,14 +115,17 @@ export function toInfiniteScrollParams(
 }
 
 export const InfiniteScrollActions = {
-  DOWN: "[NGX_ISE] DOWN",
-  UP: "[NGX_ISE] UP"
+  DOWN: '[NGX_ISE] DOWN',
+  UP: '[NGX_ISE] UP'
 };
 
 export function toInfiniteScrollAction(
   response: Models.IScrollParams
 ): Models.IInfiniteScrollAction {
-  const { scrollDown, stats: { scrolled: currentScrollPosition } } = response;
+  const {
+    scrollDown,
+    stats: { scrolled: currentScrollPosition }
+  } = response;
   return {
     type: scrollDown ? InfiniteScrollActions.DOWN : InfiniteScrollActions.UP,
     payload: {
