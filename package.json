@@ -1,6 +1,6 @@
 {
   "name": "ngx-infinite-scroll",
-  "version": "6.9.0",
+  "version": "7.0.0",
   "description": "An infinite scroll directive for Angular compatible with AoT compilation and Tree shaking",
   "main": "./bundles/ngx-infinite-scroll.umd.js",
   "module": "./modules/ngx-infinite-scroll.es5.js",
@@ -35,18 +35,18 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": ">= 6.0.0",
-    "@angular/core": ">= 6.0.0"
+    "@angular/common": ">= 7.0.0",
+    "@angular/core": ">= 7.0.0"
   },
   "devDependencies": {
-    "@angular/animations": "^6.0.0",
-    "@angular/common": "^6.0.0",
-    "@angular/compiler": "^6.0.0",
-    "@angular/compiler-cli": "^6.0.0",
-    "@angular/core": "^6.0.0",
-    "@angular/platform-browser": "^6.0.0",
-    "@angular/platform-browser-dynamic": "^6.0.0",
-    "@angular/platform-server": "^6.0.0",
+    "@angular/animations": "^7.0.0",
+    "@angular/common": "^7.0.0",
+    "@angular/compiler": "^7.0.0",
+    "@angular/compiler-cli": "^7.0.0",
+    "@angular/core": "^7.0.0",
+    "@angular/platform-browser": "^7.0.0",
+    "@angular/platform-browser-dynamic": "^7.0.0",
+    "@angular/platform-server": "^7.0.0",
     "@compodoc/compodoc": "^1.1.2",
     "@types/jasmine": "2.8.8",
     "@types/node": "7.0.10",

@@ -15,11 +15,6 @@ import { resolveContainerElement } from './ngx-ins-utils';
 import { calculatePoints, createResolver } from './position-resolver';
 import * as ScrollResolver from './scroll-resolver';
 
-export interface IScrollEvent {
-  contentHeight: number;
-  scrolledFromTop: number;
-  viewportHeight: number;
-}
 export function createScroller(config: Models.IScroller) {
   const { scrollContainer, scrollWindow, element, fromRoot } = config;
   const resolver = createResolver({
@@ -50,14 +45,7 @@ export function createScroller(config: Models.IScroller) {
     down: config.downDistance
   };
   return attachScrollEvent(options).pipe(
-    map(({ target }: { target: HTMLElement }) => ({
-      contentHeight: target.scrollHeight,
-      scrolledFromTop: target.scrollTop,
-      viewportHeight: target.clientHeight
-    })),
-    pairwise(),
-    tap(ev => console.log(ev)),
-    mergeMap((ev: any) => of(calculatePoints(element, resolver))),
+    mergeMap(() => of(calculatePoints(element, resolver))),
     map((positionStats: Models.IPositionStats) =>
       toInfiniteScrollParams(
         scrollState.lastScrollPosition,
