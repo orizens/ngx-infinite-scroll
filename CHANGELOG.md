@@ -1,3 +1,11 @@
+## v 7.0.1 (2019/01/04)
+
+- [FIX] - build fix adding correct version of Typescript 3
+
+## v 7.0.0 (2018/12/30)
+
+- [UPGRADE] - now using Angular 7
+
 ## v 6.0.1 (2018/06/15)
 
 - [FIX] - scroll up calculations issues #282
