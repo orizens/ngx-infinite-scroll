@@ -1,4 +1,7 @@
-import { IScrollerProps, shouldTriggerEvents } from '../../src/services/event-trigger';
+import {
+  IScrollerProps,
+  shouldTriggerEvents
+} from '../../src/services/event-trigger';
 
 const props = {
   alwaysCallback: true,
@@ -11,24 +14,6 @@ const props = {
 describe('EventTrigger', () => {
   [
     {
-      it: 'should return TRUE when alwaysCallback',
-      params: {
-        alwaysCallback: true,
-        shouldFireScrollEvent: false,
-        isTriggeredTotal: false
-      },
-      expected: true
-    },
-    {
-      it: 'should return FALSE when alwaysCallback, isTriggeredTotal',
-      params: {
-        alwaysCallback: true,
-        shouldFireScrollEvent: false,
-        isTriggeredTotal: true
-      },
-      expected: false
-    },
-    {
       it: 'should return TRUE when alwaysCallback, shouldFireScrollEvent',
       params: {
         alwaysCallback: true,
@@ -38,13 +23,32 @@ describe('EventTrigger', () => {
       expected: true
     },
     {
-      it: 'should return FALSE when alwaysCallback, shouldFireScrollEvent, isTriggeredTotal',
+      it: 'should return FALSE when alwaysCallback, NOT shouldFireScrollEvent',
+      params: {
+        alwaysCallback: true,
+        shouldFireScrollEvent: false,
+        isTriggeredTotal: true
+      },
+      expected: false
+    },
+    {
+      it: 'should return FALSE when alwaysCallback',
+      params: {
+        alwaysCallback: true,
+        shouldFireScrollEvent: false,
+        isTriggeredTotal: false
+      },
+      expected: false
+    },
+    {
+      it:
+        'should return TRUE when alwaysCallback, shouldFireScrollEvent, isTriggeredTotal',
       params: {
         alwaysCallback: true,
         shouldFireScrollEvent: true,
         isTriggeredTotal: true
       },
-      expected: false
+      expected: true
     },
     {
       it: 'should return TRUE when shouldFireScrollEvent ONLY',
@@ -65,7 +69,8 @@ describe('EventTrigger', () => {
       expected: false
     },
     {
-      it: 'should return FALSE when not alwaysCallback, shouldFireScrollEvent is false',
+      it:
+        'should return FALSE when not alwaysCallback, shouldFireScrollEvent is false',
       params: {
         alwaysCallback: false,
         shouldFireScrollEvent: false,
@@ -82,10 +87,18 @@ describe('EventTrigger', () => {
       },
       expected: false
     }
-  ].forEach((spec) => {
+  ].forEach(spec => {
     it(spec.it, () => {
-      const { isTriggeredTotal, alwaysCallback, shouldFireScrollEvent } = spec.params;
-      const actual = shouldTriggerEvents(alwaysCallback, shouldFireScrollEvent, isTriggeredTotal);
+      const {
+        isTriggeredTotal,
+        alwaysCallback,
+        shouldFireScrollEvent
+      } = spec.params;
+      const actual = shouldTriggerEvents(
+        alwaysCallback,
+        shouldFireScrollEvent,
+        isTriggeredTotal
+      );
       expect(actual).toBe(spec.expected);
     });
   });

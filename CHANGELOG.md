@@ -1,3 +1,10 @@
+## v 7.1.0 (2019/03/10)
+
+- [FIX] - 'alwaysCallback' to trigger only when past distance point
+- [UPGRADE] - unit tests with puppeteer
+- [UPGRADE] - scorll state is now handled within a class
+- [FIX] - using now opencollective-postinstall #296
+
 ## v 7.0.1 (2019/01/04)
 
 - [FIX] - build fix adding correct version of Typescript 3

@@ -1,19 +1,13 @@
 import { Observable, of, fromEvent } from 'rxjs';
-import {
-  map,
-  mergeMap,
-  tap,
-  sampleTime,
-  filter,
-  pairwise
-} from 'rxjs/operators';
+import { map, mergeMap, tap, sampleTime, filter } from 'rxjs/operators';
 
 import * as Models from '../models';
 import { AxisResolver } from './axis-resolver';
-import { shouldTriggerEvents, IScrollConfig } from './event-trigger';
+import { shouldTriggerEvents } from './event-trigger';
 import { resolveContainerElement } from './ngx-ins-utils';
 import { calculatePoints, createResolver } from './position-resolver';
 import * as ScrollResolver from './scroll-resolver';
+import { ScrollState } from './scroll-state';
 
 export function createScroller(config: Models.IScroller) {
   const { scrollContainer, scrollWindow, element, fromRoot } = config;
@@ -26,16 +20,9 @@ export function createScroller(config: Models.IScroller) {
       fromRoot
     )
   });
-  const { totalToScroll: startWithTotal } = calculatePoints(element, resolver);
-  const scrollState: Models.IScrollState = {
-    lastScrollPosition: 0,
-    lastTotalToScroll: 0,
-    totalToScroll: startWithTotal,
-    triggered: {
-      down: 0,
-      up: 0
-    }
-  };
+  const scrollState = new ScrollState({
+    totalToScroll: calculatePoints(element, resolver)
+  });
   const options: Models.IScrollRegisterConfig = {
     container: resolver.container,
     throttle: config.throttle
@@ -53,32 +40,19 @@ export function createScroller(config: Models.IScroller) {
         distance
       )
     ),
-    tap(({ stats, scrollDown }: Models.IScrollParams) =>
-      ScrollResolver.updateScrollState(
-        scrollState,
-        stats.scrolled,
-        stats.totalToScroll
-      )
+    tap(({ stats }: Models.IScrollParams) =>
+      scrollState.updateScroll(stats.scrolled, stats.totalToScroll)
     ),
     filter(
       ({ fire, scrollDown, stats: { totalToScroll } }: Models.IScrollParams) =>
         shouldTriggerEvents(
           config.alwaysCallback,
           fire,
-          ScrollResolver.isTriggeredScroll(
-            totalToScroll,
-            scrollState,
-            scrollDown
-          )
+          scrollState.isTriggeredScroll(totalToScroll, scrollDown)
         )
     ),
     tap(({ scrollDown, stats: { totalToScroll } }: Models.IScrollParams) => {
-      ScrollResolver.updateTriggeredFlag(
-        totalToScroll,
-        scrollState,
-        true,
-        scrollDown
-      );
+      scrollState.updateTriggeredFlag(totalToScroll, scrollDown);
     }),
     map(toInfiniteScrollAction)
   );
