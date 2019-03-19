@@ -24,10 +24,7 @@ export interface IScrollerDistance {
 export interface IScrollState {
   lastTotalToScroll: number;
   totalToScroll: number;
-  triggered: {
-    down: number;
-    up: number;
-  };
+  triggered: IScrollerDistance;
   lastScrollPosition: number;
 }
 

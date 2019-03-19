@@ -1,9 +1,7 @@
 import { InfiniteScrollEvent, IPositionStats } from '../models';
 
-export interface IScrollerProps {
+export interface IScrollerProps extends IDistanceRange {
   container: IPositionStats;
-  down: number;
-  up: number;
   alwaysCallback: boolean;
   disabled: boolean;
 }
@@ -26,6 +24,13 @@ export interface IScrollConfig {
 export function shouldTriggerEvents(
   alwaysCallback: boolean,
   shouldFireScrollEvent: boolean,
-  isTriggeredCurrentTotal: boolean) {
-  return (alwaysCallback || shouldFireScrollEvent) && !isTriggeredCurrentTotal;
+  isTriggeredCurrentTotal: boolean
+) {
+  if (alwaysCallback && shouldFireScrollEvent) {
+    return true;
+  }
+  if (!isTriggeredCurrentTotal && shouldFireScrollEvent) {
+    return true;
+  }
+  return false;
 }
