@@ -16,7 +16,7 @@
     "compodoc-serve": "compodoc -s",
     "transpile": "ngc -p ./tsconfig.json",
     "serve:prod": "npm run build && lite-server -c ./example/bs-config.json",
-    "postinstall": "opencollective-postinstall"
+    "postinstall": "opencollective-postinstall || exit 0"
   },
   "typings": "./ngx-infinite-scroll.d.ts",
   "author": "Oren Farhi (orizens.com)",
