@@ -1,6 +1,6 @@
 {
-  "name": "@ganqqwerty/ngx-infinite-scroll",
-  "version": "7.1.1",
+  "name": "ngx-infinite-scroll-ganqqwerty",
+  "version": "7.1.2",
   "description": "Same as the original infinite scroll but with the bug fixed",
   "main": "./bundles/ngx-infinite-scroll.umd.js",
   "module": "./modules/ngx-infinite-scroll.es5.js",
