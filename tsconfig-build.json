@@ -19,7 +19,7 @@
     "skipTemplateCodegen": true,
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
-    "flatModuleOutFile": "ngx-infinite-scroll-ganqqwerty.js",
-    "flatModuleId": "ngx-infinite-scroll-ganqqwerty"
+    "flatModuleOutFile": "ngx-infinite-scroll.js",
+    "flatModuleId": "ngx-infinite-scroll"
   }
 }
