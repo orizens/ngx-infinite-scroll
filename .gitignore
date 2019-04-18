@@ -56,8 +56,8 @@ $ cat .gitignore
 /dist
 /documentation
 
-*.log
-*.tgz
+*.logo
+
 
 npm-debug.*
 package-lock.json
