@@ -67,7 +67,7 @@ export function calculatePointsForWindow(
   const totalToScroll =
     getElementOffsetTop(element.nativeElement, axis, isWindow) +
     nativeElementHeight;
-  return { height, scrolled, totalToScroll, isWindow: true };
+  return { height, scrolled, totalToScroll, isWindow };
 }
 
 export function calculatePointsForElement(
