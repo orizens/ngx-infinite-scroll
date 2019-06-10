@@ -10,7 +10,8 @@ export function shouldFireScrollEvent(
   if (container.totalToScroll <= 0) {
     return false;
   }
-  const scrolledUntilNow = container.height + container.scrolled;
+
+  const scrolledUntilNow = container.isWindow ? container.scrolled : container.height + container.scrolled;
   if (scrollingDown) {
     remaining =
       (container.totalToScroll - scrolledUntilNow) / container.totalToScroll;

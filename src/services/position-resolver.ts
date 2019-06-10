@@ -67,7 +67,7 @@ export function calculatePointsForWindow(
   const totalToScroll =
     getElementOffsetTop(element.nativeElement, axis, isWindow) +
     nativeElementHeight;
-  return { height, scrolled, totalToScroll };
+  return { height, scrolled, totalToScroll, isWindow };
 }
 
 export function calculatePointsForElement(
@@ -79,7 +79,7 @@ export function calculatePointsForElement(
   // perhaps use container.offsetTop instead of 'scrollTop'
   const scrolled = container[axis.scrollTopKey()];
   const totalToScroll = container[axis.scrollHeightKey()];
-  return { height, scrolled, totalToScroll };
+  return { height, scrolled, totalToScroll, isWindow: false };
 }
 
 export function extractHeightPropKeys(axis: AxisResolver) {

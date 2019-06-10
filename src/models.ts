@@ -15,6 +15,7 @@ export interface IPositionStats {
   height: number;
   scrolled: number;
   totalToScroll: number;
+  isWindow?: boolean;
 }
 export interface IScrollerDistance {
   down?: number;
