@@ -1,3 +1,7 @@
+## v 7.2.0 (2019/06/10)
+
+- [FIX] - fixes #322 - fixing scrollDistance calculations to include it reach to definite bottom
+
 ## v 7.1.0 (2019/03/10)
 
 - [FIX] - 'alwaysCallback' to trigger only when past distance point
