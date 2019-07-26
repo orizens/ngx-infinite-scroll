@@ -1,3 +1,8 @@
+## v 8.0.0 (2019/07/26)
+
+- [UPGRADE] - now using Angular 8
+- [BREAKING_CHANGE] - `InfiniteScrollEvent` is renamed to `IInfiniteScrollEvent`
+
 ## v 7.2.0 (2019/06/10)
 
 - [FIX] - fixes #322 - fixing scrollDistance calculations to include it reach to definite bottom
