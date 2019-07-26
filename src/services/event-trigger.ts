@@ -1,4 +1,4 @@
-import { InfiniteScrollEvent, IPositionStats } from '../models';
+import { IInfiniteScrollEvent, IPositionStats } from '../models';
 
 export interface IScrollerProps extends IDistanceRange {
   container: IPositionStats;
