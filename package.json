@@ -70,7 +70,7 @@
     "ts-loader": "2.0.3",
     "tsickle": "^0.34.0",
     "tslint": "5.18.0",
-    "typescript": "3.4.5",
+    "typescript": "^3.1.1",
     "uglify-js": "^2.8.15",
     "webpack": "2.3.1",
     "yargs": "7.0.2",
