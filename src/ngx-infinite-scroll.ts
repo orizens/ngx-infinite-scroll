@@ -1,7 +1,7 @@
 // Public classes.
 export {
   ContainerRef,
-  InfiniteScrollEvent,
+  IInfiniteScrollEvent,
   IPositionElements,
   IPositionStats,
   IResolver

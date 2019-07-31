@@ -7,10 +7,11 @@
 # Angular Infinite Scroll
 
 versions now follow Angular's version to easily reflect compatibility.  
-Meaning, for **Angular 7**, use `ngx-infinite-scroll @ ^7.0.0`
+Meaning, for **Angular 8**, use `ngx-infinite-scroll @ ^8.0.0`
 
 ## Angular - Older Versions Support
 
+For **Angular 7** - `ngx-infinite-scroll@7.0.0`
 For **Angular 6** and **rxjs 6** - `ngx-infinite-scroll@6.0.0`  
 For **Angular 4** and **Angular = ^5.5.6** - use version `ngx-infinite-scroll@0.8.4`  
 For **Angular 5.x** with **rxjs =<5.5.2** - use version `ngx-infinite-scroll@0.8.3`  
@@ -57,10 +58,10 @@ npm install ngx-infinite-scroll --save
 
 ### Events
 
-| @Output()  | Type         | Event Type          | Required | Description                                                                     |
-| ---------- | ------------ | ------------------- | -------- | ------------------------------------------------------------------------------- |
-| scrolled   | EventEmitter | InfiniteScrollEvent | optional | this will callback if the distance threshold has been reached on a scroll down. |
-| scrolledUp | EventEmitter | InfiniteScrollEvent | optional | this will callback if the distance threshold has been reached on a scroll up.   |
+| @Output()  | Type         | Event Type           | Required | Description                                                                     |
+| ---------- | ------------ | -------------------- | -------- | ------------------------------------------------------------------------------- |
+| scrolled   | EventEmitter | IInfiniteScrollEvent | optional | this will callback if the distance threshold has been reached on a scroll down. |
+| scrolledUp | EventEmitter | IInfiniteScrollEvent | optional | this will callback if the distance threshold has been reached on a scroll up.   |
 
 ## Behavior
 

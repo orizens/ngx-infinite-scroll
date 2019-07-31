@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import { InfiniteScrollEvent, IInfiniteScrollAction } from '../models';
+import { IInfiniteScrollEvent, IInfiniteScrollAction } from '../models';
 import { hasWindowDefined, inputPropChanged } from '../services/ngx-ins-utils';
 import { createScroller, InfiniteScrollActions } from '../services/scroll-register';
 
@@ -21,8 +21,8 @@ import { createScroller, InfiniteScrollActions } from '../services/scroll-regist
 })
 export class InfiniteScrollDirective
   implements OnDestroy, OnChanges, AfterViewInit {
-  @Output() scrolled = new EventEmitter<InfiniteScrollEvent>();
-  @Output() scrolledUp = new EventEmitter<InfiniteScrollEvent>();
+  @Output() scrolled = new EventEmitter<IInfiniteScrollEvent>();
+  @Output() scrolledUp = new EventEmitter<IInfiniteScrollEvent>();
 
   @Input() infiniteScrollDistance: number = 2;
   @Input() infiniteScrollUpDistance: number = 1.5;

@@ -2,7 +2,7 @@ import { ElementRef } from '@angular/core';
 
 export type ContainerRef = Window | ElementRef | any;
 
-export interface InfiniteScrollEvent {
+export interface IInfiniteScrollEvent {
   currentScrollPosition: number;
 }
 
@@ -61,5 +61,5 @@ export interface IScrollParams {
 
 export interface IInfiniteScrollAction {
   type: string;
-  payload: InfiniteScrollEvent;
+  payload: IInfiniteScrollEvent;
 }
