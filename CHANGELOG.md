@@ -1,3 +1,7 @@
+## v 8.0.1 (2019/10/15)
+
+- [FIX] - solves issue with open collective postinstall #321
+
 ## v 8.0.0 (2019/07/26)
 
 - [UPGRADE] - now using Angular 8
