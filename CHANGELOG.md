@@ -1,3 +1,7 @@
+## v 8.0.2 (2020/05/10)
+
+- [CHORE] - add @scarf
+
 ## v 8.0.1 (2019/10/15)
 
 - [FIX] - solves issue with open collective postinstall #321
