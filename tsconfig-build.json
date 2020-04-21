@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "declaration": true,
     "experimentalDecorators": true,
-    "module": "es2015",
+    "module": "ESNext",
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": ".",

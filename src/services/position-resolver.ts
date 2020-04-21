@@ -142,7 +142,7 @@ export function getElementPageYOffset(
   const scrollTop = axis.scrollTopKey();
   const offsetTop = axis.offsetTopKey();
 
-  if (isNaN(window[pageYOffset])) {
+  if (isNaN(window.pageYOffset)) {
     return getDocumentElement(isWindow, elem)[scrollTop];
   } else if (elem.ownerDocument) {
     return elem.ownerDocument.defaultView[pageYOffset];
