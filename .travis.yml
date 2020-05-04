@@ -1,16 +1,16 @@
 sudo: required
 dist: trusty
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+# addons:
+#   apt:
+#     sources:
+#       - google-chrome
+#     packages:
+#       - google-chrome-stable
 language: node_js
 node_js:
   - stable
-before_install:
-  - npm i npm@^4 -g
+# before_install:
+#   - npm i npm@^4 -g
 install:
   - npm install
 script:
