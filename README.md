@@ -139,8 +139,8 @@ import { Component } from '@angular/core';
     <div
       class="search-results"
       infiniteScroll
-      [infiniteScrollDistance]="2"
-      [infiniteScrollThrottle]="50"
+      infiniteScrollDistance="2"
+      infiniteScrollThrottle="50"
       (scrolled)="onScroll()"
       [scrollWindow]="false"
     ></div>
