@@ -107,8 +107,8 @@ import { Component } from '@angular/core';
     <div
       class="search-results"
       infiniteScroll
-      [infiniteScrollDistance]="2"
-      [infiniteScrollThrottle]="50"
+      infiniteScrollDistance="2"
+      infiniteScrollThrottle="50"
       (scrolled)="onScroll()"
     ></div>
   `
@@ -142,7 +142,7 @@ import { Component } from '@angular/core';
       infiniteScrollDistance="2"
       infiniteScrollThrottle="50"
       (scrolled)="onScroll()"
-      [scrollWindow]="false"
+      scrollWindow="false"
     ></div>
   `
 })
@@ -166,9 +166,9 @@ import { InfiniteScroll } from 'ngx-infinite-scroll';
     <div
       class="search-results"
       infiniteScroll
-      [infiniteScrollDistance]="2"
-      [infiniteScrollUpDistance]="1.5"
-      [infiniteScrollThrottle]="50"
+      infiniteScrollDistance="2"
+      infiniteScrollUpDistance="1.5"
+      infiniteScrollThrottle="50"
       (scrolled)="onScrollDown()"
       (scrolledUp)="onScrollUp()"
     ></div>
@@ -204,10 +204,10 @@ import { Component } from '@angular/core';
     <div class="main-panel">
       <div
         infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="50"
-        [infiniteScrollContainer]="selector"
-        [fromRoot]="true"
+        infiniteScrollDistance="2"
+        infiniteScrollThrottle="50"
+        infiniteScrollContainer="selector"
+        fromRoot="true"
         (scrolled)="onScroll()"
       ></div>
     </div>
