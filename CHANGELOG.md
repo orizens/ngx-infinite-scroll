@@ -1,3 +1,7 @@
+## v 9.0.0 (2020/05/12)
+
+- [UPGRADE] - now using Angular 9
+
 ## v 8.0.2 (2020/05/10)
 
 - [CHORE] - add @scarf

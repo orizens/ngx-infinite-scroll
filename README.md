@@ -4,28 +4,45 @@
 [![npm downloads a month](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)
 [![npm downloads a week](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)
 
+## [Become a sponsor](https://opencollective.com/ngx-infinite-scroll#sponsor)
+
 # Angular Infinite Scroll
 
 versions now follow Angular's version to easily reflect compatibility.  
-Meaning, for **Angular 8**, use `ngx-infinite-scroll @ ^8.0.0`
+Meaning, for **Angular 9**, use `ngx-infinite-scroll @ ^9.0.0`
 
 ## Angular - Older Versions Support
 
-For **Angular 7** - `ngx-infinite-scroll@7.0.0`
-For **Angular 6** and **rxjs 6** - `ngx-infinite-scroll@6.0.0`  
+For **Angular 6 anf Above** - `ngx-infinite-scroll@THE_VERSION.0.0`  
 For **Angular 4** and **Angular = ^5.5.6** - use version `ngx-infinite-scroll@0.8.4`  
 For **Angular 5.x** with **rxjs =<5.5.2** - use version `ngx-infinite-scroll@0.8.3`  
 For Angular version **<= 2.3.1**, you can use `npm i angular2-infinite-scroll` (latest version is 0.3.42) - please notice **the angular2-infinite-scroll** package is deprecated
 
-## Angular Consulting Services
+## Used By
 
-I'm a Senior Javascript Engineer & A Front End Consultant at [Orizens](http://orizens.com).
+- [Google](https://google.com)
+- [Apple](https://apple.com)
+- [Amazon](https://amazon.com)
+- [Microsoft](https://microsoft.com)
+- [Disney](https://disney.com)
+- [Sap](https://sap.com/)
+- [Cisco](https://cisco.com/)
+- [Yandex](https://yandex.com)
+- [Ancestry](https://www.ancestry.com/)
+
+and much more.
+
+> _These analytics are made available via the awesome [Scarf](https://www.npmjs.com/package/@scarf/scarf) package analytics library_
+
+## Front End Consulting Services
+
+I'm a Senior Front End Engineer & Consultant at [Orizens](https://orizens.com).
 My services include:
 
-- Angular Consulting
-- Front End Consulting
+- Angular/React/Javascript Consulting
+- Front End Architecture Consulting
 - Project Code Review
-- project bootstrapping and development.
+- Project Development
 
 [Contact Here](http://orizens.com/contact)
 
@@ -89,7 +106,7 @@ import { AppComponent } from './app';
 @NgModule({
   imports: [BrowserModule, InfiniteScrollModule],
   declarations: [AppComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 
@@ -111,7 +128,7 @@ import { Component } from '@angular/core';
       [infiniteScrollThrottle]="50"
       (scrolled)="onScroll()"
     ></div>
-  `
+  `,
 })
 export class AppComponent {
   onScroll() {
@@ -133,7 +150,7 @@ import { Component } from '@angular/core';
         height: 20rem;
         overflow: scroll;
       }
-    `
+    `,
   ],
   template: `
     <div
@@ -144,7 +161,7 @@ import { Component } from '@angular/core';
       (scrolled)="onScroll()"
       [scrollWindow]="false"
     ></div>
-  `
+  `,
 })
 export class AppComponent {
   onScroll() {
@@ -172,7 +189,7 @@ import { InfiniteScroll } from 'ngx-infinite-scroll';
       (scrolled)="onScrollDown()"
       (scrolledUp)="onScrollUp()"
     ></div>
-  `
+  `,
 })
 export class AppComponent {
   onScrollDown() {
@@ -198,7 +215,7 @@ import { Component } from '@angular/core';
         height: 100px;
         overflow-y: scroll;
       }
-    `
+    `,
   ],
   template: `
     <div class="main-panel">
@@ -211,7 +228,7 @@ import { Component } from '@angular/core';
         (scrolled)="onScroll()"
       ></div>
     </div>
-  `
+  `,
 })
 export class AppComponent {
   selector: string = '.main-panel';
@@ -244,8 +261,6 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 <a href="https://opencollective.com/ngx-infinite-scroll#backers" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/backers.svg?width=890"></a>
 
 ## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/ngx-infinite-scroll#sponsor)]
 
 <a href="https://opencollective.com/ngx-infinite-scroll/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/ngx-infinite-scroll/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/1/avatar.svg"></a>
