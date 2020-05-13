@@ -34,19 +34,16 @@
     "typescript"
   ],
   "license": "MIT",
-  "peerDependencies": {
-    "@angular/common": ">= 8.0.0",
-    "@angular/core": ">= 8.0.0"
-  },
+  "peerDependencies": {},
   "devDependencies": {
-    "@angular/animations": "^8.0.0",
-    "@angular/common": "^8.0.0",
-    "@angular/compiler": "^8.0.0",
-    "@angular/compiler-cli": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@angular/platform-browser": "^8.0.0",
-    "@angular/platform-browser-dynamic": "^8.0.0",
-    "@angular/platform-server": "^8.0.0",
+    "@angular/animations": "^9.1.2",
+    "@angular/common": "^9.1.2",
+    "@angular/compiler": "^9.1.2",
+    "@angular/compiler-cli": "^9.1.2",
+    "@angular/core": "^9.1.2",
+    "@angular/platform-browser": "^9.1.2",
+    "@angular/platform-browser-dynamic": "^9.1.2",
+    "@angular/platform-server": "^9.1.2",
     "@compodoc/compodoc": "^1.1.2",
     "@types/jasmine": "3.3.9",
     "@types/node": "7.0.10",
@@ -63,7 +60,7 @@
     "puppeteer": "1.13.0",
     "reflect-metadata": "0.1.10",
     "rollup": "0.41.6",
-    "rxjs": "^6.1.0",
+    "rxjs": "^6.5.5",
     "shelljs": "0.7.7",
     "sorcery": "0.10.0",
     "ts-helpers": "1.1.2",
@@ -74,7 +71,7 @@
     "uglify-js": "^2.8.15",
     "webpack": "2.3.1",
     "yargs": "7.0.2",
-    "zone.js": "0.9.1"
+    "zone.js": "0.10.3"
   },
   "dependencies": {
     "@scarf/scarf": "0.1.5",

@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "declaration": true,
     "experimentalDecorators": true,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": ".",
@@ -11,15 +11,16 @@
     "inlineSources": false,
     "target": "es2015",
     "skipLibCheck": true,
-    "lib": ["es2015", "dom"]
+    "lib": ["es2018", "dom"]
   },
   "exclude": ["node_modules", "examples", "dist"],
-  "files": ["public_api.ts"],
+  "files": ["public-api.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "flatModuleOutFile": "ngx-infinite-scroll.js",
-    "flatModuleId": "ngx-infinite-scroll"
+    "flatModuleId": "ngx-infinite-scroll",
+    "enableIvy": false
   }
 }

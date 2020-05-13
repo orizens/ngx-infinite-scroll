@@ -20,7 +20,7 @@ Get the [Changelog](https://github.com/robisim74/angular-library-starter/blob/ma
 ## <a name="1"></a>1 Project structure
 - Library:
     - **src** folder for the classes
-    - **public_api.ts** entry point for all public APIs of the package
+    - **public-api.ts** entry point for all public APIs of the package
     - **package.json** _npm_ options
     - **rollup.config.js** _Rollup_ configuration for building the bundles
     - **tsconfig-build.json** _ngc_ compiler options for _AoT compilation_

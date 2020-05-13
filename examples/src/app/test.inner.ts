@@ -42,14 +42,14 @@ export class TestInnerComponent {
   array() {
     return this.listMaker.array;
   }
-  onScrollDown(ev) {
+  onScrollDown(ev?: any) {
     // setTimeout(() => {
     console.log(`scrolled down, from ${this.className} ${this.info}`);
     this.listMaker.setDirectionDown();
     // }, 3000);
   }
 
-  onUp(ev) {
+  onUp(ev?:any) {
     // setTimeout(() => {
     console.log(`scrolled up, from  ${this.className} ${this.info}`);
     this.listMaker.setDirectionUp();
