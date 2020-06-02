@@ -17,6 +17,7 @@ angular2-infinite-scroll.js
 *.d.ts
 !make.js
 !bundles/*.js
+__ivy_ngcc__
 
 #################
 ## JetBrains
