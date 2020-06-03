@@ -1,6 +1,6 @@
 {
   "name": "ngx-infinite-scroll",
-  "version": "6.9.0",
+  "version": "6.9.1",
   "description": "An infinite scroll directive for Angular compatible with AoT compilation and Tree shaking",
   "main": "./bundles/ngx-infinite-scroll.umd.js",
   "module": "./modules/ngx-infinite-scroll.es5.js",
@@ -16,7 +16,7 @@
     "compodoc-serve": "compodoc -s",
     "transpile": "ngc -p ./tsconfig.json",
     "serve:prod": "npm run build && lite-server -c ./example/bs-config.json",
-    "postinstall": "opencollective postinstall"
+    "postinstall": "opencollective-postinstall || exit 0"
   },
   "typings": "./ngx-infinite-scroll.d.ts",
   "author": "Oren Farhi (orizens.com)",
@@ -60,9 +60,10 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.30",
     "karma-webpack": "2.0.3",
+    "opencollective-postinstall": "2.0.2",
     "reflect-metadata": "0.1.10",
     "rollup": "0.41.6",
-    "rxjs": "^6.1.0",
+    "rxjs": "6.1.0",
     "shelljs": "0.7.7",
     "sorcery": "0.10.0",
     "ts-helpers": "1.1.2",
@@ -73,9 +74,6 @@
     "webpack": "2.3.1",
     "yargs": "7.0.2",
     "zone.js": "^0.8.26"
-  },
-  "dependencies": {
-    "opencollective": "^1.0.3"
   },
   "collective": {
     "type": "opencollective",
