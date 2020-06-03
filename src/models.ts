@@ -4,6 +4,7 @@ export type ContainerRef = Window | ElementRef | any;
 
 export interface IInfiniteScrollEvent {
   currentScrollPosition: number;
+  stats: IPositionStats;
 }
 
 export interface IPositionElements {
