@@ -1,0 +1,406 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-infinite-scroll documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">ngx-infinite-scroll documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<p><a href="https://travis-ci.org/orizens/ngx-infinite-scroll"><img src="https://travis-ci.org/orizens/ngx-infinite-scroll.svg?branch=master" alt="Build Status" class="img-responsive"></a> <a href="#backers"><img src="https://opencollective.com/ngx-infinite-scroll/backers/badge.svg" alt="Backers on Open Collective" class="img-responsive"></a> <a href="#sponsors"><img src="https://opencollective.com/ngx-infinite-scroll/sponsors/badge.svg" alt="Sponsors on Open Collective" class="img-responsive"></a>
+<a href="https://badge.fury.io/js/ngx-infinite-scroll"><img src="https://badge.fury.io/js/ngx-infinite-scroll.svg" alt="npm version" class="img-responsive"></a>
+<a href="https://badge.fury.io/js/ngx-infinite-scroll"><img src="https://badge.fury.io/js/ngx-infinite-scroll.svg" alt="npm version" class="img-responsive"></a>
+<a href="https://img.shields.io/npm/dm/ngx-infinite-scroll.svg"><img src="https://img.shields.io/npm/dm/ngx-infinite-scroll.svg" alt="npm downloads a month" class="img-responsive"></a>
+<a href="https://img.shields.io/npm/dt/ngx-infinite-scroll.svg"><img src="https://img.shields.io/npm/dt/ngx-infinite-scroll.svg" alt="npm downloads a week" class="img-responsive"></a></p>
+<h2 id="become-a-sponsor"><a href="https://opencollective.com/ngx-infinite-scroll#sponsor">Become a sponsor</a></h2>
+<h1 id="angular-infinite-scroll">Angular Infinite Scroll</h1>
+<p>versions now follow Angular&#39;s version to easily reflect compatibility.<br>Meaning, for <strong>Angular 9</strong>, use <code>ngx-infinite-scroll @ ^9.0.0</code></p>
+<h2 id="angular---older-versions-support">Angular - Older Versions Support</h2>
+<p>For <strong>Angular 6 and Above</strong> - <code>ngx-infinite-scroll@THE_VERSION.0.0</code><br>For <strong>Angular 4</strong> and <strong>Angular = ^5.5.6</strong> - use version <code>ngx-infinite-scroll@0.8.4</code><br>For <strong>Angular 5.x</strong> with <strong>rxjs =&lt;5.5.2</strong> - use version <code>ngx-infinite-scroll@0.8.3</code><br>For Angular version <strong>&lt;= 2.3.1</strong>, you can use <code>npm i angular2-infinite-scroll</code> (latest version is 0.3.42) - please notice <strong>the angular2-infinite-scroll</strong> package is deprecated</p>
+<h2 id="used-by">Used By</h2>
+<ul>
+<li><a href="https://google.com">Google</a></li>
+<li><a href="https://apple.com">Apple</a></li>
+<li><a href="https://amazon.com">Amazon</a></li>
+<li><a href="https://microsoft.com">Microsoft</a></li>
+<li><a href="https://disney.com">Disney</a></li>
+<li><a href="https://sap.com/">Sap</a></li>
+<li><a href="https://cisco.com/">Cisco</a></li>
+<li><a href="https://yandex.com">Yandex</a></li>
+<li><a href="https://www.ancestry.com/">Ancestry</a></li>
+</ul>
+<p>and much more.</p>
+<blockquote>
+<p><em>These analytics are made available via the awesome <a href="https://www.npmjs.com/package/@scarf/scarf">Scarf</a> package analytics library</em></p>
+</blockquote>
+<h2 id="front-end-consulting-services">Front End Consulting Services</h2>
+<p>I&#39;m a Senior Front End Engineer &amp; Consultant at <a href="https://orizens.com">Orizens</a>.
+My services include:</p>
+<ul>
+<li>Angular/React/Javascript Consulting</li>
+<li>Front End Architecture Consulting</li>
+<li>Project Code Review</li>
+<li>Project Development</li>
+</ul>
+<p><a href="http://orizens.com/contact">Contact Here</a></p>
+<a href="https://orizens.com" target="_blank">
+  <img src="https://cloud.githubusercontent.com/assets/878660/23353771/d0adbd12-fcd6-11e6-96be-7a236f8819d9.png" alt="Webpack and Angular" width="20%"/>
+</a>
+
+<h2 id="installation">Installation</h2>
+<div><pre class="line-numbers"><code class="language-none">npm install ngx-infinite-scroll --save</code></pre></div><h2 id="supported-api">Supported API</h2>
+<h3 id="properties">Properties</h3>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>@Input()</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>infiniteScrollDistance</td>
+<td>number</td>
+<td>optional</td>
+<td>2</td>
+<td>the bottom percentage point of the scroll nob relatively to the infinite-scroll container (i.e, 2 (2 * 10 = 20%) is event is triggered when 80% (100% - 20%) has been scrolled). if container.height is 900px, when the container is scrolled to or past the 720px, it will fire the scrolled event.</td>
+</tr>
+<tr>
+<td>infiniteScrollUpDistance</td>
+<td>number</td>
+<td>optional</td>
+<td>1.5</td>
+<td>should get a number</td>
+</tr>
+<tr>
+<td>infiniteScrollThrottle</td>
+<td>number</td>
+<td>optional</td>
+<td>150</td>
+<td>should get a number of <strong>milliseconds</strong> for throttle. The event will be triggered this many milliseconds after the user <em>stops</em> scrolling.</td>
+</tr>
+<tr>
+<td>scrollWindow</td>
+<td>boolean</td>
+<td>optional</td>
+<td>true</td>
+<td>listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.</td>
+</tr>
+<tr>
+<td>immediateCheck</td>
+<td>boolean</td>
+<td>optional</td>
+<td>false</td>
+<td>invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled)</td>
+</tr>
+<tr>
+<td>infiniteScrollDisabled</td>
+<td>boolean</td>
+<td>optional</td>
+<td>false</td>
+<td>doesn&#39;t invoke the handler if set to true</td>
+</tr>
+<tr>
+<td>horizontal</td>
+<td>boolean</td>
+<td>optional</td>
+<td>false</td>
+<td>sets the scroll to listen for horizontal events</td>
+</tr>
+<tr>
+<td>alwaysCallback</td>
+<td>boolean</td>
+<td>optional</td>
+<td>false</td>
+<td>instructs the scroller to always trigger events</td>
+</tr>
+<tr>
+<td>infiniteScrollContainer</td>
+<td>string / HTMLElement</td>
+<td>optional</td>
+<td>null</td>
+<td>should get a html element or css selector for a scrollable element; window or current element will be used if this attribute is empty.</td>
+</tr>
+<tr>
+<td>fromRoot</td>
+<td>boolean</td>
+<td>optional</td>
+<td>false</td>
+<td>if <strong>infiniteScrollContainer</strong> is set, this instructs the scroller to query the container selector from the root of the <strong>document</strong> object.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="events">Events</h3>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>@Output()</th>
+<th>Type</th>
+<th>Event Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scrolled</td>
+<td>EventEmitter</td>
+<td>IInfiniteScrollEvent</td>
+<td>optional</td>
+<td>this will callback if the distance threshold has been reached on a scroll down.</td>
+</tr>
+<tr>
+<td>scrolledUp</td>
+<td>EventEmitter</td>
+<td>IInfiniteScrollEvent</td>
+<td>optional</td>
+<td>this will callback if the distance threshold has been reached on a scroll up.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="behavior">Behavior</h2>
+<p>By default, the directive listens to the <strong>window scroll</strong> event and invoked the callback.<br><strong>To trigger the callback when the actual element is scrolled</strong>, these settings should be configured:</p>
+<ul>
+<li>[scrollWindow]=&quot;false&quot;</li>
+<li>set an explict css &quot;height&quot; value to the element</li>
+</ul>
+<h2 id="demo">DEMO</h2>
+<p><a href="https://stackblitz.com/edit/ngx-infinite-scroll">Try the Demo in StackBlitz</a></p>
+<h2 id="usage">Usage</h2>
+<p>First, import the InfiniteScrollModule to your module:</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#39;&#64;angular/core&#39;;
+import { BrowserModule } from &#39;&#64;angular/platform-browser&#39;;
+import { InfiniteScrollModule } from &#39;ngx-infinite-scroll&#39;;
+import { platformBrowserDynamic } from &#39;&#64;angular/platform-browser-dynamic&#39;;
+import { AppComponent } from &#39;./app&#39;;
+
+&#64;NgModule({
+  imports: [BrowserModule, InfiniteScrollModule],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+platformBrowserDynamic().bootstrapModule(AppModule);</code></pre></div><p>In this example, the <strong>onScroll</strong> callback will be invoked when the window is scrolled down:</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+
+&#64;Component({
+  selector: &#39;app&#39;,
+  template: `
+    &lt;div
+      class=&quot;search-results&quot;
+      infiniteScroll
+      [infiniteScrollDistance]=&quot;2&quot;
+      [infiniteScrollThrottle]=&quot;50&quot;
+      (scrolled)=&quot;onScroll()&quot;
+    &gt;&lt;/div&gt;
+  `,
+})
+export class AppComponent {
+  onScroll() {
+    console.log(&#39;scrolled!!&#39;);
+  }
+}</code></pre></div><p>in this example, whenever the &quot;search-results&quot; is scrolled, the callback will be invoked:</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+
+&#64;Component({
+  selector: &#39;app&#39;,
+  styles: [
+    `
+      .search-results {
+        height: 20rem;
+        overflow: scroll;
+      }
+    `,
+  ],
+  template: `
+    &lt;div
+      class=&quot;search-results&quot;
+      infiniteScroll
+      [infiniteScrollDistance]=&quot;2&quot;
+      [infiniteScrollThrottle]=&quot;50&quot;
+      (scrolled)=&quot;onScroll()&quot;
+      [scrollWindow]=&quot;false&quot;
+    &gt;&lt;/div&gt;
+  `,
+})
+export class AppComponent {
+  onScroll() {
+    console.log(&#39;scrolled!!&#39;);
+  }
+}</code></pre></div><p>In this example, the <strong>onScrollDown</strong> callback will be invoked when the window is scrolled down and the <strong>onScrollUp</strong> callback will be invoked when the window is scrolled up:</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+import { InfiniteScroll } from &#39;ngx-infinite-scroll&#39;;
+
+&#64;Component({
+  selector: &#39;app&#39;,
+  directives: [InfiniteScroll],
+  template: `
+    &lt;div
+      class=&quot;search-results&quot;
+      infiniteScroll
+      [infiniteScrollDistance]=&quot;2&quot;
+      [infiniteScrollUpDistance]=&quot;1.5&quot;
+      [infiniteScrollThrottle]=&quot;50&quot;
+      (scrolled)=&quot;onScrollDown()&quot;
+      (scrolledUp)=&quot;onScrollUp()&quot;
+    &gt;&lt;/div&gt;
+  `,
+})
+export class AppComponent {
+  onScrollDown() {
+    console.log(&#39;scrolled down!!&#39;);
+  }
+
+  onScrollUp() {
+    console.log(&#39;scrolled up!!&#39;);
+  }
+}</code></pre></div><p>In this example, the <strong>infiniteScrollContainer</strong> attribute is used to point directive to the scrollable container using a css selector. <strong>fromRoot</strong> is used to determine whether the scroll container has to be searched within the whole document (<code>[fromRoot]=&quot;true&quot;</code>) or just inside the <strong>infiniteScroll</strong> directive (<code>[fromRoot]=&quot;false&quot;</code>, default option).</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+
+&#64;Component({
+  selector: &#39;app&#39;,
+  styles: [
+    `
+      .main-panel {
+        height: 100px;
+        overflow-y: scroll;
+      }
+    `,
+  ],
+  template: `
+    &lt;div class=&quot;main-panel&quot;&gt;
+      &lt;div
+        infiniteScroll
+        [infiniteScrollDistance]=&quot;2&quot;
+        [infiniteScrollThrottle]=&quot;50&quot;
+        [infiniteScrollContainer]=&quot;selector&quot;
+        [fromRoot]=&quot;true&quot;
+        (scrolled)=&quot;onScroll()&quot;
+      &gt;&lt;/div&gt;
+    &lt;/div&gt;
+  `,
+})
+export class AppComponent {
+  selector: string = &#39;.main-panel&#39;;
+
+  onScroll() {
+    console.log(&#39;scrolled!!&#39;);
+  }
+}</code></pre></div><p>It is also possible to use <strong>infiniteScrollContainer</strong> without additional variable by using single quotes inside double quotes:</p>
+<div><pre class="line-numbers"><code class="language-none">[infiniteScrollContainer]=&quot;&#39;.main-panel&#39;&quot;</code></pre></div><h1 id="showcase-examples">Showcase Examples</h1>
+<ul>
+<li><a href="http://orizens.github.io/echoes-player">Echoes Player - Developed with Angular, angular-cli and ngrx</a> (<a href="http://github.com/orizens/echoes-player">github repo for echoes player</a>)</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<p>This project exists thanks to all the people who contribute. [<a href="CONTRIBUTING.md">Contribute</a>].
+<a href="graphs/contributors"><img src="https://opencollective.com/ngx-infinite-scroll/contributors.svg?width=890" /></a></p>
+<h2 id="backers">Backers</h2>
+<p>Thank you to all our backers! 🙏 [<a href="https://opencollective.com/ngx-infinite-scroll#backer">Become a backer</a>]</p>
+<p><a href="https://opencollective.com/ngx-infinite-scroll#backers" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/backers.svg?width=890"></a></p>
+<h2 id="sponsors">Sponsors</h2>
+<p><a href="https://opencollective.com/ngx-infinite-scroll/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/2/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/3/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/4/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/5/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/6/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/ngx-infinite-scroll/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ngx-infinite-scroll/sponsor/9/avatar.svg"></a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
