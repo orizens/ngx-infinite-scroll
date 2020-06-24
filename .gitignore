@@ -1,0 +1,4 @@
+./node_modules
+/__ivy_ngcc__
+/examples
+/dist
