@@ -7,14 +7,18 @@ export default {
     external: [
         '@angular/core',
         '@angular/common',
+        'rxjs',
         'rxjs/Observable',
-        'rxjs/Observer'
+        'rxjs/Observer',
+        'rxjs/operators'
     ],
     globals: {
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
+        rxjs: 'rxjs',
         'rxjs/Observable': 'Rx',
-        'rxjs/Observer': 'Rx'
+        'rxjs/Observer': 'Rx',
+        'rxjs/operators': 'rxjs.operators'
     },
     onwarn: () => { return }
 }
