@@ -74,7 +74,7 @@
     "zone.js": "0.10.3"
   },
   "dependencies": {
-    "@scarf/scarf": "0.1.5",
+    "@scarf/scarf": "^1.1.0",
     "opencollective-postinstall": "^2.0.2"
   },
   "collective": {
