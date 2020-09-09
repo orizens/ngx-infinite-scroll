@@ -4,7 +4,7 @@
 [![npm downloads a month](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)
 [![npm downloads a week](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)
 
-## [Become a sponsor](https://opencollective.com/ngx-infinite-scroll#sponsor)
+## [Consider Becoming a sponsor](https://opencollective.com/ngx-infinite-scroll#sponsor)
 
 # Angular Infinite Scroll
 
