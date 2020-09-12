@@ -35,7 +35,9 @@
     "typescript"
   ],
   "license": "MIT",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "rxjs": "^6.5.5"
+  },
   "devDependencies": {
     "@angular/animations": "^9.1.2",
     "@angular/common": "^9.1.2",
