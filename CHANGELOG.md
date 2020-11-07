@@ -1,3 +1,7 @@
+## v 10.0.0 (2020/11/07)
+
+- [UPGRADE] - now using Angular 10
+
 ## v 9.1.0 (2020/09/09)
 
 - [UPGRADE] - upgrading scarf
