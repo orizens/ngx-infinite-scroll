@@ -9,11 +9,11 @@
 # Angular Infinite Scroll
 
 versions now follow Angular's version to easily reflect compatibility.  
-Meaning, for **Angular 9**, use `ngx-infinite-scroll @ ^9.0.0`
+Meaning, for **Angular 10**, use `ngx-infinite-scroll @ ^10.0.0`
 
 ## Angular - Older Versions Support
 
-For **Angular 6 and Above** - `ngx-infinite-scroll@THE_VERSION.0.0`  
+Starting **Angular 6 and Above** - `ngx-infinite-scroll@THE_VERSION.0.0`  
 For **Angular 4** and **Angular = ^5.5.6** - use version `ngx-infinite-scroll@0.8.4`  
 For **Angular 5.x** with **rxjs =<5.5.2** - use version `ngx-infinite-scroll@0.8.3`  
 For Angular version **<= 2.3.1**, you can use `npm i angular2-infinite-scroll` (latest version is 0.3.42) - please notice **the angular2-infinite-scroll** package is deprecated
