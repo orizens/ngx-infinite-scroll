@@ -2,10 +2,29 @@
   "extends": "tslint:recommended",
   "rulesDirectory": ["node_modules/codelyzer"],
   "rules": {
+    "align": {
+      "options": [
+        "parameters",
+        "statements"
+      ]
+    },
+    "arrow-return-shorthand": true,
     "directive-selector": [true, "attribute", "camelCase"],
-    "component-selector": [true, "element", "kebab-case"],
+    "component-selector": [
+      true,
+      "element",
+      "kebab-case"
+    ],
+    "curly": true,
     "no-inputs-metadata-property": true,
     "no-outputs-metadata-property": true,
+    "eofline": true,
+    "import-spacing": true,
+    "indent": {
+      "options": [
+        "spaces"
+      ]
+    },
     "no-host-metadata-property": true,
     "no-attribute-decorator": true,
     "no-input-rename": true,
@@ -17,9 +36,65 @@
     "component-class-suffix": [true, "Component"],
     "directive-class-suffix": [true, "Directive"],
     "object-literal-sort-keys": false,
-    "ordered-imports": [false],
-    "quotemark": [false],
+    "ordered-imports": [
+      false
+    ],
+    "semicolon": {
+      "options": [
+        "always"
+      ]
+    },
+    "space-before-function-paren": {
+      "options": {
+        "anonymous": "never",
+        "asyncArrow": "always",
+        "constructor": "never",
+        "method": "never",
+        "named": "never"
+      }
+    },
+    "quotemark": [
+      false
+    ],
+    "typedef-whitespace": {
+      "options": [
+        {
+          "call-signature": "nospace",
+          "index-signature": "nospace",
+          "parameter": "nospace",
+          "property-declaration": "nospace",
+          "variable-declaration": "nospace"
+        },
+        {
+          "call-signature": "onespace",
+          "index-signature": "onespace",
+          "parameter": "onespace",
+          "property-declaration": "onespace",
+          "variable-declaration": "onespace"
+        }
+      ]
+    },
     "trailing-comma": [false],
-    "member-access": [false, "check-accessor"]
+    "member-access": [
+      false,
+      "check-accessor"
+    ],
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-pascal-case"
+      ]
+    },
+    "whitespace": {
+      "options": [
+        "check-branch",
+        "check-decl",
+        "check-operator",
+        "check-separator",
+        "check-type",
+        "check-typecast"
+      ]
+    }
   }
 }
