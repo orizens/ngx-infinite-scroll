@@ -58,10 +58,14 @@
   background-color: goldenrod;
 }
 
-.test1 {
+.test1,
+.ngxisc {
   height: 300px;
   overflow: auto;
   width: 500px;
+}
+.ngxisc {
+  background-color: skyblue;
 }
 /* .test2 .content {
   display: flex;

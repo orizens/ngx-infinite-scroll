@@ -18,19 +18,20 @@ export function createScroller(config: Models.IScroller) {
       scrollWindow,
       element,
       fromRoot
-    )
+    ),
   });
   const scrollState = new ScrollState({
-    totalToScroll: calculatePoints(element, resolver)
+    totalToScroll: calculatePoints(element, resolver),
   });
   const options: Models.IScrollRegisterConfig = {
     container: resolver.container,
-    throttle: config.throttle
+    throttle: config.throttle,
   };
   const distance = {
     up: config.upDistance,
-    down: config.downDistance
+    down: config.downDistance,
   };
+  debugger;
   return attachScrollEvent(options).pipe(
     mergeMap(() => of(calculatePoints(element, resolver))),
     map((positionStats: Models.IPositionStats) =>
@@ -84,13 +85,13 @@ export function toInfiniteScrollParams(
   return {
     scrollDown,
     fire,
-    stats
+    stats,
   };
 }
 
 export const InfiniteScrollActions = {
   DOWN: '[NGX_ISE] DOWN',
-  UP: '[NGX_ISE] UP'
+  UP: '[NGX_ISE] UP',
 };
 
 export function toInfiniteScrollAction(
@@ -98,12 +99,12 @@ export function toInfiniteScrollAction(
 ): Models.IInfiniteScrollAction {
   const {
     scrollDown,
-    stats: { scrolled: currentScrollPosition }
+    stats: { scrolled: currentScrollPosition },
   } = response;
   return {
     type: scrollDown ? InfiniteScrollActions.DOWN : InfiniteScrollActions.UP,
     payload: {
-      currentScrollPosition
-    }
+      currentScrollPosition,
+    },
   };
 }

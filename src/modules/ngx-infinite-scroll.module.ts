@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
+import { InfiniteScrollComponent } from './infinite-scroll-container.component';
 
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 
 @NgModule({
-  declarations: [InfiniteScrollDirective],
-  exports: [InfiniteScrollDirective],
+  declarations: [InfiniteScrollDirective, InfiniteScrollComponent],
+  exports: [InfiniteScrollDirective, InfiniteScrollComponent],
   imports: [],
-  providers: []
+  providers: [],
 })
-export class InfiniteScrollModule { }
+export class InfiniteScrollModule {}

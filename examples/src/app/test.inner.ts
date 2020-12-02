@@ -7,24 +7,39 @@ import { ListService } from "./list.service";
   selector: "test-inner",
   providers: [ListService],
   template: `
-    <div class="{{className}}"
-        [scrollWindow]="scrollWindow"
-         infiniteScroll
-         [infiniteScrollContainer]="selector"
-         [fromRoot]="fromRoot"
-         [infiniteScrollDistance]="scrollDistance"
-         [infiniteScrollUpDistance]="scrollUpDistance"
-         [infiniteScrollThrottle]="throttle"
-         (scrolled)="onScrollDown()"
-         (scrolledUp)="onUp()"
-      >
+    <div
+      class="{{ className }}"
+      [scrollWindow]="scrollWindow"
+      infiniteScroll
+      [infiniteScrollContainer]="selector"
+      [fromRoot]="fromRoot"
+      [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollUpDistance]="scrollUpDistance"
+      [infiniteScrollThrottle]="throttle"
+      (scrolled)="onScrollDown()"
+      (scrolledUp)="onUp()"
+    >
       <section class="content">
         <div *ngFor="let i of array()">
           {{ i }}
         </div>
       </section>
     </div>
-  `
+    <ngx-infinite-scroll-container
+      infiniteScroll
+      [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollUpDistance]="scrollUpDistance"
+      [infiniteScrollThrottle]="throttle"
+      (scrolled)="onScrollDown()"
+      (scrolledUp)="onUp()"
+    >
+      <section class="content">
+        <div *ngFor="let i of array()">
+          {{ i }}
+        </div>
+      </section>
+    </ngx-infinite-scroll-container>
+  `,
 })
 export class TestInnerComponent {
   @Input() scrollWindow = true;
@@ -49,7 +64,7 @@ export class TestInnerComponent {
     // }, 3000);
   }
 
-  onUp(ev?:any) {
+  onUp(ev?: any) {
     // setTimeout(() => {
     console.log(`scrolled up, from  ${this.className} ${this.info}`);
     this.listMaker.setDirectionUp();
