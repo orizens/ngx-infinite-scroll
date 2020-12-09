@@ -1,5 +1,5 @@
 import { Observable, of, fromEvent } from 'rxjs';
-import { map, mergeMap, tap, sampleTime, filter } from 'rxjs/operators';
+import { map, mergeMap, tap, throttleTime, filter } from 'rxjs/operators';
 
 import * as Models from '../models';
 import { AxisResolver } from './axis-resolver';
@@ -64,9 +64,10 @@ export function attachScrollEvent(
   let obs = fromEvent(options.container, 'scroll');
   // For an unknown reason calling `sampleTime()` causes trouble for many users, even with `options.throttle = 0`.
   // Let's avoid calling the function unless needed.
+  // Replacing with throttleTime seems to solve the problem
   // See https://github.com/orizens/ngx-infinite-scroll/issues/198
   if (options.throttle) {
-    obs = obs.pipe(sampleTime(options.throttle));
+    obs = obs.pipe(throttleTime(options.throttle));
   }
   return obs;
 }
