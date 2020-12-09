@@ -1,3 +1,7 @@
+## v 10.0.1 (2020/12/09)
+
+- [FIX] - throttle behavior refined - fixed issue #198
+
 ## v 10.0.0 (2020/11/07)
 
 - [UPGRADE] - now using Angular 10
