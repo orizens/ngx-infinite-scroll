@@ -34,6 +34,10 @@ and much more.
 
 > _These analytics are made available via the awesome [Scarf](https://www.npmjs.com/package/@scarf/scarf) package analytics library_
 
+### Opt-Out Of Scarf
+
+Scarf can be disabled by following [these directions](https://github.com/orizens/ngx-infinite-scroll/issues/352#issuecomment-742009046)
+
 ## Front End Consulting Services
 
 I'm a Senior Front End Engineer & Consultant at [Orizens](https://orizens.com).
