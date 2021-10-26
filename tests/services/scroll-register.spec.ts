@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import * as ScrollRegister from '../../src/services/scroll-register';
 import * as ScrollResolver from '../../src/services/scroll-resolver';
 import { ElementRef } from '@angular/core';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('Scroll Regsiter', () => {
   let mockedElement: ElementRef;
@@ -32,36 +33,51 @@ describe('Scroll Regsiter', () => {
 
   [
     {
-      it: 'should create a Observable of scroll observable with default 300 throttle',
+      it: 'should create an Observable of scroll observable with 300 ms throttle (leading and trailing are true)',
       config: {
         throttle: 300,
+        timing: [0, 100, 100, 100],
       },
-      expected: 300
+      expected: [0, 300, 300], // 300 two times because throttleTime is configured with {leading: true, trailing:true}
     },
     {
       it: 'should create a Observable of scroll observable without a sampleTime if throttle is 0',
       config: {
-        throttle: 0
+        throttle: 0,
+        timing: [0],
       },
-      expected: 0
-    }
+      expected: [0],
+    },
   ].forEach((spec) => {
-    it(spec.it, (done) => {
-      const mockDom = createMockDom();
-      const scrollConfig: Models.IScrollRegisterConfig = {
-        container: mockDom.container.nativeElement,
-        ...spec.config
-      };
-      const scroller$: Observable<{}> = ScrollRegister.attachScrollEvent(scrollConfig);
-      const start = new Date();
-      scroller$.subscribe((result) => {
-        const end = new Date();
-        const actual = end.getTime() - start.getTime();
-        expect(actual).toBeGreaterThanOrEqual(spec.expected);
-        done();
-      });
-      mockDom.container.nativeElement.dispatchEvent(new Event('scroll'));
-    });
+    it(
+      spec.it,
+      fakeAsync(() => {
+        const mockDom = createMockDom();
+        const scrollConfig: Models.IScrollRegisterConfig = {
+          container: mockDom.container.nativeElement,
+          ...spec.config,
+        };
+        const scroller$: Observable<{}> =
+          ScrollRegister.attachScrollEvent(scrollConfig);
+        const start = new Date();
+
+        const calls = [] as number[];
+
+        const subscription = scroller$.subscribe(() => {
+          const end = new Date();
+          const elapsed = end.getTime() - start.getTime();
+          calls.push(elapsed);
+        });
+
+        spec.config.timing.forEach((waitTime) => {
+          tick(waitTime);
+          mockDom.container.nativeElement.dispatchEvent(new Event('scroll'));
+        });
+        subscription.unsubscribe();
+
+        expect(calls).toEqual(spec.expected);
+      })
+    );
   });
 
   it('should create a scroll params object', () => {
