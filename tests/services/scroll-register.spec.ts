@@ -41,12 +41,12 @@ describe('Scroll Regsiter', () => {
       expected: [0, 300, 300], // 300 two times because throttleTime is configured with {leading: true, trailing:true}
     },
     {
-      it: 'should create a Observable of scroll observable without a sampleTime if throttle is 0',
+      it: 'should create an Observable of scroll observable without a throttle if config.throttle is 0',
       config: {
         throttle: 0,
-        timing: [0],
+        timing: [0, 100, 100],
       },
-      expected: [0],
+      expected: [0, 100, 200],
     },
   ].forEach((spec) => {
     it(
