@@ -67,7 +67,7 @@ export function attachScrollEvent(
   // Replacing with throttleTime seems to solve the problem
   // See https://github.com/orizens/ngx-infinite-scroll/issues/198
   if (options.throttle) {
-    obs = obs.pipe(throttleTime(options.throttle));
+    obs = obs.pipe(throttleTime(options.throttle, undefined, { leading: true, trailing: true }));
   }
   return obs;
 }
