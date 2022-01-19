@@ -18,6 +18,7 @@ angular2-infinite-scroll.js
 !make.js
 !bundles/*.js
 __ivy_ngcc__
+/.angular/cache
 
 #################
 ## JetBrains
@@ -27,6 +28,7 @@ __ivy_ngcc__
 .settings
 .idea/*
 *.iml
+.history
 
 ############
 ## Windows

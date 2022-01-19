@@ -21,6 +21,6 @@
     "strictMetadataEmit": true,
     "flatModuleOutFile": "ngx-infinite-scroll.js",
     "flatModuleId": "ngx-infinite-scroll",
-    "enableIvy": false
+    "compilationMode": "partial"
   }
 }
