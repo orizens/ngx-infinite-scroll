@@ -11,6 +11,12 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "paths": {
+      "ngx-infinite-scroll": [
+        "dist/ngx-infinite-scroll/ngx-infinite-scroll",
+        "dist/ngx-infinite-scroll"
+      ]
+    },
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
