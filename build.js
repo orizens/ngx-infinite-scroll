@@ -14,12 +14,9 @@ rm(`-Rf`, `${NPM_DIR}/*`);
 mkdir(`-p`, `./${MODULES_DIR}`);
 mkdir(`-p`, `./${BUNDLES_DIR}`);
 
-/* TSLint with Codelyzer */
-// https://github.com/palantir/tslint/blob/master/src/configs/recommended.ts
-// https://github.com/mgechev/codelyzer
-echo(`Start TSLint`);
-exec(`tslint --project ./tsconfig.json --type-check ./src/**/*.ts`);
-echo(chalk.green(`TSLint completed`));
+echo(`Start ESLint`);
+exec(`eslint ./src/**/*.ts`);
+echo(chalk.green(`ESLint completed`));
 
 /* Aot compilation: ES2015 sources */
 echo(`Start AoT compilation`);
