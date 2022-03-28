@@ -1,0 +1,19 @@
+{
+  "name": "ngx-infinite-scroll",
+  "version": "13.0.1",
+  "scripts": {
+    "postinstall": "opencollective-postinstall || exit 0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^13.1.0",
+    "@angular/core": "^13.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/ngx-infinite-scroll",
+    "logo": "https://opencollective.com/ngx-infinite-scroll/logo.txt"
+  }
+}
