@@ -1,6 +1,7 @@
 {
   "name": "ngx-infinite-scroll",
-  "version": "13.0.1",
+  "version": "13.0.2",
+  "license": "MIT",
   "scripts": {
     "postinstall": "opencollective-postinstall || exit 0"
   },

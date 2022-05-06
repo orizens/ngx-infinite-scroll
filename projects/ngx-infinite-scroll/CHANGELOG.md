@@ -1,3 +1,8 @@
+## v 13.0.2 (2022/06/05)
+- [ADD] - add license
+## v 13.0.1 (2022/06/05)
+- patch
+
 ## v 13.0.0 (2022/26/03)
 - [UPGRADE] - now using Angular 13
 - [DEV] - includes now a demo app for development
