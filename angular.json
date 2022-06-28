@@ -132,6 +132,5 @@
         }
       }
     }
-  },
-  "defaultProject": "ngx-infinite-scroll"
+  }
 }
