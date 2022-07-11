@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build ngx-infinite-scroll",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "publish-lib": "npm publish --tag latest ./dist/ngx-infinite-scroll",
