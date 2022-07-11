@@ -133,5 +133,7 @@
       }
     }
   },
-  "defaultProject": "ngx-infinite-scroll"
+  "cli": {
+    "analytics": false
+  }
 }
