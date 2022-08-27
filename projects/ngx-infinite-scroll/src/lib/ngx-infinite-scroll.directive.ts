@@ -39,7 +39,7 @@ export class InfiniteScrollDirective
   @Input() alwaysCallback: boolean = false;
   @Input() fromRoot: boolean = false;
 
-  private disposeScroller: Subscription | any;
+  private disposeScroller?: Subscription;
 
   constructor(private element: ElementRef, private zone: NgZone) {}
 
@@ -84,23 +84,19 @@ export class InfiniteScrollDirective
           scrollWindow: this.scrollWindow,
           throttle: this.infiniteScrollThrottle,
           upDistance: this.infiniteScrollUpDistance,
-        }).subscribe((payload: any) =>
-          this.zone.run(() => this.handleOnScroll(payload))
-        );
+        }).subscribe((payload) => this.handleOnScroll(payload));
       });
     }
   }
 
   handleOnScroll({ type, payload }: IInfiniteScrollAction) {
-    switch (type) {
-      case InfiniteScrollActions.DOWN:
-        return this.scrolled.emit(payload);
-
-      case InfiniteScrollActions.UP:
-        return this.scrolledUp.emit(payload);
-
-      default:
-        return;
+    if (type === InfiniteScrollActions.DOWN && hasObservers(this.scrolled)) {
+      this.zone.run(() => this.scrolled.emit(payload));
+    } else if (
+      type === InfiniteScrollActions.UP &&
+      hasObservers(this.scrolledUp)
+    ) {
+      this.zone.run(() => this.scrolledUp.emit(payload));
     }
   }
 
@@ -113,4 +109,10 @@ export class InfiniteScrollDirective
       this.disposeScroller.unsubscribe();
     }
   }
+}
+
+function hasObservers<T>(emitter: EventEmitter<T>): boolean {
+  // Note: The `observed` property is available only in RxJS@7.2.0, which means it's
+  // not available for users running the lower version.
+  return emitter.observed ?? emitter.observers.length > 0;
 }
