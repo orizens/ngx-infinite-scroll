@@ -90,13 +90,11 @@ export class InfiniteScrollDirective
   }
 
   handleOnScroll({ type, payload }: IInfiniteScrollAction) {
-    if (type === InfiniteScrollActions.DOWN && hasObservers(this.scrolled)) {
-      this.zone.run(() => this.scrolled.emit(payload));
-    } else if (
-      type === InfiniteScrollActions.UP &&
-      hasObservers(this.scrolledUp)
-    ) {
-      this.zone.run(() => this.scrolledUp.emit(payload));
+    const emitter =
+      type === InfiniteScrollActions.DOWN ? this.scrolled : this.scrolledUp;
+
+    if (hasObservers(emitter)) {
+      this.zone.run(() => emitter.emit(payload));
     }
   }
 
