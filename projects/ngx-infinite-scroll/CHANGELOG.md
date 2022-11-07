@@ -1,4 +1,6 @@
-## v 13.0.2 (2022/06/05)
+## v 14.0.1 (2022/06/05)
+- perf fix: up/down event handler #409
+## v 14.0.0 (2022/06/05)
 - upgrade to Angular V14
 ## v 13.0.2 (2022/06/05)
 - [ADD] - add license
