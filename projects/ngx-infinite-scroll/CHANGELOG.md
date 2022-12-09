@@ -1,3 +1,6 @@
+## v 15.0.0 (2022/30/11)
+- [UPGRADE] - now using Angular 15
+
 ## v 14.0.1 (2022/06/05)
 - perf fix: up/down event handler #409
 ## v 14.0.0 (2022/06/05)
