@@ -117,6 +117,33 @@ export class AppModule {}
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
+or for standalone import InfiniteScrollDirective:
+
+```typescript
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app',
+  template: `
+    <div
+      class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()"
+    ></div>
+  `,
+  standalone: true,
+  imports: [InfiniteScrollDirective]
+})
+export class AppComponent {
+  protected onScroll() {
+    console.log('scrolled!!');
+  }
+}
+```
+
 In this example, the **onScroll** callback will be invoked when the window is scrolled down:
 
 ```typescript
