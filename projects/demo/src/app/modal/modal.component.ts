@@ -1,8 +1,11 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @Component({
   selector: 'modal',
   templateUrl: './modal.html',
+  standalone: true,
+  imports: [InfiniteScrollModule]
 })
 export class ModalComponent {
   @Output() onClose = new EventEmitter();
