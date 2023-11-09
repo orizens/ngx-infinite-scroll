@@ -1,5 +1,5 @@
-import * as Models from '../../src/models';
-import * as ScrollResolver from '../../src/services/scroll-resolver';
+import * as Models from '../../models';
+import * as ScrollResolver from '../../lib/services/scroll-resolver';
 
 describe('Manage Scroll State', () => {
   it('should backup old Total and update the new one', () => {
@@ -53,6 +53,7 @@ describe('Manage Scroll State', () => {
     it(spec.it, () => {
       const total = 1000;
       ScrollResolver.updateTriggeredFlag(total, spec.state, true, spec.down);
+      // @ts-ignore
       const actual = spec.state.triggered[spec.prop];
       expect(actual).toBe(total);
     });

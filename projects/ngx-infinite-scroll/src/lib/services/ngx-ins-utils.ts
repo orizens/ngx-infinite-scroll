@@ -2,8 +2,8 @@ import { ElementRef, SimpleChange } from '@angular/core';
 
 export function resolveContainerElement(
   selector: string | any,
-  scrollWindow,
-  defaultElement,
+  scrollWindow: boolean,
+  defaultElement: ElementRef<any>,
   fromRoot: boolean
 ): any {
   const hasWindow = window && !!window.document && window.document.documentElement;
