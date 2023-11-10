@@ -101,26 +101,20 @@ By default, the directive listens to the **window scroll** event and invoked the
 First, import the InfiniteScrollModule to your module:
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from '@angular/core';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication } from "@angular/platform-browser";
 import { AppComponent } from './app';
 
-@NgModule({
-  imports: [BrowserModule, InfiniteScrollModule],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+bootstrapApplication(AppComponent, {providers: [importProvidersFrom(BrowserModule)]}).catch(err => console.error(err));
 
-platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
 In this example, the **onScroll** callback will be invoked when the window is scrolled down:
 
 ```typescript
 import { Component } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app',
@@ -133,6 +127,8 @@ import { Component } from '@angular/core';
       (scrolled)="onScroll()"
     ></div>
   `,
+  standalone: true,
+  imports: [InfiniteScrollModule]
 })
 export class AppComponent {
   onScroll() {
@@ -145,6 +141,7 @@ in this example, whenever the "search-results" is scrolled, the callback will be
 
 ```typescript
 import { Component } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app',
@@ -166,6 +163,8 @@ import { Component } from '@angular/core';
       [scrollWindow]="false"
     ></div>
   `,
+  standalone: true,
+  imports: [InfiniteScrollModule]
 })
 export class AppComponent {
   onScroll() {
@@ -194,6 +193,7 @@ import { InfiniteScroll } from 'ngx-infinite-scroll';
       (scrolledUp)="onScrollUp()"
     ></div>
   `,
+  standalone: true,
 })
 export class AppComponent {
   onScrollDown() {
@@ -210,6 +210,7 @@ In this example, the **infiniteScrollContainer** attribute is used to point dire
 
 ```typescript
 import { Component } from '@angular/core';
+import { InfiniteScroll } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app',
@@ -233,6 +234,8 @@ import { Component } from '@angular/core';
       ></div>
     </div>
   `,
+  standalone: true,
+  imports: [InfiniteScrollModule]
 })
 export class AppComponent {
   selector: string = '.main-panel';
