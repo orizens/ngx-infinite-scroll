@@ -210,7 +210,7 @@ In this example, the **infiniteScrollContainer** attribute is used to point dire
 
 ```typescript
 import { Component } from '@angular/core';
-import { InfiniteScroll } from 'ngx-infinite-scroll';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app',
