@@ -1,11 +1,11 @@
 import { ElementRef } from "@angular/core";
 
-import { ContainerRef } from "../../src/models";
-import { AxisResolver } from "../../src/services/axis-resolver";
+import { ContainerRef } from "../../models";
+import { AxisResolver } from "../../lib/services/axis-resolver";
 import {
   createResolver,
   createResolverWithContainer
-} from "../../src/services/position-resolver";
+} from "../../lib/services/position-resolver";
 
 describe("Position Resolver", () => {
   let mockedElement: ElementRef;

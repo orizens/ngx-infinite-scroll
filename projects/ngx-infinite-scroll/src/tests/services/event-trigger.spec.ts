@@ -1,7 +1,7 @@
 import {
   IScrollerProps,
   shouldTriggerEvents
-} from '../../src/services/event-trigger';
+} from '../../lib/services/event-trigger';
 
 const props = {
   alwaysCallback: true,

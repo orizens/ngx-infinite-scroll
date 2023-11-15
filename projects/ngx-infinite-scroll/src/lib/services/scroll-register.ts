@@ -21,7 +21,7 @@ export function createScroller(config: Models.IScroller) {
     ),
   });
   const scrollState = new ScrollState({
-    totalToScroll: calculatePoints(element, resolver),
+    totalToScroll: calculatePoints(element, resolver).totalToScroll,
   });
   const options: Models.IScrollRegisterConfig = {
     container: resolver.container,

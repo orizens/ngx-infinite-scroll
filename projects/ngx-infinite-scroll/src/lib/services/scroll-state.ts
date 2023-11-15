@@ -9,8 +9,8 @@ export class ScrollState implements IScrollState {
     up: 0,
   };
 
-  constructor({ totalToScroll }) {
-    this.totalToScroll = totalToScroll;
+  constructor(attrs: Partial<ScrollState>) {
+    Object.assign(this, attrs);
   }
 
   updateScrollPosition(position: number) {
@@ -29,7 +29,7 @@ export class ScrollState implements IScrollState {
     this.updateTotalToScroll(totalToScroll);
   }
 
-  updateTriggeredFlag(scroll, isScrollingDown: boolean) {
+  updateTriggeredFlag(scroll: number, isScrollingDown: boolean) {
     if (isScrollingDown) {
       this.triggered.down = scroll;
     } else {
@@ -37,7 +37,7 @@ export class ScrollState implements IScrollState {
     }
   }
 
-  isTriggeredScroll(totalToScroll, isScrollingDown: boolean) {
+  isTriggeredScroll(totalToScroll: number, isScrollingDown: boolean) {
     return isScrollingDown
       ? this.triggered.down === totalToScroll
       : this.triggered.up === totalToScroll;
