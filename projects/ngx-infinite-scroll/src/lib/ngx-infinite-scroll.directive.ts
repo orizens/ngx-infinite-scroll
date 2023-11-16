@@ -11,7 +11,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { IInfiniteScrollEvent, IInfiniteScrollAction } from '../models';
 import { hasWindowDefined, inputPropChanged } from './services/ngx-ins-utils';
 import {
@@ -21,6 +20,7 @@ import {
 
 @Directive({
   selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]',
+  standalone: true
 })
 export class InfiniteScrollDirective
   implements OnDestroy, OnChanges, AfterViewInit
@@ -70,26 +70,30 @@ export class InfiniteScrollDirective
     }
   }
 
-  setup() {
-    if (hasWindowDefined()) {
-      this.zone.runOutsideAngular(() => {
-        this.disposeScroller = createScroller({
-          fromRoot: this.fromRoot,
-          alwaysCallback: this.alwaysCallback,
-          disable: this.infiniteScrollDisabled,
-          downDistance: this.infiniteScrollDistance,
-          element: this.element,
-          horizontal: this.horizontal,
-          scrollContainer: this.infiniteScrollContainer,
-          scrollWindow: this.scrollWindow,
-          throttle: this.infiniteScrollThrottle,
-          upDistance: this.infiniteScrollUpDistance,
-        }).subscribe((payload) => this.handleOnScroll(payload));
-      });
-    }
+  ngOnDestroy() {
+    this.destroyScroller();
   }
 
-  handleOnScroll({ type, payload }: IInfiniteScrollAction) {
+  private setup() {
+    if (!hasWindowDefined()) { return; }
+
+    this.zone.runOutsideAngular(() => {
+      this.disposeScroller = createScroller({
+        fromRoot: this.fromRoot,
+        alwaysCallback: this.alwaysCallback,
+        disable: this.infiniteScrollDisabled,
+        downDistance: this.infiniteScrollDistance,
+        element: this.element,
+        horizontal: this.horizontal,
+        scrollContainer: this.infiniteScrollContainer,
+        scrollWindow: this.scrollWindow,
+        throttle: this.infiniteScrollThrottle,
+        upDistance: this.infiniteScrollUpDistance,
+      }).subscribe((payload) => this.handleOnScroll(payload));
+    });
+  }
+
+  private handleOnScroll({ type, payload }: IInfiniteScrollAction) {
     const emitter =
       type === InfiniteScrollActions.DOWN ? this.scrolled : this.scrolledUp;
 
@@ -98,11 +102,7 @@ export class InfiniteScrollDirective
     }
   }
 
-  ngOnDestroy() {
-    this.destroyScroller();
-  }
-
-  destroyScroller() {
+  private destroyScroller() {
     if (this.disposeScroller) {
       this.disposeScroller.unsubscribe();
     }

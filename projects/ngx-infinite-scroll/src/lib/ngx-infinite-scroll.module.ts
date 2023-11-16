@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-
 import { InfiniteScrollDirective } from './ngx-infinite-scroll.directive';
 
+/**
+ * @deprecated Import InfiniteScrollDirective instead
+ */
 @NgModule({
-  declarations: [InfiniteScrollDirective],
   exports: [InfiniteScrollDirective],
-  imports: [],
-  providers: [],
+  imports: [InfiniteScrollDirective],
 })
 export class InfiniteScrollModule {}

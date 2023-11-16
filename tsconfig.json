@@ -28,7 +28,8 @@
       "es2020",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "removeComments": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
