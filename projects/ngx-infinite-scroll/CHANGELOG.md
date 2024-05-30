@@ -1,3 +1,7 @@
+## v 18.0.0 (2024/05/30)
+
+- [UPGRADE] - now using Angular 18
+
 ## v 17.0.1 (2024/05/30)
 
 - feat: introducing ngx-is as a standlaone component
