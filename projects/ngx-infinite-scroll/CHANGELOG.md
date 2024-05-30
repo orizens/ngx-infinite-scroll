@@ -1,22 +1,37 @@
+## v 17.0.1 (2024/05/30)
+
+- feat: introducing ngx-is as a standlaone component
+
 ## v 17.0.0 (2023/11/09)
+
 - [UPGRADE] - now using Angular 17
 
 ## v 16.0.0 (2023/05/15)
+
 - [UPGRADE] - now using Angular 16
 
 ## v 15.0.0 (2022/08/12)
+
 - [UPGRADE] - now using Angular 15
 
 ## v 14.0.1 (2022/06/05)
+
 - perf fix: up/down event handler #409
+
 ## v 14.0.0 (2022/06/05)
+
 - upgrade to Angular V14
+
 ## v 13.0.2 (2022/06/05)
+
 - [ADD] - add license
+
 ## v 13.0.1 (2022/06/05)
+
 - patch
 
 ## v 13.0.0 (2022/26/03)
+
 - [UPGRADE] - now using Angular 13
 - [DEV] - includes now a demo app for development
 
@@ -81,7 +96,7 @@
 ## v 6.0.0 (2018/05/22)
 
 - [UPGRADE] - upgrade to Angular 6 & rxjs 6
-- [CHORE] - demo now with https://stackblitz.com
+- [CHORE] - demo now with <https://stackblitz.com>
 
 ## v 0.8.4 (2018/04/11)
 
