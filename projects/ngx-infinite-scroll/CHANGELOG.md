@@ -1,3 +1,7 @@
+## v 18.0.0 (2024/05/30)
+
+- [UPGRADE] - now using Angular 18
+
 ## v 17.0.0 (2023/11/09)
 - [UPGRADE] - now using Angular 17
 

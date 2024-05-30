@@ -1,6 +1,6 @@
 {
   "name": "ngx-infinite-scroll",
-  "version": "17.0.0",
+  "version": "18.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/orizens/ngx-infinite-scroll"
@@ -14,8 +14,8 @@
     "postinstall": "opencollective-postinstall || exit 0"
   },
   "peerDependencies": {
-    "@angular/common": ">=17.0.0 <18.0.0",
-    "@angular/core": ">=17.0.0 <18.0.0"
+    "@angular/common": ">=18.0.0 <19.0.0",
+    "@angular/core": ">=18.0.0 <19.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
