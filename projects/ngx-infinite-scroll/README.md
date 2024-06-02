@@ -98,32 +98,14 @@ By default, the directive listens to the **window scroll** event and invoked the
 
 ## Usage
 
-First, import the InfiniteScrollModule to your module:
-
-```typescript
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import { AppComponent } from "./app";
-
-@NgModule({
-  imports: [BrowserModule, InfiniteScrollModule],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-
-platformBrowserDynamic().bootstrapModule(AppModule);
-```
-
 In this example, the **onScroll** callback will be invoked when the window is scrolled down:
 
 ```typescript
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: "app",
+  selector: 'app',
   template: `
     <div
       class="search-results"
@@ -133,10 +115,12 @@ import { Component } from "@angular/core";
       (scrolled)="onScroll()"
     ></div>
   `,
+  standalone: true,
+  imports: [InfiniteScrollDirective]
 })
 export class AppComponent {
   onScroll() {
-    console.log("scrolled!!");
+    console.log('scrolled!!');
   }
 }
 ```
@@ -144,10 +128,11 @@ export class AppComponent {
 in this example, whenever the "search-results" is scrolled, the callback will be invoked:
 
 ```typescript
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: "app",
+  selector: 'app',
   styles: [
     `
       .search-results {
@@ -166,10 +151,12 @@ import { Component } from "@angular/core";
       [scrollWindow]="false"
     ></div>
   `,
+  standalone: true,
+  imports: [InfiniteScrollDirective]
 })
 export class AppComponent {
   onScroll() {
-    console.log("scrolled!!");
+    console.log('scrolled!!');
   }
 }
 ```
@@ -177,11 +164,11 @@ export class AppComponent {
 In this example, the **onScrollDown** callback will be invoked when the window is scrolled down and the **onScrollUp** callback will be invoked when the window is scrolled up:
 
 ```typescript
-import { Component } from "@angular/core";
-import { InfiniteScroll } from "ngx-infinite-scroll";
+import { Component } from '@angular/core';
+import { InfiniteScroll } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: "app",
+  selector: 'app',
   directives: [InfiniteScroll],
   template: `
     <div
@@ -194,14 +181,15 @@ import { InfiniteScroll } from "ngx-infinite-scroll";
       (scrolledUp)="onScrollUp()"
     ></div>
   `,
+  standalone: true,
 })
 export class AppComponent {
   onScrollDown() {
-    console.log("scrolled down!!");
+    console.log('scrolled down!!');
   }
 
   onScrollUp() {
-    console.log("scrolled up!!");
+    console.log('scrolled up!!');
   }
 }
 ```
@@ -209,10 +197,11 @@ export class AppComponent {
 In this example, the **infiniteScrollContainer** attribute is used to point directive to the scrollable container using a css selector. **fromRoot** is used to determine whether the scroll container has to be searched within the whole document (`[fromRoot]="true"`) or just inside the **infiniteScroll** directive (`[fromRoot]="false"`, default option).
 
 ```typescript
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: "app",
+  selector: 'app',
   styles: [
     `
       .main-panel {
@@ -233,12 +222,14 @@ import { Component } from "@angular/core";
       ></div>
     </div>
   `,
+  standalone: true,
+  imports: [InfiniteScrollDirective]
 })
 export class AppComponent {
-  selector: string = ".main-panel";
+  selector: string = '.main-panel';
 
   onScroll() {
-    console.log("scrolled!!");
+    console.log('scrolled!!');
   }
 }
 ```
