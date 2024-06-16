@@ -1,28 +1,28 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { Component, Output, EventEmitter, signal } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'modal',
   templateUrl: './modal.html',
   standalone: true,
-  imports: [InfiniteScrollModule]
+  imports: [InfiniteScrollModule],
 })
 export class ModalComponent {
   @Output() onClose = new EventEmitter();
 
-  array: number[] = [];
-  sum = 100;
+  array = signal<number[]>([]);
+  sum = signal(100);
 
-  modalIsOpen = '';
-  modalTitle = 'scroll to update';
-  modalBody = modalText;
+  modalIsOpen = signal('');
+  modalTitle = signal('scroll to update');
+  modalBody = signal(modalText);
 
-  modalScrollDistance = 2;
-  modalScrollThrottle = 50;
+  modalScrollDistance = signal(2);
+  modalScrollThrottle = signal(50);
 
   constructor() {
-    for (let i = 0; i < this.sum; ++i) {
-      this.array.push(i);
+    for (let i = 0; i < this.sum(); ++i) {
+      this.array.update((array) => [...array, i]);
     }
     this.open();
   }
@@ -31,24 +31,25 @@ export class ModalComponent {
     console.log('scrolled!!');
 
     // add another 20 items
-    const start = this.sum;
-    this.sum += 20;
-    for (let i = start; i < this.sum; ++i) {
-      this.array.push(i);
+    const start = this.sum();
+    this.sum.update(sum => sum + 20);
+    for (let i = start; i < this.sum(); ++i) {
+      this.array.update((array) => [...array, i]);
     }
   }
 
   onModalScrollDown() {
-    this.modalTitle = 'updated on ' + new Date().toString();
-    this.modalBody += modalText;
+    this.modalTitle.set('updated on ' + new Date().toString());
+    this.modalBody.update((modalBody) => modalBody + modalText);
   }
+
   open() {
-    this.modalIsOpen = 'in modal-open';
+    this.modalIsOpen.set('in modal-open');
   }
 
   close() {
-    this.modalIsOpen = '';
-    this.modalBody = modalText;
+    this.modalIsOpen.set('');
+    this.modalBody.set(modalText);
     this.onClose.emit();
   }
 }

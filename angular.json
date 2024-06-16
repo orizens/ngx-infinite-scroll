@@ -52,7 +52,7 @@
               "base": "dist/demo"
             },
             "index": "projects/demo/src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": [],
             "tsConfig": "projects/demo/tsconfig.app.json",
             "assets": [
               "projects/demo/src/favicon.ico",

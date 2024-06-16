@@ -9,7 +9,9 @@
 
 <style>
   :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
     font-size: 14px;
     color: #333;
     box-sizing: border-box;
@@ -201,7 +203,7 @@
   }
 
   .terminal pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
     color: white;
     padding: 0 1rem 1rem;
     margin: 0;
@@ -245,17 +247,17 @@
     align-items: center;
     font-size: 12px;
     padding: 3px 10px;
-    border: 1px solid rgba(27,31,35,.2);
+    border: 1px solid rgba(27, 31, 35, 0.2);
     border-radius: 3px;
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+    background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
     margin-left: 4px;
     font-weight: 600;
   }
 
   .github-star-badge:hover {
-    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-    border-color: rgba(27,31,35,.35);
-    background-position: -.5em;
+    background-image: linear-gradient(-180deg, #f0f3f6, #e6ebf1 90%);
+    border-color: rgba(27, 31, 35, 0.35);
+    background-position: -0.5em;
   }
 
   .github-star-badge .material-icons {
@@ -274,7 +276,7 @@
 
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
-    .card-container > *:not(.circle-link) ,
+    .card-container > *:not(.circle-link),
     .terminal {
       width: 100%;
     }
@@ -310,38 +312,37 @@
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
   />
   <span>Welcome To ngx-infinite-scroll</span>
-
 </div>
 
 <div class="content" role="main">
-
   <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-
-  </div>
+  <div class="card highlight-card card-small"></div>
 
   <h1 class="title well">
     ngx-infinite-scroll
     <section>
-    <small>items: {{sum}}, now triggering scroll: {{direction}}</small>
+      <small
+        >items: {{ sum() }}, now triggering scroll: {{ direction() }}</small
+      >
     </section>
     <section>
-      <button class="btn btn-info" (click)="toggleModal()">Open Infinite Scroll in Modal</button>
+      <button class="btn btn-info" (click)="toggleModal()">
+        Open Infinite Scroll in Modal
+      </button>
     </section>
   </h1>
-  <modal *ngIf="modalOpen" (onClose)="toggleModal()"></modal>
-  <div class="search-results"
-        infinite-scroll
-        [infiniteScrollDistance]="scrollDistance"
-        [infiniteScrollUpDistance]="scrollUpDistance"
-        [infiniteScrollThrottle]="throttle"
-        (scrolled)="onScrollDown()"
-        (scrolledUp)="onUp()">
-    <p *ngFor="let i of array">
+  <modal *ngIf="modalOpen()" (onClose)="toggleModal()"></modal>
+  <div
+    class="search-results"
+    infinite-scroll
+    [infiniteScrollDistance]="scrollDistance()"
+    [infiniteScrollUpDistance]="scrollUpDistance()"
+    [infiniteScrollThrottle]="throttle()"
+    (scrolled)="onScrollDown()"
+    (scrolledUp)="onUp()"
+  >
+    <p *ngFor="let i of array()">
       {{ i }}
     </p>
   </div>
-
-
 </div>
-
