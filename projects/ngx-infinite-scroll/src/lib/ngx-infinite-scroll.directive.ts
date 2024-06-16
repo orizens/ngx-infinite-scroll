@@ -3,16 +3,19 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Input,
   NgZone,
   OnChanges,
   OnDestroy,
   Output,
+  PLATFORM_ID,
   SimpleChanges,
+  inject,
+  input,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { IInfiniteScrollEvent, IInfiniteScrollAction } from '../models';
-import { hasWindowDefined, inputPropChanged } from './services/ngx-ins-utils';
+import { inputPropChanged } from './services/ngx-ins-utils';
 import {
   createScroller,
   InfiniteScrollActions,
@@ -20,7 +23,7 @@ import {
 
 @Directive({
   selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]',
-  standalone: true
+  standalone: true,
 })
 export class InfiniteScrollDirective
   implements OnDestroy, OnChanges, AfterViewInit
@@ -28,23 +31,25 @@ export class InfiniteScrollDirective
   @Output() scrolled = new EventEmitter<IInfiniteScrollEvent>();
   @Output() scrolledUp = new EventEmitter<IInfiniteScrollEvent>();
 
-  @Input() infiniteScrollDistance: number = 2;
-  @Input() infiniteScrollUpDistance: number = 1.5;
-  @Input() infiniteScrollThrottle: number = 150;
-  @Input() infiniteScrollDisabled: boolean = false;
-  @Input() infiniteScrollContainer: any = null;
-  @Input() scrollWindow: boolean = true;
-  @Input() immediateCheck: boolean = false;
-  @Input() horizontal: boolean = false;
-  @Input() alwaysCallback: boolean = false;
-  @Input() fromRoot: boolean = false;
+  infiniteScrollDistance = input(2);
+  infiniteScrollUpDistance = input(1.5);
+  infiniteScrollThrottle = input(150);
+  infiniteScrollDisabled = input(false);
+  infiniteScrollContainer = input<any>(null);
+  scrollWindow = input(true);
+  immediateCheck = input(false);
+  horizontal = input(false);
+  alwaysCallback = input(false);
+  fromRoot = input(false);
 
   private disposeScroller?: Subscription;
+
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor(private element: ElementRef, private zone: NgZone) {}
 
   ngAfterViewInit() {
-    if (!this.infiniteScrollDisabled) {
+    if (!this.infiniteScrollDisabled()) {
       this.setup();
     }
   }
@@ -75,20 +80,22 @@ export class InfiniteScrollDirective
   }
 
   private setup() {
-    if (!hasWindowDefined()) { return; }
+    if (!this.isBrowser) {
+      return;
+    }
 
     this.zone.runOutsideAngular(() => {
       this.disposeScroller = createScroller({
-        fromRoot: this.fromRoot,
-        alwaysCallback: this.alwaysCallback,
-        disable: this.infiniteScrollDisabled,
-        downDistance: this.infiniteScrollDistance,
+        fromRoot: this.fromRoot(),
+        alwaysCallback: this.alwaysCallback(),
+        disable: this.infiniteScrollDisabled(),
+        downDistance: this.infiniteScrollDistance(),
         element: this.element,
-        horizontal: this.horizontal,
-        scrollContainer: this.infiniteScrollContainer,
-        scrollWindow: this.scrollWindow,
-        throttle: this.infiniteScrollThrottle,
-        upDistance: this.infiniteScrollUpDistance,
+        horizontal: this.horizontal(),
+        scrollContainer: this.infiniteScrollContainer(),
+        scrollWindow: this.scrollWindow(),
+        throttle: this.infiniteScrollThrottle(),
+        upDistance: this.infiniteScrollUpDistance(),
       }).subscribe((payload) => this.handleOnScroll(payload));
     });
   }

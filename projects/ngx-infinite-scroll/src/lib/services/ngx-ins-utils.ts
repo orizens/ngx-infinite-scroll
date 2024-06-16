@@ -6,7 +6,8 @@ export function resolveContainerElement(
   defaultElement: ElementRef<any>,
   fromRoot: boolean
 ): any {
-  const hasWindow = window && !!window.document && window.document.documentElement;
+  const hasWindow =
+    window && !!window.document && window.document.documentElement;
   let container = hasWindow && scrollWindow ? window : defaultElement;
   if (selector) {
     const containerIsString =
@@ -15,7 +16,9 @@ export function resolveContainerElement(
       ? findElement(selector, defaultElement.nativeElement, fromRoot)
       : selector;
     if (!container) {
-      throw new Error('ngx-infinite-scroll {resolveContainerElement()}: selector for');
+      throw new Error(
+        'ngx-infinite-scroll {resolveContainerElement()}: selector for'
+      );
     }
   }
   return container;
@@ -32,8 +35,4 @@ export function findElement(
 
 export function inputPropChanged(prop: SimpleChange): boolean {
   return prop && !prop.firstChange;
-}
-
-export function hasWindowDefined(): boolean {
-  return typeof window !== 'undefined';
 }

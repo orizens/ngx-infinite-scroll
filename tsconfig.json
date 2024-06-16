@@ -13,10 +13,7 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngx-infinite-scroll": [
-        "dist/ngx-infinite-scroll/ngx-infinite-scroll",
-        "dist/ngx-infinite-scroll"
-      ]
+      "ngx-infinite-scroll": ["projects/ngx-infinite-scroll/src/public-api.ts"]
     },
     "declaration": false,
     "experimentalDecorators": true,
@@ -24,10 +21,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "useDefineForClassFields": false,
     "removeComments": false
   },

@@ -1,38 +1,38 @@
-import {CommonModule} from "@angular/common";
-import { Component } from '@angular/core';
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
-import { ModalComponent } from "./modal/modal.component";
+import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [CommonModule, InfiniteScrollModule, ModalComponent]
+  imports: [CommonModule, InfiniteScrollModule, ModalComponent],
 })
 export class AppComponent {
   title = 'demo';
-  array: string[] = [];
-  sum = 100;
-  throttle = 300;
-  scrollDistance = 1;
-  scrollUpDistance = 2;
-  direction = '';
-  modalOpen = false;
+  array = signal<string[]>([]);
+  sum = signal(100);
+  throttle = signal(300);
+  scrollDistance = signal(1);
+  scrollUpDistance = signal(2);
+  direction = signal('');
+  modalOpen = signal(false);
 
   // nisVersion = nisPackage.dependencies["ngx-infinite-scroll"];
 
   constructor() {
-    this.appendItems(0, this.sum);
+    this.appendItems(0, this.sum());
   }
 
   addItems(startIndex: number, endIndex: number, _method: 'push' | 'unshift') {
-    for (let i = 0; i < this.sum; ++i) {
+    for (let i = 0; i < this.sum(); ++i) {
       const value = [i, ' ', this.generateWord()].join('');
       if (_method === 'push') {
-        this.array.push(value);
+        this.array.update((array) => [...array, value]);
       } else {
-        this.array.unshift(value);
+        this.array.update((array) => [value, ...array]);
       }
     }
   }
@@ -49,20 +49,20 @@ export class AppComponent {
     // console.log('scrolled down!!', ev);
 
     // add another 20 items
-    const start = this.sum;
-    this.sum += 20;
-    this.appendItems(start, this.sum);
+    const start = this.sum();
+    this.sum.update((sum) => sum + 20);
+    this.appendItems(start, this.sum());
 
-    this.direction = 'down';
+    this.direction.set('down');
   }
 
   onUp() {
     // console.log('scrolled up!', ev);
-    const start = this.sum;
-    this.sum += 20;
-    this.prependItems(start, this.sum);
+    const start = this.sum();
+    this.sum.update((sum) => sum + 20);
+    this.prependItems(start, this.sum());
 
-    this.direction = 'up';
+    this.direction.set('up');
   }
   generateWord() {
     return Math.random() * 3342411313;
@@ -70,6 +70,6 @@ export class AppComponent {
   }
 
   toggleModal() {
-    this.modalOpen = !this.modalOpen;
+    this.modalOpen.update((modalOpen) => !modalOpen);
   }
 }
