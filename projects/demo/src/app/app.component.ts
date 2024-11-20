@@ -1,14 +1,13 @@
-import {CommonModule} from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
-import { ModalComponent } from "./modal/modal.component";
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  standalone: true,
-  imports: [CommonModule, InfiniteScrollModule, ModalComponent]
+  imports: [CommonModule, InfiniteScrollModule, ModalComponent],
 })
 export class AppComponent {
   title = 'demo';
