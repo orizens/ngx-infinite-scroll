@@ -20,7 +20,6 @@ import {
 
 @Directive({
   selector: '[infiniteScroll], [infinite-scroll], [data-infinite-scroll]',
-  standalone: true
 })
 export class InfiniteScrollDirective
   implements OnDestroy, OnChanges, AfterViewInit

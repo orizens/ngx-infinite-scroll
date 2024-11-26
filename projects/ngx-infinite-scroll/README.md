@@ -115,7 +115,6 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
       (scrolled)="onScroll()"
     ></div>
   `,
-  standalone: true,
   imports: [InfiniteScrollDirective]
 })
 export class AppComponent {
@@ -151,7 +150,6 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
       [scrollWindow]="false"
     ></div>
   `,
-  standalone: true,
   imports: [InfiniteScrollDirective]
 })
 export class AppComponent {
@@ -181,7 +179,6 @@ import { InfiniteScroll } from 'ngx-infinite-scroll';
       (scrolledUp)="onScrollUp()"
     ></div>
   `,
-  standalone: true,
 })
 export class AppComponent {
   onScrollDown() {
@@ -222,7 +219,6 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
       ></div>
     </div>
   `,
-  standalone: true,
   imports: [InfiniteScrollDirective]
 })
 export class AppComponent {
