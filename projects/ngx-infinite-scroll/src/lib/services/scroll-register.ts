@@ -1,5 +1,5 @@
-import { Observable, of, fromEvent } from 'rxjs';
-import { map, mergeMap, tap, throttleTime, filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, tap, throttleTime, filter } from 'rxjs/operators';
 
 import * as Models from '../../models';
 import { AxisResolver } from './axis-resolver';
@@ -32,7 +32,7 @@ export function createScroller(config: Models.IScroller) {
     down: config.downDistance,
   };
   return attachScrollEvent(options).pipe(
-    mergeMap(() => of(calculatePoints(element, resolver))),
+    map(() => calculatePoints(element, resolver)),
     map((positionStats: Models.IPositionStats) =>
       toInfiniteScrollParams(
         scrollState.lastScrollPosition,
@@ -61,7 +61,11 @@ export function createScroller(config: Models.IScroller) {
 export function attachScrollEvent(
   options: Models.IScrollRegisterConfig
 ): Observable<{}> {
-  let obs = fromEvent(options.container, 'scroll');
+  let obs = new Observable<Event>((subscriber) => {
+    const onScroll = (event: Event) => subscriber.next(event);
+    options.container.addEventListener('scroll', onScroll);
+    return () => options.container.removeEventListener('scroll', onScroll);
+  });
   // For an unknown reason calling `sampleTime()` causes trouble for many users, even with `options.throttle = 0`.
   // Let's avoid calling the function unless needed.
   // Replacing with throttleTime seems to solve the problem
