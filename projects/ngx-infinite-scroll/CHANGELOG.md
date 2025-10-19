@@ -12,7 +12,7 @@
 
 ## v 17.0.1 (2024/05/30)
 
-- feat: introducing ngx-is as a standlaone component
+- feat: introducing ngx-is as a standalone component
 
 ## v 17.0.0 (2023/11/09)
 
