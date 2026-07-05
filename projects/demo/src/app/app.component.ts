@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ModalComponent } from './modal/modal.component';
 
@@ -7,6 +7,7 @@ import { ModalComponent } from './modal/modal.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, InfiniteScrollModule, ModalComponent],
 })
 export class AppComponent {

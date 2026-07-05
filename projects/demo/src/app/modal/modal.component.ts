@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'modal',
   templateUrl: './modal.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [InfiniteScrollModule],
 })
 export class ModalComponent {
