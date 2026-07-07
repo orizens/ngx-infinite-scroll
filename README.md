@@ -4,11 +4,11 @@
 [![npm downloads a month](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dm/ngx-infinite-scroll.svg)
 [![npm downloads a week](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)](https://img.shields.io/npm/dt/ngx-infinite-scroll.svg)
 
-## [Consider Becoming a sponsor](https://opencollective.com/ngx-infinite-scroll#sponsor)
+## [Consider Becoming a Sponsor](https://opencollective.com/ngx-infinite-scroll#sponsor)
 
 # Angular Infinite Scroll
 
-versions now follow Angular's version to easily reflect compatibility.  
+Versions now follow Angular's version to easily reflect compatibility.  
 Meaning, for **Angular 10**, use `ngx-infinite-scroll @ ^10.0.0`
 
 ## Angular - Older Versions Support
@@ -30,7 +30,7 @@ For Angular version **<= 2.3.1**, you can use `npm i angular2-infinite-scroll` (
 - [Yandex](https://yandex.com)
 - [Ancestry](https://www.ancestry.com/)
 
-and much more.
+and many more.
 
 > _These analytics are made available via the awesome [Scarf](https://www.npmjs.com/package/@scarf/scarf) package analytics library_
 
@@ -66,30 +66,30 @@ npm install ngx-infinite-scroll --save
 
 | @Input()                 | Type                 | Required | Default | Description                                                                                                                                                                                                                                                                                           |
 | ------------------------ | -------------------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| infiniteScrollDistance   | number               | optional | 2       | the bottom percentage point of the scroll nob relatively to the infinite-scroll container (i.e, 2 (2 \* 10 = 20%) is event is triggered when 80% (100% - 20%) has been scrolled). if container.height is 900px, when the container is scrolled to or past the 720px, it will fire the scrolled event. |
-| infiniteScrollUpDistance | number               | optional | 1.5     | should get a number                                                                                                                                                                                                                                                                                   |
-| infiniteScrollThrottle   | number               | optional | 150     | should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user _stops_ scrolling.                                                                                                                                                            |
-| scrollWindow             | boolean              | optional | true    | listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.                                                                                                                       |
-| immediateCheck           | boolean              | optional | false   | invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled)                                                                                                                            |
-| infiniteScrollDisabled   | boolean              | optional | false   | doesn't invoke the handler if set to true                                                                                                                                                                                                                                                             |
-| horizontal               | boolean              | optional | false   | sets the scroll to listen for horizontal events                                                                                                                                                                                                                                                       |
-| alwaysCallback           | boolean              | optional | false   | instructs the scroller to always trigger events                                                                                                                                                                                                                                                       |
-| infiniteScrollContainer  | string / HTMLElement | optional | null    | should get a html element or css selector for a scrollable element; window or current element will be used if this attribute is empty.                                                                                                                                                                |
-| fromRoot                 | boolean              | optional | false   | if **infiniteScrollContainer** is set, this instructs the scroller to query the container selector from the root of the **document** object.                                                                                                                                                          |
+| infiniteScrollDistance   | number               | optional | 2       | The bottom percentage point of the scroll nob relatively to the infinite-scroll container (i.e, 2 (2 \* 10 = 20%) is event is triggered when 80% (100% - 20%) has been scrolled). If `container.height` is 900px, when the container is scrolled to or past the 720px, it will fire the scrolled event. |
+| infiniteScrollUpDistance | number               | optional | 1.5     | Should get a number.                                                                                                                                                                                                                                                                                   |
+| infiniteScrollThrottle   | number               | optional | 150     | Should get a number of **milliseconds** for throttle. The event will be triggered this many milliseconds after the user _stops_ scrolling.                                                                                                                                                            |
+| scrollWindow             | boolean              | optional | true    | Listens to the window scroll instead of the actual element scroll. This allows to invoke a callback function in the scope of the element while listenning to the window scroll.                                                                                                                       |
+| immediateCheck           | boolean              | optional | false   | Invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled).                                                                                                                            |
+| infiniteScrollDisabled   | boolean              | optional | false   | Doesn't invoke the handler if set to true.                                                                                                                                                                                                                                                             |
+| horizontal               | boolean              | optional | false   | Sets the scroll to listen for horizontal events.                                                                                                                                                                                                                                                       |
+| alwaysCallback           | boolean              | optional | false   | Instructs the scroller to always trigger events.                                                                                                                                                                                                                                                       |
+| infiniteScrollContainer  | string / HTMLElement | optional | null    | Should get a html element or css selector for a scrollable element; window or current element will be used if this attribute is empty.                                                                                                                                                                |
+| fromRoot                 | boolean              | optional | false   | If **infiniteScrollContainer** is set, this instructs the scroller to query the container selector from the root of the **document** object.                                                                                                                                                          |
 
 ### Events
 
 | @Output()  | Type         | Event Type           | Required | Description                                                                     |
 | ---------- | ------------ | -------------------- | -------- | ------------------------------------------------------------------------------- |
-| scrolled   | EventEmitter | IInfiniteScrollEvent | optional | this will callback if the distance threshold has been reached on a scroll down. |
-| scrolledUp | EventEmitter | IInfiniteScrollEvent | optional | this will callback if the distance threshold has been reached on a scroll up.   |
+| scrolled   | EventEmitter | IInfiniteScrollEvent | optional | This will callback if the distance threshold has been reached on a scroll down. |
+| scrolledUp | EventEmitter | IInfiniteScrollEvent | optional | This will callback if the distance threshold has been reached on a scroll up.   |
 
 ## Behavior
 
 By default, the directive listens to the **window scroll** event and invoked the callback.  
 **To trigger the callback when the actual element is scrolled**, these settings should be configured:
 
-- [scrollWindow]="false"
+- `[scrollWindow]="false"`
 - set an explict css "height" value to the element
 
 ## DEMO
